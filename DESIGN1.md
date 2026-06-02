@@ -1,95 +1,96 @@
 ---
-name: Academic Excellence System
+name: Academic Excellence
 colors:
-  surface: '#f7f9fb'
-  surface-dim: '#d8dadc'
-  surface-bright: '#f7f9fb'
+  surface: '#fcf9f8'
+  surface-dim: '#dcd9d9'
+  surface-bright: '#fcf9f8'
   surface-container-lowest: '#ffffff'
-  surface-container-low: '#f2f4f6'
-  surface-container: '#eceef0'
-  surface-container-high: '#e6e8ea'
-  surface-container-highest: '#e0e3e5'
-  on-surface: '#191c1e'
-  on-surface-variant: '#45464d'
-  inverse-surface: '#2d3133'
-  inverse-on-surface: '#eff1f3'
-  outline: '#76777d'
-  outline-variant: '#c6c6cd'
-  surface-tint: '#565e74'
-  primary: '#000000'
+  surface-container-low: '#f6f3f2'
+  surface-container: '#f0eded'
+  surface-container-high: '#eae7e7'
+  surface-container-highest: '#e5e2e1'
+  on-surface: '#1c1b1b'
+  on-surface-variant: '#564240'
+  inverse-surface: '#313030'
+  inverse-on-surface: '#f3f0ef'
+  outline: '#89726f'
+  outline-variant: '#dcc0bd'
+  surface-tint: '#9f3f3a'
+  primary: '#380003'
   on-primary: '#ffffff'
-  primary-container: '#131b2e'
-  on-primary-container: '#7c839b'
-  inverse-primary: '#bec6e0'
-  secondary: '#006c49'
+  primary-container: '#5a0b0d'
+  on-primary-container: '#e1716a'
+  inverse-primary: '#ffb3ad'
+  secondary: '#7a5816'
   on-secondary: '#ffffff'
-  secondary-container: '#6cf8bb'
-  on-secondary-container: '#00714d'
-  tertiary: '#000000'
+  secondary-container: '#ffd083'
+  on-secondary-container: '#795715'
+  tertiary: '#171714'
   on-tertiary: '#ffffff'
-  tertiary-container: '#331200'
-  on-tertiary-container: '#cf6721'
+  tertiary-container: '#2b2b28'
+  on-tertiary-container: '#94928e'
   error: '#ba1a1a'
   on-error: '#ffffff'
   error-container: '#ffdad6'
   on-error-container: '#93000a'
-  primary-fixed: '#dae2fd'
-  primary-fixed-dim: '#bec6e0'
-  on-primary-fixed: '#131b2e'
-  on-primary-fixed-variant: '#3f465c'
-  secondary-fixed: '#6ffbbe'
-  secondary-fixed-dim: '#4edea3'
-  on-secondary-fixed: '#002113'
-  on-secondary-fixed-variant: '#005236'
-  tertiary-fixed: '#ffdbca'
-  tertiary-fixed-dim: '#ffb68e'
-  on-tertiary-fixed: '#331200'
-  on-tertiary-fixed-variant: '#763300'
-  background: '#f7f9fb'
-  on-background: '#191c1e'
-  surface-variant: '#e0e3e5'
+  primary-fixed: '#ffdad6'
+  primary-fixed-dim: '#ffb3ad'
+  on-primary-fixed: '#410003'
+  on-primary-fixed-variant: '#802825'
+  secondary-fixed: '#ffdeab'
+  secondary-fixed-dim: '#edbf74'
+  on-secondary-fixed: '#271900'
+  on-secondary-fixed-variant: '#5f4100'
+  tertiary-fixed: '#e5e2dd'
+  tertiary-fixed-dim: '#c8c6c2'
+  on-tertiary-fixed: '#1c1c19'
+  on-tertiary-fixed-variant: '#474743'
+  background: '#fcf9f8'
+  on-background: '#1c1b1b'
+  surface-variant: '#e5e2e1'
 typography:
-  display-lg:
-    fontFamily: Montserrat
+  headline-lg:
+    fontFamily: Libre Caslon Text
     fontSize: 48px
     fontWeight: '700'
     lineHeight: 56px
-    letterSpacing: -0.02em
-  headline-lg:
-    fontFamily: Montserrat
+  headline-lg-mobile:
+    fontFamily: Libre Caslon Text
+    fontSize: 32px
+    fontWeight: '700'
+    lineHeight: 40px
+  headline-md:
+    fontFamily: Libre Caslon Text
     fontSize: 32px
     fontWeight: '600'
     lineHeight: 40px
-  headline-lg-mobile:
-    fontFamily: Montserrat
-    fontSize: 28px
-    fontWeight: '600'
-    lineHeight: 34px
-  headline-md:
-    fontFamily: Montserrat
+  headline-sm:
+    fontFamily: Libre Caslon Text
     fontSize: 24px
     fontWeight: '600'
     lineHeight: 32px
   body-lg:
-    fontFamily: Inter
+    fontFamily: Work Sans
     fontSize: 18px
     fontWeight: '400'
     lineHeight: 28px
   body-md:
-    fontFamily: Inter
+    fontFamily: Work Sans
     fontSize: 16px
     fontWeight: '400'
     lineHeight: 24px
   label-md:
-    fontFamily: Inter
+    fontFamily: Work Sans
     fontSize: 14px
-    fontWeight: '500'
+    fontWeight: '600'
     lineHeight: 20px
-  caption:
-    fontFamily: Inter
+    letterSpacing: 0.05em
+  label-sm:
+    fontFamily: Work Sans
     fontSize: 12px
-    fontWeight: '400'
+    fontWeight: '500'
     lineHeight: 16px
+    letterSpacing: 0.02em
 rounded:
   sm: 0.125rem
   DEFAULT: 0.25rem
@@ -98,76 +99,79 @@ rounded:
   xl: 0.75rem
   full: 9999px
 spacing:
-  base: 4px
-  xs: 0.5rem
-  sm: 1rem
-  md: 1.5rem
-  lg: 2.5rem
-  xl: 4rem
   container-max: 1280px
   gutter: 24px
+  margin-desktop: 64px
+  margin-tablet: 32px
+  margin-mobile: 20px
+  stack-sm: 8px
+  stack-md: 16px
+  stack-lg: 32px
 ---
 
 ## Brand & Style
 
-This design system is built on the pillars of **Authority, Achievement, and Modern Professionalism**. It serves two distinct purposes: inspiring trust and ambition for prospective students on the public-facing site, and providing high-efficiency, systematic clarity for administrators.
+This design system is rooted in the concepts of **Heritage, Precision, and Achievement**. It is designed for an educational institution that balances traditional academic rigour with modern pedagogical delivery. The visual language evokes the feeling of an elite university—authoritative and established—while remaining accessible through clean, functional digital interfaces.
 
-The visual style is **Corporate / Modern** with a focus on structured precision. It avoids unnecessary decorative flair in favor of clear information hierarchy, using the rich heritage suggested by the academy's logo (the Greek key and laurel motifs) as subtle background elements or borders to ground the modern UI in tradition. The emotional response should be one of confidence and reliability—feeling like a premium institution that prioritizes student success.
+The aesthetic follows a **Corporate / Modern** style with subtle **Minimalist** influences. It prioritizes clarity, whitespace, and a sophisticated interplay between classical typography and modern interface elements. The emotional response should be one of confidence, reliability, and the pursuit of excellence.
 
 ## Colors
 
-The palette is anchored by **Deep Blue** (Slate 900), representing institutional stability and intellect. **Emerald Green** is used as a vibrant accent for growth, success markers, and primary calls to action. A **Deep Gold** (derived from the logo) is reserved for high-achievement markers like certifications and "Winner" badges.
+The palette is anchored by a deep **Heritage Burgundy** (Primary), representing tradition and depth of knowledge, and a **Prestige Gold** (Secondary), used for accents, highlights, and status indicators. 
 
-The background remains a clean **White** or **Off-White** (Slate 50) to ensure maximum readability and a spacious, high-end feel. For the admin portal, a secondary scale of grays (Slate 200–600) provides the necessary contrast for dense data tables and complex navigation sidebars.
+- **Primary (#5A0B0D):** Used for top-level navigation, primary buttons, and critical branding elements.
+- **Secondary (#B38B45):** Used for decorative accents, call-outs, and secondary actions.
+- **Tertiary (#F9F6F1):** A warm, parchment-inspired off-white used for large section backgrounds to reduce eye strain and enhance the academic feel.
+- **Neutral (#1A1A1A):** A high-contrast charcoal for maximum legibility in body copy and headings.
 
 ## Typography
 
-The typography strategy uses **Montserrat** for all headings to provide a geometric, authoritative, and modern corporate feel. Its bold weights are essential for high-converting landing pages.
+The system utilizes a dual-font strategy to bridge the gap between tradition and modern utility. 
 
-**Inter** is the workhorse for body text and administrative data. It was selected for its exceptional legibility in dense environments like tables, student records, and complex forms. Letter spacing is slightly tightened for headlines to feel more cohesive, while labels use all-caps and increased tracking for clear categorization in the admin dashboard.
+**Libre Caslon Text** is used for headlines. Its classical serif structure provides the "authoritative" and "literary" weight required for an academic institution. 
+
+**Work Sans** is the functional workhorse for body copy and UI labels. It is a highly legible, professional sans-serif that remains neutral and clear at smaller scales. Use uppercase styling for `label-md` to denote section headers or metadata, increasing professional "gravitas."
 
 ## Layout & Spacing
 
-The design system utilizes a **12-column fluid grid** for the public site, with generous vertical spacing (`xl`) to allow marketing content to breathe. Section margins are set to 24px on mobile and scale to 80px on desktop.
+The layout utilizes a **Fixed Grid** philosophy on desktop to maintain an editorial, structured feel, transitioning to a fluid model for smaller devices.
 
-For the **Admin Portal**, the system switches to a **fixed-sidebar/fluid-content** model. Spacing is condensed to `sm` and `md` units to maximize information density. Tables use a 48px row height for standard data and 40px for compact views. Breakpoints are standard: 640px (Mobile), 1024px (Tablet/Small Desktop), and 1440px (Large Desktop).
+- **Desktop (1440px+):** 12-column grid, 1280px max-width container, 24px gutters.
+- **Tablet (768px - 1439px):** 8-column grid, fluid width with 32px side margins.
+- **Mobile (Up to 767px):** 4-column grid, fluid width with 20px side margins.
+
+Spacing follows an 8px base unit. Use generous "stack-lg" (32px) between major content sections to allow the design to breathe, reinforcing the premium, high-achieving brand position.
 
 ## Elevation & Depth
 
-To maintain a clean, professional aesthetic, this design system uses **Tonal Layers** supplemented by very subtle **Ambient Shadows**.
+To maintain a sophisticated and "grounded" aesthetic, this system avoids heavy drop shadows. Instead, it employs **Tonal Layers** and **Low-contrast outlines**.
 
-- **Surface 0 (Background):** Slate 50. Used for the main canvas.
-- **Surface 1 (Cards/Containers):** White (#FFFFFF). Uses a 1px Slate 200 border or a very soft shadow (0px 4px 12px rgba(15, 23, 42, 0.05)).
-- **Surface 2 (Popovers/Modals):** White. Uses a more pronounced shadow to indicate focus (0px 10px 25px rgba(15, 23, 42, 0.1)).
-
-In the admin portal, depth is achieved primarily through thin, low-contrast borders (Slate 200) rather than shadows, ensuring the interface remains crisp and fast to scan.
+- **Surface Tiers:** Use the tertiary color (#F9F6F1) as the base "canvas." Elevated cards should use pure white (#FFFFFF).
+- **Outlines:** Use a subtle 1px border (#E5E5E5) for cards and input fields to define boundaries without adding visual clutter.
+- **Interactive Depth:** When a user interacts with an element (e.g., hovering over a course card), apply an **Ambient Shadow**: a very soft, diffused 15% opacity shadow using the primary burgundy tint to create a "lift" effect that feels intentional and elegant.
 
 ## Shapes
 
-The shape language is **Soft** and structured. A 0.25rem (4px) base radius is applied to form inputs, buttons, and small UI components to keep the design feeling precise and professional. 
+The shape language is conservative to reflect institutional stability. 
 
-Larger containers and cards use a 0.5rem (8px) radius. This conservative approach to roundedness reinforces the "Corporate" aspect of the academy, avoiding the overly-playful nature of fully rounded pill shapes while remaining friendlier than sharp, 90-degree corners.
+A **Soft (1)** roundedness level is applied to UI components like buttons and form fields. This provides a subtle modern touch without appearing overly "bubbly" or informal. Cards and large containers should utilize the `rounded-lg` (0.5rem) token to distinguish them from smaller UI elements.
 
 ## Components
 
 ### Buttons
-- **Primary:** Deep Blue background, White text. High-emphasis CTAs on the public site use Emerald Green to drive conversion.
-- **Secondary:** White background, Deep Blue border (1px).
-- **Size:** 48px height for marketing; 36px height for admin actions.
+- **Primary:** Solid Heritage Burgundy background, white text, uppercase `label-md`. 
+- **Secondary:** Prestige Gold outline, Heritage Burgundy text. Used for less critical actions.
+- **Ghost:** No background, Heritage Burgundy text with a 1px bottom border on hover.
 
-### Input Fields
-- **Style:** 1px border (Slate 300), 4px radius. 
-- **Active State:** Border changes to Deep Blue with a 2px Emerald Green focus ring (low opacity).
-- **Labels:** Inter Medium, 14px, positioned above the field.
-
-### Data Tables (Admin)
-- **Header:** Slate 100 background, 12px Inter Bold, uppercase.
-- **Rows:** Alternating subtle zebra striping (Slate 50) for high-density readability.
-- **Action Icons:** 20px size, Slate 500, changing to Deep Blue on hover.
-
-### Progress Indicators
-- Used extensively for course completion. Always use **Emerald Green** for completed segments and **Slate 200** for remaining portions to provide clear, positive reinforcement.
+### Form Fields
+- **Inputs:** White background, 1px neutral border, Work Sans body-md text. Labels should use `label-sm` in Heritage Burgundy to ensure clarity.
+- **Focus State:** 2px border in Prestige Gold to clearly indicate user activity.
 
 ### Cards
-- Public cards (Courses/Programs) feature a top-heavy layout with high-quality imagery, a Montserrat Title, and a clear price/enrollment CTA.
-- Admin cards (Stats/Metrics) use a "Big Number" format with a small label and a 12px trend indicator (up/down).
+- **Course/Program Cards:** White background, `rounded-lg` corners, 1px light border. Use the secondary gold for accent lines or icons within the card to denote "Featured" or "Scholarship" status.
+
+### Progress Indicators
+- For student portals, use a thin, horizontal Prestige Gold bar to indicate course completion.
+
+### Lists
+- Use custom bullet points featuring the "torch" or "leaf" motif from the logo in Prestige Gold to add a branded, academic touch to text-heavy pages.
