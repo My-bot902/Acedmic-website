@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Login - The Winners Academy</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        /* Glassmorphism for the Lock Overlay */
+        .glass-overlay {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-fixed": "#ffdbca",
+                      "surface": "#f7f9fb",
+                      "tertiary": "#000000",
+                      "primary-container": "#131b2e",
+                      "inverse-on-surface": "#eff1f3",
+                      "error": "#ba1a1a",
+                      "surface-container-lowest": "#ffffff",
+                      "primary-fixed-dim": "#bec6e0",
+                      "on-secondary-fixed": "#002113",
+                      "outline": "#76777d",
+                      "secondary-fixed": "#6ffbbe",
+                      "on-background": "#191c1e",
+                      "background": "#f7f9fb",
+                      "surface-container-highest": "#e0e3e5",
+                      "secondary": "#006c49",
+                      "inverse-primary": "#bec6e0",
+                      "on-tertiary": "#ffffff",
+                      "on-secondary-fixed-variant": "#005236",
+                      "error-container": "#ffdad6",
+                      "on-primary-container": "#7c839b",
+                      "surface-variant": "#e0e3e5",
+                      "surface-dim": "#d8dadc",
+                      "surface-container": "#eceef0",
+                      "on-surface-variant": "#45464d",
+                      "tertiary-container": "#331200",
+                      "on-error-container": "#93000a",
+                      "on-primary-fixed": "#131b2e",
+                      "on-error": "#ffffff",
+                      "surface-container-low": "#f2f4f6",
+                      "tertiary-fixed-dim": "#ffb68e",
+                      "primary-fixed": "#dae2fd",
+                      "on-tertiary-container": "#cf6721",
+                      "on-secondary-container": "#00714d",
+                      "on-tertiary-fixed-variant": "#763300",
+                      "primary": "#000000",
+                      "on-primary": "#ffffff",
+                      "surface-tint": "#565e74",
+                      "outline-variant": "#c6c6cd",
+                      "surface-bright": "#f7f9fb",
+                      "surface-container-high": "#e6e8ea",
+                      "on-tertiary-fixed": "#331200",
+                      "on-secondary": "#ffffff",
+                      "on-primary-fixed-variant": "#3f465c",
+                      "secondary-fixed-dim": "#4edea3",
+                      "on-surface": "#191c1e",
+                      "inverse-surface": "#2d3133",
+                      "secondary-container": "#6cf8bb"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "container-max": "1280px",
+                      "xs": "0.5rem",
+                      "lg": "2.5rem",
+                      "gutter": "24px",
+                      "base": "4px",
+                      "sm": "1rem",
+                      "md": "1.5rem",
+                      "xl": "4rem"
+              },
+              "fontFamily": {
+                      "headline-lg": ["Montserrat"],
+                      "body-md": ["Inter"],
+                      "headline-lg-mobile": ["Montserrat"],
+                      "body-lg": ["Inter"],
+                      "headline-md": ["Montserrat"],
+                      "caption": ["Inter"],
+                      "display-lg": ["Montserrat"],
+                      "label-md": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "34px", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "caption": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="bg-surface font-body-md text-on-surface overflow-x-hidden">
+<!-- SECURE ACCESS MODAL (SECTION 1) -->
+<div class="fixed inset-0 z-[100] flex items-center justify-center glass-overlay px-gutter" id="password-gateway">
+<div class="bg-surface-container-lowest border border-outline-variant shadow-xl rounded-xl p-lg max-w-md w-full text-center">
+<div class="mb-md inline-flex items-center justify-center w-16 h-16 bg-primary-container text-on-primary rounded-full">
+<span class="material-symbols-outlined text-[32px]">lock</span>
+</div>
+<h2 class="font-headline-md text-headline-md mb-xs text-primary">Admin Secure Access</h2>
+<p class="text-on-surface-variant text-body-md mb-md">Unauthorized access is strictly prohibited. Please enter your administrator credentials to proceed.</p>
+
+<div class="space-y-md">
+<div class="text-left">
+<label class="block font-label-md text-label-md mb-xs text-on-surface-variant">Admin Password</label>
+<div class="relative">
+<input class="w-full h-12 border border-outline px-sm rounded-lg focus:ring-2 focus:ring-secondary/20 focus:border-secondary transition-all outline-none" id="admin-password" placeholder="••••••••" type="password"/>
+<span class="material-symbols-outlined absolute right-3 top-3 text-outline">key</span>
+</div>
+</div>
+<button class="w-full h-12 bg-primary text-on-primary font-bold rounded-lg hover:bg-primary/90 active:scale-95 transition-all" onclick="unlockDashboard()">Login to Dashboard</button>
+</div>
+
+</div>
+</div>
+<!-- MAIN SHELL -->
+<div class="flex min-h-screen">
+<!-- SIDENAVBAR (Shared Component) -->
+<aside class="fixed left-0 top-0 h-full flex flex-col p-sm bg-surface-container-low border-r border-outline-variant w-64 z-40 hidden md:flex">
+<div class="mb-xl flex flex-col items-center py-md border-b border-outline-variant/30">
+<div class="w-16 h-16 rounded-full border-2 border-secondary overflow-hidden mb-sm">
+<img alt="Principal Sir Imtiaz" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDFaXx4EtXHvZJu_sr53hYwlZIgtTEhkQT-kfyAyHm_7POfbcWIKXV_ZpciPykgXn5bmyAK9nmv-Qat2ahHlz1eWQ-_Xt7Uy0deiCwZIcdUMiLfZ3JXKCSDLo4UDrdkuQD-VY8jo6jZWW5LWG5l1CHqvFSovddPao4CwN7ldUymAhLSE0nyjJKn8EMeFCcTnHBrjaaLVi5Z0vpamIh0tLqt6xyUHCKcabpTmSnxZ6pwOzkdpkgznLqGSlS5FQZttHsmaB_IbrucJ8"/>
+</div>
+<h3 class="text-headline-md font-headline-md text-primary leading-tight">Admin Portal</h3>
+<p class="text-caption font-caption text-on-surface-variant">Management Suite</p>
+</div>
+<nav class="flex-1 space-y-xs overflow-y-auto custom-scrollbar">
+<a class="flex items-center gap-sm p-sm bg-secondary-container text-on-secondary-container rounded-lg font-bold translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-sm p-sm text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md">Students</span>
+</a>
+<a class="flex items-center gap-sm p-sm text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">fact_check</span>
+<span class="font-label-md text-label-md">Academic Records</span>
+</a>
+<a class="flex items-center gap-sm p-sm text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">school</span>
+<span class="font-label-md text-label-md">Faculty</span>
+</a>
+<a class="flex items-center gap-sm p-sm text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</nav>
+<div class="mt-auto pt-md border-t border-outline-variant/30">
+<button class="w-full flex items-center justify-center gap-sm h-12 bg-secondary text-on-secondary rounded-lg font-bold hover:opacity-90 transition-all mb-md">
+<span class="material-symbols-outlined">add</span>
+                    Add New Record
+                </button>
+<a class="flex items-center gap-sm p-sm text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</a>
+</div>
+</aside>
+<!-- CONTENT AREA -->
+<main class="flex-1 md:ml-64 w-full">
+<!-- TOPNAVBAR (Shared Component) -->
+<header class="sticky top-0 z-30 bg-surface border-b border-outline-variant shadow-sm w-full">
+<div class="flex justify-between items-center w-full px-gutter py-4 max-w-container-max mx-auto">
+<div class="flex items-center gap-sm">
+<button class="md:hidden text-primary">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="text-headline-md font-headline-lg text-primary font-bold tracking-tight">The Winners Academy</h1>
+</div>
+<div class="flex items-center gap-md">
+<div class="hidden lg:flex items-center gap-md">
+<a class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md" href="#">Home</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md" href="#">About Us</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md" href="#">Admissions</a>
+</div>
+<div class="h-8 w-[1px] bg-outline-variant/50 hidden lg:block"></div>
+<button class="px-md py-2 bg-primary text-on-primary font-bold rounded-lg text-label-md hover:scale-95 duration-150 transition-all">
+                            Admin Portal
+                        </button>
+</div>
+</div>
+</header>
+<div class="p-gutter max-w-container-max mx-auto space-y-lg pb-xl">
+<!-- METRIC CARDS (SECTION 2) -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-md">
+<div class="bg-surface-container-lowest border border-outline-variant p-md rounded-xl shadow-sm hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start mb-sm">
+<span class="p-xs bg-primary/5 text-primary rounded-lg">
+<span class="material-symbols-outlined">group</span>
+</span>
+<span class="text-secondary font-bold text-caption flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">trending_up</span>
+                                +12%
+                            </span>
+</div>
+<div class="text-on-surface-variant font-label-md text-label-md">Total Students</div>
+<div class="text-headline-lg font-headline-lg text-primary">524</div>
+<p class="text-caption text-on-surface-variant/70 mt-xs">Across all grades (K-12)</p>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-md rounded-xl shadow-sm hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start mb-sm">
+<span class="p-xs bg-secondary/5 text-secondary rounded-lg">
+<span class="material-symbols-outlined">how_to_reg</span>
+</span>
+<span class="text-secondary font-bold text-caption flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                                Healthy
+                            </span>
+</div>
+<div class="text-on-surface-variant font-label-md text-label-md">Active Enrollments</div>
+<div class="text-headline-lg font-headline-lg text-primary">489</div>
+<div class="w-full bg-surface-container h-1.5 rounded-full mt-sm">
+<div class="bg-secondary h-full rounded-full w-[93%]"></div>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-md rounded-xl shadow-sm hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start mb-sm">
+<span class="p-xs bg-tertiary-fixed/30 text-on-tertiary-fixed-variant rounded-lg">
+<span class="material-symbols-outlined">payments</span>
+</span>
+<span class="text-on-surface-variant font-bold text-caption">Month: Oct</span>
+</div>
+<div class="text-on-surface-variant font-label-md text-label-md">Fee Collection Status</div>
+<div class="text-headline-lg font-headline-lg text-primary">82.4%</div>
+<p class="text-caption text-on-surface-variant/70 mt-xs">245 Paid | 38 Pending</p>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-md rounded-xl shadow-sm hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start mb-sm">
+<span class="p-xs bg-error-container text-on-error-container rounded-lg">
+<span class="material-symbols-outlined">priority_high</span>
+</span>
+</div>
+<div class="text-on-surface-variant font-label-md text-label-md">Pending Admissions</div>
+<div class="text-headline-lg font-headline-lg text-primary">15</div>
+<button class="mt-xs text-secondary font-bold text-label-md hover:underline">Review Now</button>
+</div>
+</section>
+<!-- DATA TABLE (SECTION 3 & 4) -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm overflow-hidden flex flex-col h-[600px]">
+<div class="p-md border-b border-outline-variant flex flex-col md:flex-row justify-between items-center gap-md bg-surface-container-low/30">
+<div>
+<h2 class="text-headline-md font-headline-md text-primary">Master Student Records</h2>
+<p class="text-caption text-on-surface-variant">Real-time academic performance &amp; registration management</p>
+</div>
+<div class="flex items-center gap-sm w-full md:w-auto">
+<div class="relative w-full md:w-64">
+<input class="w-full h-10 bg-surface pl-10 pr-sm rounded-lg border border-outline-variant focus:ring-2 focus:ring-secondary/20 focus:border-secondary outline-none text-body-md" placeholder="Search by name or ID..." type="text"/>
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-outline text-[20px]">search</span>
+</div>
+<button class="h-10 px-md border border-outline-variant rounded-lg bg-surface hover:bg-surface-container transition-colors flex items-center gap-sm font-label-md">
+<span class="material-symbols-outlined text-[20px]">filter_list</span>
+                                Filter
+                            </button>
+<button class="h-10 px-md border border-outline-variant rounded-lg bg-surface hover:bg-surface-container transition-colors flex items-center gap-sm font-label-md">
+<span class="material-symbols-outlined text-[20px]">file_download</span>
+                                Export
+                            </button>
+</div>
+</div>
+<div class="flex-1 overflow-auto custom-scrollbar relative">
+<table class="w-full border-collapse text-left">
+<thead class="sticky top-0 z-10 bg-surface-container-high shadow-sm">
+<tr>
+<th class="px-sm py-3 text-caption font-bold text-on-surface-variant uppercase tracking-wider border-b border-outline-variant whitespace-nowrap min-w-[120px]">Reg ID</th>
+<th class="px-sm py-3 text-caption font-bold text-on-surface-variant uppercase tracking-wider border-b border-outline-variant whitespace-nowrap min-w-[200px]">Student Name</th>
+<th class="px-sm py-3 text-caption font-bold text-on-surface-variant uppercase tracking-wider border-b border-outline-variant whitespace-nowrap min-w-[180px]">Parent Name</th>
+<th class="px-sm py-3 text-caption font-bold text-on-surface-variant uppercase tracking-wider border-b border-outline-variant whitespace-nowrap min-w-[150px]">Contact Info</th>
+<th class="px-sm py-3 text-caption font-bold text-on-surface-variant uppercase tracking-wider border-b border-outline-variant whitespace-nowrap min-w-[100px]">Grade</th>
+<th class="px-sm py-3 text-caption font-bold text-on-surface-variant uppercase tracking-wider border-b border-outline-variant whitespace-nowrap min-w-[120px]">Fees Status</th>
+<th class="px-sm py-3 text-caption font-bold text-on-surface-variant uppercase tracking-wider border-b border-outline-variant whitespace-nowrap min-w-[140px]">Reg Status</th>
+<!-- Academic Performance Columns -->
+<th class="px-sm py-3 text-caption font-bold text-on-secondary-container uppercase tracking-wider border-b border-outline-variant bg-secondary-container/30 whitespace-nowrap min-w-[100px]">English</th>
+<th class="px-sm py-3 text-caption font-bold text-on-secondary-container uppercase tracking-wider border-b border-outline-variant bg-secondary-container/30 whitespace-nowrap min-w-[100px]">Urdu</th>
+<th class="px-sm py-3 text-caption font-bold text-on-secondary-container uppercase tracking-wider border-b border-outline-variant bg-secondary-container/30 whitespace-nowrap min-w-[100px]">Math</th>
+<th class="px-sm py-3 text-caption font-bold text-on-secondary-container uppercase tracking-wider border-b border-outline-variant bg-secondary-container/30 whitespace-nowrap min-w-[100px]">Gen. Knowledge</th>
+<th class="px-sm py-3 text-caption font-bold text-on-secondary-container uppercase tracking-wider border-b border-outline-variant bg-secondary-container/30 whitespace-nowrap min-w-[100px]">Islamiat</th>
+<th class="px-sm py-3 text-caption font-bold text-on-secondary-container uppercase tracking-wider border-b border-outline-variant bg-secondary-container/30 whitespace-nowrap min-w-[100px]">Gen. Science</th>
+<th class="px-sm py-3 text-caption font-bold text-on-secondary-container uppercase tracking-wider border-b border-outline-variant bg-secondary-container/30 whitespace-nowrap min-w-[100px]">Social Studies</th>
+<th class="px-sm py-3 text-caption font-bold text-on-secondary-container uppercase tracking-wider border-b border-outline-variant bg-secondary-container/30 whitespace-nowrap min-w-[100px]">History</th>
+<th class="px-sm py-3 text-caption font-bold text-on-secondary-container uppercase tracking-wider border-b border-outline-variant bg-secondary-container/30 whitespace-nowrap min-w-[100px]">Geography</th>
+<th class="px-sm py-3 text-caption font-bold text-on-secondary-container uppercase tracking-wider border-b border-outline-variant bg-secondary-container/30 whitespace-nowrap min-w-[100px]">Computer Sci</th>
+<th class="px-sm py-3 text-caption font-bold text-on-secondary-container uppercase tracking-wider border-b border-outline-variant bg-secondary-container/30 whitespace-nowrap min-w-[100px]">Home Eco</th>
+<th class="px-sm py-3 text-caption font-bold text-on-secondary-container uppercase tracking-wider border-b border-outline-variant bg-secondary-container/30 whitespace-nowrap min-w-[100px]">Pak Studies</th>
+<th class="px-sm py-3 text-caption font-bold text-on-secondary-container uppercase tracking-wider border-b border-outline-variant bg-secondary-container/30 whitespace-nowrap min-w-[100px]">Physics</th>
+<th class="px-sm py-3 text-caption font-bold text-on-secondary-container uppercase tracking-wider border-b border-outline-variant bg-secondary-container/30 whitespace-nowrap min-w-[100px]">Chemistry</th>
+<th class="px-sm py-3 text-caption font-bold text-on-secondary-container uppercase tracking-wider border-b border-outline-variant bg-secondary-container/30 whitespace-nowrap min-w-[100px]">Biology</th>
+<th class="px-sm py-3 text-caption font-bold text-on-secondary-container uppercase tracking-wider border-b border-outline-variant bg-secondary-container/30 whitespace-nowrap min-w-[100px]">Civics</th>
+<th class="px-sm py-3 text-caption font-bold text-on-secondary-container uppercase tracking-wider border-b border-outline-variant bg-secondary-container/30 whitespace-nowrap min-w-[100px]">Economics</th>
+<th class="px-sm py-3 text-caption font-bold text-on-secondary-container uppercase tracking-wider border-b border-outline-variant bg-secondary-container/30 whitespace-nowrap min-w-[100px]">Education</th>
+<th class="px-sm py-3 text-caption font-bold text-on-secondary-container uppercase tracking-wider border-b border-outline-variant bg-secondary-container/30 whitespace-nowrap min-w-[100px]">Statistics</th>
+<th class="px-sm py-3 text-caption font-bold text-on-surface-variant uppercase tracking-wider border-b border-outline-variant whitespace-nowrap sticky right-0 bg-surface-container-high shadow-[-4px_0_8px_rgba(0,0,0,0.05)] min-w-[100px]">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-sm py-3 text-label-md font-bold text-primary">TWA-2024-001</td>
+<td class="px-sm py-3">
+<div class="flex items-center gap-xs">
+<div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary text-[12px] font-bold">AZ</div>
+<span class="text-body-md font-semibold">Ahmed Zafar</span>
+</div>
+</td>
+<td class="px-sm py-3 text-body-md">M. Zafar Sheikh</td>
+<td class="px-sm py-3 text-caption text-on-surface-variant">+92 300 1234567</td>
+<td class="px-sm py-3 text-body-md">Grade 10-A</td>
+<td class="px-sm py-3">
+<span class="px-2 py-1 bg-secondary-container text-on-secondary-container text-[11px] font-bold rounded uppercase">Paid</span>
+</td>
+<td class="px-sm py-3">
+<span class="flex items-center gap-1 text-secondary text-caption font-bold">
+<span class="material-symbols-outlined text-[14px]">check_circle</span> Verified
+                                        </span>
+</td>
+<!-- Performance Placeholder -->
+<td class="px-sm py-3 text-label-md font-bold text-center">88</td>
+<td class="px-sm py-3 text-label-md font-bold text-center">76</td>
+<td class="px-sm py-3 text-label-md font-bold text-center text-secondary">92</td>
+<td class="px-sm py-3 text-label-md font-bold text-center">85</td>
+<td class="px-sm py-3 text-label-md font-bold text-center">90</td>
+<td class="px-sm py-3 text-label-md font-bold text-center">78</td>
+<td class="px-sm py-3 text-label-md font-bold text-center">82</td>
+<td class="px-sm py-3 text-label-md font-bold text-center">88</td>
+<td class="px-sm py-3 text-label-md font-bold text-center">84</td>
+<td class="px-sm py-3 text-label-md font-bold text-center text-secondary">95</td>
+<td class="px-sm py-3 text-label-md font-bold text-center">--</td>
+<td class="px-sm py-3 text-label-md font-bold text-center">80</td>
+<td class="px-sm py-3 text-label-md font-bold text-center">74</td>
+<td class="px-sm py-3 text-label-md font-bold text-center">81</td>
+<td class="px-sm py-3 text-label-md font-bold text-center">83</td>
+<td class="px-sm py-3 text-label-md font-bold text-center">77</td>
+<td class="px-sm py-3 text-label-md font-bold text-center">--</td>
+<td class="px-sm py-3 text-label-md font-bold text-center">--</td>
+<td class="px-sm py-3 text-label-md font-bold text-center">--</td>
+<td class="px-sm py-3 sticky right-0 bg-white group-hover:bg-surface-container-low transition-colors shadow-[-4px_0_8px_rgba(0,0,0,0.05)]">
+<div class="flex items-center gap-xs">
+<button class="p-1 hover:bg-primary-container hover:text-on-primary rounded transition-colors">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1 hover:bg-error-container hover:text-on-error-container rounded transition-colors">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 (Pending Fee) -->
+<tr class="bg-surface-container-lowest hover:bg-surface-container-low transition-colors group">
+<td class="px-sm py-3 text-label-md font-bold text-primary">TWA-2024-002</td>
+<td class="px-sm py-3">
+<div class="flex items-center gap-xs">
+<div class="w-8 h-8 rounded-full bg-secondary/10 flex items-center justify-center text-secondary text-[12px] font-bold">SM</div>
+<span class="text-body-md font-semibold">Sara Malik</span>
+</div>
+</td>
+<td class="px-sm py-3 text-body-md">Kamran Malik</td>
+<td class="px-sm py-3 text-caption text-on-surface-variant">+92 321 9876543</td>
+<td class="px-sm py-3 text-body-md">Grade 9-B</td>
+<td class="px-sm py-3">
+<span class="px-2 py-1 bg-error-container text-on-error-container text-[11px] font-bold rounded uppercase">Pending</span>
+</td>
+<td class="px-sm py-3">
+<span class="flex items-center gap-1 text-on-tertiary-container text-caption font-bold">
+<span class="material-symbols-outlined text-[14px]">pending</span> In Review
+                                        </span>
+</td>
+<!-- Performance Placeholder -->
+<td class="px-sm py-3 text-label-md font-bold text-center">92</td>
+<td class="px-sm py-3 text-label-md font-bold text-center">89</td>
+<td class="px-sm py-3 text-label-md font-bold text-center">85</td>
+<td class="px-sm py-3 text-label-md font-bold text-center">77</td>
+<td class="px-sm py-3 text-label-md font-bold text-center">88</td>
+<td class="px-sm py-3 text-label-md font-bold text-center">91</td>
+<td class="px-sm py-3 text-label-md font-bold text-center">83</td>
+<td class="px-sm py-3 text-label-md font-bold text-center">75</td>
+<td class="px-sm py-3 text-label-md font-bold text-center">82</td>
+<td class="px-sm py-3 text-label-md font-bold text-center">--</td>
+<td class="px-sm py-3 text-label-md font-bold text-center">88</td>
+<td class="px-sm py-3 text-label-md font-bold text-center">84</td>
+<td class="px-sm py-3 text-label-md font-bold text-center">--</td>
+<td class="px-sm py-3 text-label-md font-bold text-center">--</td>
+<td class="px-sm py-3 text-label-md font-bold text-center">--</td>
+<td class="px-sm py-3 text-label-md font-bold text-center">--</td>
+<td class="px-sm py-3 text-label-md font-bold text-center">--</td>
+<td class="px-sm py-3 text-label-md font-bold text-center">--</td>
+<td class="px-sm py-3 text-label-md font-bold text-center">--</td>
+<td class="px-sm py-3 sticky right-0 bg-white group-hover:bg-surface-container-low transition-colors shadow-[-4px_0_8px_rgba(0,0,0,0.05)]">
+<div class="flex items-center gap-xs">
+<button class="p-1 hover:bg-primary-container hover:text-on-primary rounded transition-colors">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1 hover:bg-error-container hover:text-on-error-container rounded transition-colors">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Alternate Row Pattern Simulation -->
+<tr class="bg-surface-container-low/20 hover:bg-surface-container-low transition-colors group">
+<td class="px-sm py-3 text-label-md font-bold text-primary">TWA-2024-003</td>
+<td class="px-sm py-3">
+<div class="flex items-center gap-xs">
+<div class="w-8 h-8 rounded-full bg-on-tertiary-container/10 flex items-center justify-center text-on-tertiary-container text-[12px] font-bold">HK</div>
+<span class="text-body-md font-semibold">Hamza Khan</span>
+</div>
+</td>
+<td class="px-sm py-3 text-body-md">Bilal Khan</td>
+<td class="px-sm py-3 text-caption text-on-surface-variant">+92 333 4455667</td>
+<td class="px-sm py-3 text-body-md">Grade 11-M</td>
+<td class="px-sm py-3">
+<span class="px-2 py-1 bg-secondary-container text-on-secondary-container text-[11px] font-bold rounded uppercase">Paid</span>
+</td>
+<td class="px-sm py-3">
+<span class="flex items-center gap-1 text-secondary text-caption font-bold">
+<span class="material-symbols-outlined text-[14px]">check_circle</span> Verified
+                                        </span>
+</td>
+<td class="px-sm py-3 text-label-md font-bold text-center">85</td>
+<td class="px-sm py-3 text-label-md font-bold text-center">82</td>
+<td class="px-sm py-3 text-label-md font-bold text-center">78</td>
+<td class="px-sm py-3 text-label-md font-bold text-center">--</td>
+<td class="px-sm py-3 text-label-md font-bold text-center">89</td>
+<td class="px-sm py-3 text-label-md font-bold text-center">--</td>
+<td class="px-sm py-3 text-label-md font-bold text-center">--</td>
+<td class="px-sm py-3 text-label-md font-bold text-center">--</td>
+<td class="px-sm py-3 text-label-md font-bold text-center">--</td>
+<td class="px-sm py-3 text-label-md font-bold text-center">80</td>
+<td class="px-sm py-3 text-label-md font-bold text-center">--</td>
+<td class="px-sm py-3 text-label-md font-bold text-center">81</td>
+<td class="px-sm py-3 text-label-md font-bold text-center">84</td>
+<td class="px-sm py-3 text-label-md font-bold text-center">79</td>
+<td class="px-sm py-3 text-label-md font-bold text-center">82</td>
+<td class="px-sm py-3 text-label-md font-bold text-center">--</td>
+<td class="px-sm py-3 text-label-md font-bold text-center">--</td>
+<td class="px-sm py-3 text-label-md font-bold text-center">--</td>
+<td class="px-sm py-3 text-label-md font-bold text-center">--</td>
+<td class="px-sm py-3 sticky right-0 bg-white group-hover:bg-surface-container-low transition-colors shadow-[-4px_0_8px_rgba(0,0,0,0.05)]">
+<div class="flex items-center gap-xs">
+<button class="p-1 hover:bg-primary-container hover:text-on-primary rounded transition-colors">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1 hover:bg-error-container hover:text-on-error-container rounded transition-colors">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Dynamic Loading Simulation Indicator -->
+<tr>
+<td class="px-sm py-md text-center bg-surface-container-lowest" colspan="27">
+<div class="flex flex-col items-center gap-xs py-md">
+<div class="w-8 h-8 border-4 border-secondary border-t-transparent rounded-full animate-spin"></div>
+<p class="text-caption text-on-surface-variant font-bold">Loading more records (521 remaining)...</p>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-md bg-surface-container-low border-t border-outline-variant flex justify-between items-center">
+<span class="text-caption text-on-surface-variant">Showing 3 of 524 students</span>
+<div class="flex gap-xs">
+<button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant bg-surface hover:bg-surface-container transition-colors disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined text-[20px]">chevron_left</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant bg-primary text-on-primary font-bold">1</button>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant bg-surface hover:bg-surface-container transition-colors">2</button>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant bg-surface hover:bg-surface-container transition-colors">...</button>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant bg-surface hover:bg-surface-container transition-colors">53</button>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant bg-surface hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[20px]">chevron_right</span>
+</button>
+</div>
+</div>
+</section>
+<!-- FOOTER (Shared Component) -->
+<footer class="w-full py-xl px-gutter grid grid-cols-1 md:grid-cols-3 gap-lg max-w-container-max mx-auto bg-primary-container text-on-primary rounded-xl mt-xl">
+<div class="space-y-md">
+<h2 class="font-headline-md text-on-primary">The Winners Academy</h2>
+<p class="text-on-primary-fixed-variant body-md">Empowering the next generation with professional excellence and character building through modern education systems.</p>
+</div>
+<div class="flex flex-col gap-sm">
+<h4 class="font-bold text-label-md uppercase tracking-widest text-on-secondary-container">Navigation</h4>
+<a class="text-on-primary-fixed-variant hover:text-secondary-fixed hover:underline transition-all font-body-md" href="#">Facebook</a>
+<a class="text-on-primary-fixed-variant hover:text-secondary-fixed hover:underline transition-all font-body-md" href="#">Instagram</a>
+<a class="text-on-primary-fixed-variant hover:text-secondary-fixed hover:underline transition-all font-body-md" href="#">LinkedIn</a>
+</div>
+<div class="flex flex-col gap-sm">
+<h4 class="font-bold text-label-md uppercase tracking-widest text-on-secondary-container">Legal &amp; Support</h4>
+<a class="text-on-primary-fixed-variant hover:text-secondary-fixed hover:underline transition-all font-body-md" href="#">Privacy Policy</a>
+<a class="text-on-primary-fixed-variant hover:text-secondary-fixed hover:underline transition-all font-body-md" href="#">Contact Us</a>
+<p class="text-caption mt-md text-on-primary-fixed-variant opacity-60">© 2024 The Winners Academy. All rights reserved.</p>
+</div>
+</footer>
+</div>
+</main>
+</div>
+<!-- Micro-interaction JS -->
+ <script>
+function unlockDashboard() {
+    const passwordInput = document.getElementById('admin-password').value;
+    
+    // Agar password sahi ho to direct naya dashboard open hoga
+    if (passwordInput === "winners123") {
+        window.location.href = "dashboard.html";
+    } else {
+        alert("❌ Wrong password please try again.");
+    }
+}
+    
+</script>
+<script>
+function unlockDashboard() {
+    const passwordInput = document.getElementById('admin-password').value;
+
+    if (passwordInput === "winners123") {
+        window.location.href = "dashboard.html";
+    } else {
+        alert("❌ Wrong password please try again.");
+    }
+}
+
+document.getElementById('admin-password').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        unlockDashboard();
+    }
+});
+</script>
+</body></html>

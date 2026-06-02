@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dashboard - The Winners Academy</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Hanken+Grotesk:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-surface": "#2e3132",
+                        "on-tertiary-fixed": "#1c1b1b",
+                        "outline": "#89726f",
+                        "surface-container-low": "#f3f4f5",
+                        "tertiary-fixed": "#e5e2e1",
+                        "primary-fixed": "#ffdad5",
+                        "secondary-fixed": "#ffdea5",
+                        "surface-tint": "#9d4139",
+                        "tertiary-fixed-dim": "#c8c6c5",
+                        "on-secondary-container": "#785a1a",
+                        "surface-container-high": "#e7e8e9",
+                        "inverse-on-surface": "#f0f1f2",
+                        "surface-variant": "#e1e3e4",
+                        "on-surface-variant": "#554240",
+                        "background": "#f8f9fa",
+                        "tertiary": "#0a0a0a",
+                        "on-error": "#ffffff",
+                        "tertiary-container": "#212121",
+                        "surface": "#f8f9fa",
+                        "on-secondary-fixed": "#261900",
+                        "on-tertiary-fixed-variant": "#474746",
+                        "error-container": "#ffdad6",
+                        "outline-variant": "#dcc0bd",
+                        "on-tertiary-container": "#8a8888",
+                        "on-secondary-fixed-variant": "#5d4201",
+                        "on-primary-fixed": "#410001",
+                        "on-background": "#191c1d",
+                        "surface-container": "#edeeef",
+                        "surface-container-highest": "#e1e3e4",
+                        "secondary-container": "#fed488",
+                        "on-primary-fixed-variant": "#7e2b23",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "error": "#ba1a1a",
+                        "primary-fixed-dim": "#ffb4aa",
+                        "on-surface": "#191c1d",
+                        "surface-bright": "#f8f9fa",
+                        "surface-dim": "#d9dadb",
+                        "inverse-primary": "#ffb4aa",
+                        "secondary": "#775a19",
+                        "on-primary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "primary-container": "#4a0404",
+                        "secondary-fixed-dim": "#e9c176",
+                        "on-primary-container": "#d26a5f",
+                        "primary": "#210000"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "sm": "8px",
+                        "md": "16px",
+                        "gutter": "24px",
+                        "margin-mobile": "16px",
+                        "lg": "24px",
+                        "xl": "48px",
+                        "margin-desktop": "32px",
+                        "unit": "4px",
+                        "max-width": "1440px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Inter"],
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "headline-sm": ["Hanken Grotesk"],
+                        "body-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-xl": ["Hanken Grotesk"],
+                        "headline-lg": ["Hanken Grotesk"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .sidebar-transition { transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .table-container { scrollbar-width: thin; scrollbar-color: #dcc0bd transparent; }
+        .active-nav { background-color: #4a0404; color: #d26a5f; }
+        input:focus { outline: none; border-color: #4a0404; box-shadow: 0 0 0 2px rgba(74, 4, 4, 0.1); }
+        select:focus { outline: none; border-color: #4a0404; box-shadow: 0 0 0 2px rgba(74, 4, 4, 0.1); }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md min-h-screen flex overflow-x-hidden">
+<!-- Mobile Navigation Toggle -->
+<button class="lg:hidden fixed top-4 left-4 z-[60] bg-primary-container p-2 rounded-lg text-white shadow-lg" id="mobile-toggle">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<!-- SideNavBar (Shared Component) -->
+<aside class="sidebar-transition fixed left-0 top-0 h-full z-50 flex flex-col py-md w-[280px] bg-surface-container-low border-r border-outline-variant -translate-x-full lg:translate-x-0" id="sidebar">
+<div class="px-gutter mb-xl">
+<div class="flex items-center gap-3 mb-4">
+<img alt="The Winners Academy Logo" class="h-12 w-12 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfyrxI-D88z0dUg5Oc4CQyx8i1aLGDjjcbGLYeTGFF31SNyOU6g0wmBXhhu7Y_PeShze6KDRNKpFLE6oSFps8R5wb7KTcdefSm43hUZYH1mG_q65SZ-4gZd7ADtRfUqkl8gKuIFEp8LpSFHZ7z_6V6MkARRjO0C0vtmTuhfOWrak6Fn4KPUu3Te6CZQRMUDl-Fvtwo05J-OgTqQ6fNLGkt3TAdtufMRlxIqilRBx0c4DP_LT_2lrSzZrQgc79jusrZcgfLPKzkOXCQ"/>
+<div>
+<h1 class="font-headline-sm text-headline-sm font-bold text-primary">Admin Portal</h1>
+<p class="font-label-md text-label-md text-on-surface-variant">Management Suite</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1 overflow-y-auto px-2">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors" data-nav="Dashboard" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-primary-container text-on-primary-container rounded-lg" data-nav="Student Management" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md">Student Management</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors" data-nav="Fee Records" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-label-md">Fee Records</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors" data-nav="Academic Reports" href="#">
+<span class="material-symbols-outlined">assessment</span>
+<span class="font-label-md">Academic Reports</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors" data-nav="Class Schedules" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="font-label-md">Class Schedules</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors" data-nav="Portal Settings" href="#">
+<span class="material-symbols-outlined">admin_panel_settings</span>
+<span class="font-label-md">Portal Settings</span>
+</a>
+</nav>
+<!-- Real Logout Link Trigger -->
+<div class="px-4 py-3 border-t border-outline-variant mt-auto">
+    <a href="index.html" class="w-full flex items-center gap-3 px-4 py-3 text-sm font-semibold text-error hover:bg-error-container/20 rounded-lg transition-colors">
+        <span class="material-symbols-outlined text-lg">logout</span> 
+        <span>Logout</span>
+    </a>
+</div>
+
+<div class="px-2 mt-auto border-t border-outline-variant pt-md">
+<button class="w-full mb-4 flex items-center justify-center gap-2 py-3 bg-primary text-white font-label-md rounded-lg hover:bg-primary-container transition-all active:scale-95" id="export-csv">
+<span class="material-symbols-outlined">download</span>
+                Export Data CSV
+            </button>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-label-md">Help Center</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Content Canvas -->
+<main class="flex-1 lg:ml-[280px] min-w-0 transition-all duration-300">
+<!-- TopAppBar (Shared Component) -->
+<header class="flex justify-between items-center w-full px-gutter h-16 sticky top-0 z-40 bg-surface-container-lowest border-b border-outline-variant">
+<div class="flex items-center gap-4">
+<h2 class="font-headline-md text-headline-md font-bold text-primary-container">Student Management</h2>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden md:flex items-center bg-surface-container px-3 py-1.5 rounded-lg border border-outline-variant">
+<span class="material-symbols-outlined text-on-surface-variant mr-2">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-sm w-48" id="search-input" placeholder="Search students..." type="text"/>
+</div>
+<button id="notifBtn" class="p-2 hover:bg-surface-container rounded-full transition-colors relative">
+    <span class="material-symbols-outlined">notifications</span>
+    <!-- id="notifDot" lagayi hai aur 'hidden' class di hai taake shuru mein dot na dikhe -->
+    <span id="notifDot" class="absolute top-1 right-1 w-2 h-2 bg-error rounded-full hidden"></span>
+</button>
+
+<div class="h-8 w-[1px] bg-outline-variant mx-1"></div>
+<div class="flex items-center gap-3">
+<div class="text-right hidden sm:block">
+<p class="font-label-md text-on-surface font-bold">Principal Admin</p>
+<p class="text-[10px] uppercase tracking-wider text-on-surface-variant">Executive Office</p>
+</div>
+<img alt="Principal's profile picture" class="h-10 w-20 rounded-full border-2 border-primary-container object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAx_GxyOE-W34u8Nr-Q0UW0YcE11AvNC82SfByIVxy0GVNsUqUBOvfsYP2OwavqAsfmd8hDLArFmTPUP66I69m4WAcFka8Z8UpQYcSFfTX45vdmfhES2maJofj6l3iMdvz2Gox_qwjVt3g8N1kqYznfih-FFf7_EvJ3k0L9VaL3nqnCF38VDFBbn3P2PtRLfOFCu2ehhvPkzM8Ywq6spBnY8GCP2Q-KQYMejZHtTlDMmWoqkm7ieRqktZcwVwPqFiFlfgYVuccayNR1"/>
+</div>
+</div>
+</header>
+<!-- Main Content Wrapper -->
+<div class="p-gutter max-w-7xl mx-auto space-y-gutter">
+<!-- Dashboard Quick Stats (Task 02) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-lg">
+<div class="bg-surface-container-lowest border border-outline-variant p-lg rounded-lg relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-1 h-full bg-[#C5A059]"></div>
+<p class="font-label-md text-on-surface-variant uppercase tracking-widest mb-2">Total Students</p>
+<h3 class="font-headline-lg text-headline-lg text-primary" id="stat-total">--</h3>
+<div class="mt-4 flex items-center text-green-600 gap-1 text-xs font-bold">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+<span>12% from last month</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-lg rounded-lg relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-1 h-full bg-green-600"></div>
+<p class="font-label-md text-on-surface-variant uppercase tracking-widest mb-2">Fees Collected (Paid)</p>
+<h3 class="font-headline-lg text-headline-lg text-primary" id="stat-paid">--</h3>
+<div class="mt-4 flex items-center text-green-600 gap-1 text-xs font-bold">
+<span class="material-symbols-outlined text-sm">check_circle</span>
+<span>Current Cycle Active</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-lg rounded-lg relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-1 h-full bg-error"></div>
+<p class="font-label-md text-on-surface-variant uppercase tracking-widest mb-2">Pending Dues</p>
+<h3 class="font-headline-lg text-headline-lg text-primary" id="stat-pending">--</h3>
+<div class="mt-4 flex items-center text-error gap-1 text-xs font-bold">
+<span class="material-symbols-outlined text-sm">warning</span>
+<span>Follow-up Required</span>
+</div>
+</div>
+</div>
+<!-- Management Tools (Task 03/04) -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg">
+<div class="p-lg border-b border-outline-variant flex flex-col md:flex-row justify-between items-start md:items-center gap-md">
+<div class="flex flex-wrap items-center gap-4">
+<select class="bg-surface-container border-outline-variant rounded-lg font-label-md py-2 px-4 min-w-[140px]" id="filter-class">
+<option value="all">All Classes</option>
+<option value="Class 10-A">Class 10-A</option>
+<option value="Class 11-B">Class 11-B</option>
+<option value="Class 12-C">Class 12-C</option>
+</select>
+<select class="bg-surface-container border-outline-variant rounded-lg font-label-md py-2 px-4 min-w-[140px]" id="filter-status">
+<option value="all">All Status</option>
+<option value="PAID">Paid</option>
+<option value="PENDING">Pending</option>
+</select>
+</div>
+<button class="flex items-center gap-2 bg-primary-container text-white px-gutter py-2.5 rounded-lg font-label-md hover:bg-primary transition-colors active:scale-95 shadow-sm" id="btn-open-form">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add</span>
+                        New Enrollment
+                    </button>
+</div>
+<!-- Student Registration Form (Hidden by default) -->
+<div class="hidden p-lg bg-surface-container-low border-b border-outline-variant animate-in fade-in slide-in-from-top-4 duration-300" id="registration-form">
+<form class="grid grid-cols-1 md:grid-cols-4 gap-md items-end" id="add-student-form">
+<div class="space-y-1">
+<label class="font-label-md text-on-surface-variant">Full Name</label>
+<input class="w-full bg-white border-outline-variant rounded-lg py-2 px-3 text-body-sm" name="name" required="" type="text"/>
+</div>
+<div class="space-y-1">
+<label class="font-label-md text-on-surface-variant">Class</label>
+<select class="w-full bg-white border-outline-variant rounded-lg py-2 px-3 text-body-sm" name="class" required="">
+<option value="Class 10-A">Class 10-A</option>
+<option value="Class 11-B">Class 11-B</option>
+<option value="Class 12-C">Class 12-C</option>
+</select>
+</div>
+<div class="space-y-1">
+<label class="font-label-md text-on-surface-variant">Fee Status</label>
+<select class="w-full bg-white border-outline-variant rounded-lg py-2 px-3 text-body-sm" name="status" required="">
+<option value="PAID">PAID</option>
+<option value="PENDING">PENDING</option>
+</select>
+</div>
+<div class="flex gap-2">
+<button class="flex-1 bg-primary text-white py-2 rounded-lg font-label-md hover:opacity-90" type="submit">Confirm</button>
+<button class="px-3 bg-white border border-outline-variant rounded-lg hover:bg-surface-container transition-colors" id="btn-close-form" type="button">
+<span class="material-symbols-outlined text-on-surface-variant">close</span>
+</button>
+</div>
+</form>
+</div>
+<!-- Student Table (Task 03/05) -->
+<div class="overflow-x-auto table-container">
+<table class="w-full border-collapse">
+<thead>
+<tr class="bg-surface-container-high border-b border-outline-variant">
+<th class="text-left px-gutter py-3 font-label-md text-on-surface-variant uppercase">ID</th>
+<th class="text-left px-gutter py-3 font-label-md text-on-surface-variant uppercase">Student Name</th>
+<th class="text-left px-gutter py-3 font-label-md text-on-surface-variant uppercase">Class Section</th>
+<th class="text-left px-gutter py-3 font-label-md text-on-surface-variant uppercase">Registration Date</th>
+<th class="text-left px-gutter py-3 font-label-md text-on-surface-variant uppercase">Fee Status</th>
+<th class="text-right px-gutter py-3 font-label-md text-on-surface-variant uppercase">Actions</th>
+</tr>
+</thead>
+<tbody class="bg-surface-container-lowest" id="student-table-body">
+<!-- JS will inject rows here -->
+</tbody>
+</table>
+</div>
+<!-- Pagination (Task 05) -->
+<div class="p-gutter border-t border-outline-variant flex flex-col sm:flex-row justify-between items-center gap-md">
+<p class="font-body-sm text-on-surface-variant" id="showing-counter">
+                        Showing 0 to 0 of 0 students
+                    </p>
+<div class="flex items-center gap-2">
+<button class="p-2 border border-outline-variant rounded-lg hover:bg-surface-container transition-colors disabled:opacity-50" id="prev-page">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<div class="flex gap-1" id="page-numbers">
+<!-- Page buttons injected here -->
+</div>
+<button class="p-2 border border-outline-variant rounded-lg hover:bg-surface-container transition-colors disabled:opacity-50" id="next-page">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<footer class="p-gutter text-center">
+<p class="text-label-md text-on-surface-variant/60">© 2024 The Winners Academy. Administrative Suite v2.4.0</p>
+</footer>
+</main>
+<!-- Overlay for mobile nav -->
+<div class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden" id="overlay"></div>
+<script>
+        /**
+         * The Winners Academy - Admin Portal Logic
+         * Handles Student Management, Fees, Filters, and Responsive Layout
+         */
+
+        // Initial Seed Data
+        let students = [
+            { id: 1, name: "Alexander Hamilton", class: "Class 12-C", date: "2023-09-15", status: "PAID" },
+            { id: 2, name: "Seraphina Vance", class: "Class 10-A", date: "2023-10-02", status: "PENDING" },
+            { id: 3, name: "Julian Thorne", class: "Class 11-B", date: "2023-08-20", status: "PAID" },
+            { id: 4, name: "Elena Gilbert", class: "Class 10-A", date: "2023-11-05", status: "PAID" },
+            { id: 5, name: "Marcus Wright", class: "Class 12-C", date: "2023-12-10", status: "PENDING" },
+            { id: 6, name: "Clara Oswald", class: "Class 11-B", date: "2024-01-08", status: "PAID" },
+        ];
+
+        let currentPage = 1;
+        const rowsPerPage = 5;
+        let nextAvailableId = 7;
+
+        // UI Element Selectors
+        const tableBody = document.getElementById('student-table-body');
+        const searchInput = document.getElementById('search-input');
+        const filterClass = document.getElementById('filter-class');
+        const filterStatus = document.getElementById('filter-status');
+        const regForm = document.getElementById('registration-form');
+        const addForm = document.getElementById('add-student-form');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        const mobileToggle = document.getElementById('mobile-toggle');
+
+        /**
+         * Responsive Sidebar Logic
+         */
+        function toggleSidebar() {
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+
+        mobileToggle.addEventListener('click', toggleSidebar);
+        overlay.addEventListener('click', toggleSidebar);
+
+        /**
+         * Core Table Rendering
+         */
+        function renderTable() {
+            // Apply Search and Filters
+            let filtered = students.filter(s => {
+                const matchesSearch = s.name.toLowerCase().includes(searchInput.value.toLowerCase());
+                const matchesClass = filterClass.value === 'all' || s.class === filterClass.value;
+                const matchesStatus = filterStatus.value === 'all' || s.status === filterStatus.value;
+                return matchesSearch && matchesClass && matchesStatus;
+            });
+
+            // Pagination Logic
+            const totalStudents = filtered.length;
+            const startIndex = (currentPage - 1) * rowsPerPage;
+            const paginated = filtered.slice(startIndex, startIndex + rowsPerPage);
+            const totalPages = Math.ceil(totalStudents / rowsPerPage);
+
+            tableBody.innerHTML = '';
+
+            paginated.forEach(student => {
+                const row = document.createElement('tr');
+                row.className = 'border-b border-outline-variant hover:bg-surface-container-lowest/80 transition-colors group';
+                row.innerHTML = `
+                    <td class="px-gutter py-4 font-body-sm text-on-surface-variant">#${String(student.id).padStart(3, '0')}</td>
+                    <td class="px-gutter py-4 font-body-md font-bold text-on-surface">${student.name}</td>
+                    <td class="px-gutter py-4 font-body-sm text-on-surface-variant">${student.class}</td>
+                    <td class="px-gutter py-4 font-body-sm text-on-surface-variant">${student.date}</td>
+                    <td class="px-gutter py-4">
+                        <button onclick="toggleFeeStatus(${student.id})" class="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border ${
+                            student.status === 'PAID' 
+                            ? 'bg-green-50 border-green-200 text-green-700' 
+                            : 'bg-red-50 border-red-200 text-red-700'
+                        }">
+                            ${student.status}
+                        </button>
+                    </td>
+                    <td class="px-gutter py-4 text-right">
+                        <button onclick="deleteStudent(${student.id})" class="p-2 text-on-surface-variant hover:text-error transition-colors">
+                            <span class="material-symbols-outlined text-xl">delete</span>
+                        </button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+
+            updatePaginationUI(totalStudents, startIndex, paginated.length, totalPages);
+            updateStats();
+        }
+
+        /**
+         * Update Dashboard Statistics (Task 02)
+         */
+        function updateStats() {
+            const total = students.length;
+            const paidCount = students.filter(s => s.status === 'PAID').length;
+            const pendingCount = total - paidCount;
+
+            document.getElementById('stat-total').innerText = total;
+            document.getElementById('stat-paid').innerText = paidCount;
+            document.getElementById('stat-pending').innerText = pendingCount;
+        }
+
+        /**
+         * Pagination Helper (Task 05)
+         */
+        function updatePaginationUI(total, start, showing, pages) {
+            const counter = document.getElementById('showing-counter');
+            counter.innerText = `Showing ${total === 0 ? 0 : start + 1} to ${start + showing} of ${total} students`;
+
+            const prevBtn = document.getElementById('prev-page');
+            const nextBtn = document.getElementById('next-page');
+            const pageNumbers = document.getElementById('page-numbers');
+
+            prevBtn.disabled = currentPage === 1;
+            nextBtn.disabled = currentPage === pages || pages === 0;
+
+            pageNumbers.innerHTML = '';
+            for (let i = 1; i <= pages; i++) {
+                const btn = document.createElement('button');
+                btn.className = `w-8 h-8 rounded-lg font-label-md transition-all ${
+                    currentPage === i ? 'bg-primary text-white' : 'hover:bg-surface-container border border-outline-variant'
+                }`;
+                btn.innerText = i;
+                btn.onclick = () => { currentPage = i; renderTable(); };
+                pageNumbers.appendChild(btn);
+            }
+        }
+
+        /**
+         * Actions & Forms (Task 03)
+         */
+        function toggleFeeStatus(id) {
+            const student = students.find(s => s.id === id);
+            if (student) {
+                student.status = student.status === 'PAID' ? 'PENDING' : 'PAID';
+                renderTable();
+            }
+        }
+
+        function deleteStudent(id) {
+            if (confirm("Are you sure you want to remove this record?")) {
+                students = students.filter(s => s.id !== id);
+                renderTable();
+            }
+        }
+
+        document.getElementById('btn-open-form').onclick = () => regForm.classList.remove('hidden');
+        document.getElementById('btn-close-form').onclick = () => regForm.classList.add('hidden');
+
+        addForm.onsubmit = (e) => {
+            e.preventDefault();
+            const formData = new FormData(addForm);
+            const newStudent = {
+                id: nextAvailableId++,
+                name: formData.get('name'),
+                class: formData.get('class'),
+                status: formData.get('status'),
+                date: new Date().toISOString().split('T')[0]
+            };
+
+            students.unshift(newStudent);
+            addForm.reset();
+            regForm.classList.add('hidden');
+            renderTable();
+        };
+
+        /**
+         * CSV Export Logic (Task 04)
+         */
+        document.getElementById('export-csv').onclick = () => {
+            const headers = ['ID', 'Name', 'Class', 'Registration Date', 'Fee Status'];
+            const rows = students.map(s => [s.id, s.name, s.class, s.date, s.status]);
+            
+            let csvContent = "data:text/csv;charset=utf-8," 
+                + headers.join(",") + "\n"
+                + rows.map(e => e.join(",")).join("\n");
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", `Academy_Students_${new Date().toLocaleDateString()}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        };
+
+        /**
+         * Simulated Month-Start Reset (Task 03 Logic)
+         * In a real app, this would be backend-driven.
+         */
+        function checkMonthReset() {
+            const lastReset = localStorage.getItem('last_fee_reset');
+            const currentMonth = new Date().getMonth();
+            if (lastReset !== null && lastReset != currentMonth) {
+                // It's a new month! Reset all to Pending.
+                students.forEach(s => s.status = 'PENDING');
+                console.log("Monthly cycle reset: All fees set to pending.");
+            }
+            localStorage.setItem('last_fee_reset', currentMonth);
+        }
+
+        // Event Listeners for Filters
+        searchInput.oninput = () => { currentPage = 1; renderTable(); };
+        filterClass.onchange = () => { currentPage = 1; renderTable(); };
+        filterStatus.onchange = () => { currentPage = 1; renderTable(); };
+
+        document.getElementById('prev-page').onclick = () => { if(currentPage > 1) { currentPage--; renderTable(); } };
+        document.getElementById('next-page').onclick = () => { currentPage++; renderTable(); };
+
+        // Initialize
+        checkMonthReset();
+        renderTable();
+    </script>
+</body></html>
