@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Winners Academy | Elite Concept-Based Learning</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Toast Notification Container -->
+<div class="toast-container" id="toast-container"></div>
+
+<!-- Navigation -->
+<nav class="top-nav" id="top-nav">
+  <div class="nav-inner">
+    <div class="nav-brand">
+      <img alt="The Winners Academy Logo" class="nav-logo-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBiuTSyi6XmYUTVQqQNqsDjstOPBLBX2mRJc9H7nVqPFlzqwXHmb1UpE_sMCOermppvM2JnJPCxXty4AkzsFmSr1N7AKu99zCmNH20n1R0wOlbuXPc8l6GxVpOW_Jp26RbxWyTu08iePtlYXBqvsrvSJFluyYkvf7lATQw-JYimppxk3Z8xKgFfMHFjJY9kbEwiBncVUNKy1SwhdY8i9D4L0rQDd3MKzZpwWCwhGoj5M7n4vu7yOaDbhSm1XdqWYk-bUKeUOsg0PY8">
+      <span class="nav-brand-name">The Winners Academy</span>
+    </div>
+
+    <div class="nav-links">
+      <a class="nav-link nav-link-active" href="#">Home</a>
+      <a class="nav-link" href="#">About Us</a>
+      <a class="nav-link" href="#">Admissions</a>
+    </div>
+
+    <a class="btn-admin" href="login.html">Admin Portal</a>
+
+    <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle menu">
+      <span class="material-symbols-outlined" id="mobile-menu-icon">menu</span>
+    </button>
+  </div>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-drawer" id="mobile-drawer">
+    <a class="mobile-link mobile-link-active" href="#">Home</a>
+    <a class="mobile-link" href="#">About Us</a>
+    <a class="mobile-link" href="#">Admissions</a>
+    <a class="mobile-link mobile-link-cta" href="login.html">Admin Portal</a>
+  </div>
+</nav>
+
+<main class="page-main">
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-copy reveal active">
+        <span class="badge">ACADEMIC EXCELLENCE</span>
+        <h1 class="hero-title">
+          Mastering Knowledge Through <br class="br-desktop">
+          <span class="hero-accent typewriter" id="typewriter">Concept-Based Learning.</span>
+        </h1>
+        <p class="hero-text">
+          We don't just teach students to memorize; we empower them to understand. Our unique approach builds a foundation for lifelong achievement and analytical thinking.
+        </p>
+        <div class="hero-actions">
+          <button class="btn btn-primary" id="inquire-btn" onclick="toggleInquiryModal()">
+            Inquire Now
+            <span class="material-symbols-outlined btn-icon">arrow_forward</span>
+          </button>
+          <button class="btn btn-outline">Admission Form</button>
+        </div>
+      </div>
+
+      <div class="hero-media reveal active">
+        <div class="hero-frame hero-frame-back staggered-frame">
+          <img class="hero-img" alt="Student studying with a laptop" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKejT2JWpzWkDYZ_fEwgE8iHhsJ465Oavnq3iJ66CkzrZvE6mN1FiigE9TZ3wMnktfDufqfoJVWG831yTeTd1D_oqUwjefov5CM7inL428hfsEUbW3YG5QFFwtCYeGEXl8n1ueNE1Rc9OC7Bi0iQZ3RNyBBCTEPo615X1tZpciJs-wWl_zVVjiKIaKTrcdWhH0ItqIUHkPxesEqq4NROBMkrMWey81cLCvfWgXvvQIjomxHmbfjQuF3LFvPR7LcoBty17oLr3xzik">
+        </div>
+        <div class="hero-frame hero-frame-front">
+          <img class="hero-img" alt="Smiling student in a school hallway holding an A+ paper" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBucrjKDFrVRoSJPudQdbgzG46UeNB-YBcNmmg_6ClPpdsCL6O7ciGdmM3IuR4QIbmSUWAtE6GrNA0fl-luEACo_7tF6_GF5tflX2jFoWIqme5g_Yi8yUMT2iOVHHBFxE0gMXvYePw9cRrV-fT2JWKthCCr5lQgaxys0dTOS5vDOegMnt46g7p-Z9ORAofZ7F-SQro5W2Mbgsr2imqEYoshI-AVyFSxNZinuWQbUrjDDsoD6yuCqfVccsYPoS6T4cpWVb7a1nIvlgo">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features">
+    <div class="features-inner">
+      <div class="section-heading reveal active">
+        <h2 class="section-title">Why Choose The Winners Academy?</h2>
+        <p class="section-subtitle">Providing a world-class environment designed for focus, safety, and modern technological integration.</p>
+      </div>
+
+      <div class="feature-grid">
+        <div class="feature-card reveal active">
+          <div class="feature-icon">
+            <span class="material-symbols-outlined">ac_unit</span>
+          </div>
+          <h3 class="feature-title">Climate Controlled Learning</h3>
+          <p class="feature-text">Our fully AC Classrooms provide a comfortable environment that maximizes concentration even in extreme weather conditions.</p>
+        </div>
+
+        <div class="feature-card reveal active" style="transition-delay: 100ms;">
+          <div class="feature-icon">
+            <span class="material-symbols-outlined">school</span>
+          </div>
+          <h3 class="feature-title">Expert Faculty</h3>
+          <p class="feature-text">Seasoned educators with decades of combined experience, dedicated to nurturing the unique potential of every student.</p>
+        </div>
+
+        <div class="feature-card reveal active" style="transition-delay: 200ms;">
+          <div class="feature-icon">
+            <span class="material-symbols-outlined">computer</span>
+          </div>
+          <h3 class="feature-title">Digital Labs</h3>
+          <p class="feature-text">High-speed Multimedia Labs for interactive learning, coding, and preparing students for a tech-driven future.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Transport Banner -->
+  <section class="transport reveal active">
+    <div class="transport-card">
+      <div class="transport-glow"></div>
+      <div class="transport-inner">
+        <div class="transport-left">
+          <div class="transport-icon-wrap">
+            <span class="material-symbols-outlined transport-icon">commute</span>
+          </div>
+          <div>
+            <h3 class="transport-title">Premium Pick &amp; Drop Service</h3>
+            <p class="transport-text">Safety is our priority. Our managed transport system covers all major routes, ensuring your child reaches home securely.</p>
+          </div>
+        </div>
+        <button class="btn btn-primary transport-btn" onclick="alert('Route maps loading... Our fleet serves Zone A, B, and the Corporate Hub.')">
+          Check Routes
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Principal Section -->
+  <section class="principal reveal active">
+    <div class="principal-card">
+      <div class="principal-media">
+        <img alt="Sir Imtiaz, Principal" class="principal-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYJYEEUBDY653f6M9WXFTw0UjPHj_yan2SaEu8wHW7ubJQFe3HpTLKLGi0ZilvL1lvPUx8k73Ey9V28xn8K_aRfH-S693rpmIWMHz3V9NoZIBWBcUNxrJifS_0eQpuyBTkCHTYznQOOY_Qyn_f4JdlXNSFeP7SMoyhGlUmpQLntG2-2IwVVX0gmGDEkSuyRbd6wMLQ553otSthuP_DWVVDfFZIzsU3MOfxiHqQTDMd2hQGNJRpn4QWOmnSQY8cMe53SV5BXhjqjPk">
+      </div>
+      <div class="principal-content">
+        <div class="principal-rule"></div>
+        <h2 class="principal-name">Sir Imtiaz</h2>
+        <p class="principal-role">PRINCIPAL &amp; VISIONARY</p>
+        <blockquote class="principal-quote">
+          <span class="material-symbols-outlined quote-mark">format_quote</span>
+          "At The Winners Academy, we believe every child is a winner waiting to be discovered. Our mission is to move beyond the traditional rote-learning model and ignite a genuine passion for discovery. We provide the tools, the environment, and the guidance—our students provide the ambition."
+        </blockquote>
+        <div class="principal-signature">
+          <div class="signature-icon">
+            <span class="material-symbols-outlined">signature</span>
+          </div>
+          Official Vision Statement 2024
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta reveal active">
+    <div class="cta-inner">
+      <h2 class="cta-title">Join the Winners Circle Today</h2>
+      <p class="cta-text">Admissions are now open for the upcoming session. Secure your spot in the region's premier concept-based learning institution.</p>
+      <div class="cta-actions">
+        <button class="btn btn-primary" id="download-btn">Download Prospectus</button>
+        <button class="btn btn-ghost">Contact Us</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Inquiry Modal -->
+<div class="modal-overlay-wrap" id="inquiry-modal">
+  <div class="modal-overlay" onclick="toggleInquiryModal()"></div>
+  <div class="modal-card reveal active">
+    <div class="modal-header">
+      <h3 class="modal-title">Inquiry Form</h3>
+      <button class="modal-close material-symbols-outlined" onclick="toggleInquiryModal()">close</button>
+    </div>
+    <form class="modal-form" onsubmit="event.preventDefault(); showToast('Inquiry sent successfully! We will contact you shortly.')">
+      <div class="form-group">
+        <label class="form-label" for="student-name">Student Name</label>
+        <input class="form-input" id="student-name" placeholder="Enter name" type="text">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="student-grade">Grade/Class</label>
+        <select class="form-input" id="student-grade">
+          <option>Primary School</option>
+          <option>Middle School</option>
+          <option>O-Levels / Secondary</option>
+        </select>
+      </div>
+      <button class="btn btn-primary modal-submit" type="submit">Submit Inquiry</button>
+    </form>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-col">
+      <div class="footer-brand">
+        <img alt="Logo" class="footer-logo-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBiuTSyi6XmYUTVQqQNqsDjstOPBLBX2mRJc9H7nVqPFlzqwXHmb1UpE_sMCOermppvM2JnJPCxXty4AkzsFmSr1N7AKu99zCmNH20n1R0wOlbuXPc8l6GxVpOW_Jp26RbxWyTu08iePtlYXBqvsrvSJFluyYkvf7lATQw-JYimppxk3Z8xKgFfMHFjJY9kbEwiBncVUNKy1SwhdY8i9D4L0rQDd3MKzZpwWCwhGoj5M7n4vu7yOaDbhSm1XdqWYk-bUKeUOsg0PY8">
+        <span class="footer-brand-name">The Winners Academy</span>
+      </div>
+      <p class="footer-desc">Empowering the next generation through conceptual excellence and modern pedagogy since 2010.</p>
+      <div class="footer-social">
+        <a class="social-btn" href="#" aria-label="Facebook">
+          <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.51 1.49-3.9 3.77-3.9 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.89h2.78l-.44 2.91h-2.34V22c4.78-.79 8.44-4.94 8.44-9.94Z"/></svg>
+        </a>
+        <a class="social-btn" href="#" aria-label="LinkedIn">
+          <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M20.45 20.45h-3.56v-5.58c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.15 1.45-2.15 2.94v5.68H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45Z"/></svg>
+        </a>
+        <a class="social-btn" href="#" aria-label="Instagram">
+          <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2c2.72 0 3.06.01 4.12.06 1.06.05 1.79.22 2.43.47.66.26 1.22.6 1.77 1.15.55.55.9 1.11 1.15 1.77.25.64.42 1.37.47 2.43.05 1.06.06 1.4.06 4.12s-.01 3.06-.06 4.12c-.05 1.06-.22 1.79-.47 2.43a4.9 4.9 0 0 1-1.15 1.77 4.9 4.9 0 0 1-1.77 1.15c-.64.25-1.37.42-2.43.47-1.06.05-1.4.06-4.12.06s-3.06-.01-4.12-.06c-1.06-.05-1.79-.22-2.43-.47a4.9 4.9 0 0 1-1.77-1.15 4.9 4.9 0 0 1-1.15-1.77c-.25-.64-.42-1.37-.47-2.43C2.01 15.06 2 14.72 2 12s.01-3.06.06-4.12c.05-1.06.22-1.79.47-2.43.26-.66.6-1.22 1.15-1.77A4.9 4.9 0 0 1 5.45.53c.64-.25 1.37-.42 2.43-.47C8.94 2.01 9.28 2 12 2Zm0 1.8c-2.67 0-2.99.01-4.04.06-.87.04-1.34.18-1.65.3-.42.16-.71.35-1.02.66-.31.31-.5.6-.66 1.02-.12.31-.26.78-.3 1.65C4.28 8.53 4.27 8.85 4.27 12s.01 3.47.06 4.51c.04.87.18 1.34.3 1.65.16.42.35.71.66 1.02.31.31.6.5 1.02.66.31.12.78.26 1.65.3 1.05.05 1.37.06 4.04.06s2.99-.01 4.04-.06c.87-.04 1.34-.18 1.65-.3.42-.16.71-.35 1.02-.66.31-.31.5-.6.66-1.02.12-.31.26-.78.3-1.65.05-1.04.06-1.36.06-4.51s-.01-3.47-.06-4.51c-.04-.87-.18-1.34-.3-1.65a2.75 2.75 0 0 0-.66-1.02 2.75 2.75 0 0 0-1.02-.66c-.31-.12-.78-.26-1.65-.3C14.99 3.81 14.67 3.8 12 3.8Zm0 3.06a5.14 5.14 0 1 1 0 10.28 5.14 5.14 0 0 1 0-10.28Zm0 1.8a3.34 3.34 0 1 0 0 6.68 3.34 3.34 0 0 0 0-6.68Zm5.35-1.99a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0Z"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="footer-col footer-col-links">
+      <h4 class="footer-heading">Quick Links</h4>
+      <ul class="footer-list">
+        <li><a class="footer-link" href="#">Home</a></li>
+        <li><a class="footer-link" href="#">About Us</a></li>
+        <li><a class="footer-link" href="#">Contact Us</a></li>
+        <li><a class="footer-link" href="#">Privacy Policy</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4 class="footer-heading">Contact Info</h4>
+      <ul class="footer-list">
+        <li class="footer-list-item">
+          <span class="material-symbols-outlined footer-icon">location_on</span>
+          123 Academic Drive, Excellence Zone
+        </li>
+        <li class="footer-list-item">
+          <span class="material-symbols-outlined footer-icon">call</span>
+          +92 0302 7189099
+        </li>
+        <li class="footer-list-item">
+          <span class="material-symbols-outlined footer-icon">mail</span>
+          admissions@winners.edu
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    &copy; 2026 The Winners Academy. All rights reserved.
+  </div>
+</footer>
+
+<script>
+  // Mobile Menu Toggle
+  const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenuIcon = document.getElementById('mobile-menu-icon');
+  const mobileDrawer = document.getElementById('mobile-drawer');
+  const mobileLinks = document.querySelectorAll('.mobile-link');
+
+  function toggleMenu() {
+    const isOpen = mobileDrawer.classList.toggle('drawer-open');
+    mobileMenuIcon.textContent = isOpen ? 'close' : 'menu';
+  }
+
+  if (mobileMenuBtn) {
+    mobileMenuBtn.addEventListener('click', toggleMenu);
+  }
+
+  mobileLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      if (mobileDrawer.classList.contains('drawer-open')) {
+        toggleMenu();
+      }
+    });
+  });
+
+  // Typewriter Effect
+  const textElement = document.getElementById('typewriter');
+  const phrases = ["Concept-Based Learning.", "Creative Problem Solving.", "Future Leaders.", "Academic Excellence."];
+  let phraseIndex = 0;
+  let charIndex = 0;
+  let isDeleting = false;
+  let typingSpeed = 100;
+
+  function type() {
+    const currentPhrase = phrases[phraseIndex];
+    if (isDeleting) {
+      textElement.textContent = currentPhrase.substring(0, charIndex - 1);
+      charIndex--;
+      typingSpeed = 50;
+    } else {
+      textElement.textContent = currentPhrase.substring(0, charIndex + 1);
+      charIndex++;
+      typingSpeed = 100;
+    }
+
+    if (!isDeleting && charIndex === currentPhrase.length) {
+      isDeleting = true;
+      typingSpeed = 2000;
+    } else if (isDeleting && charIndex === 0) {
+      isDeleting = false;
+      phraseIndex = (phraseIndex + 1) % phrases.length;
+      typingSpeed = 500;
+    }
+
+    setTimeout(type, typingSpeed);
+  }
+
+  // Scroll reveal animation
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active');
+      }
+    });
+  }, observerOptions);
+
+  // Navbar scroll effect
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('top-nav');
+    if (window.scrollY > 50) {
+      nav.classList.add('scrolled');
+    } else {
+      nav.classList.remove('scrolled');
+    }
+  });
+
+  // Toast Notification System
+  function showToast(message) {
+    const container = document.getElementById('toast-container');
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.innerHTML = `
+      <span class="material-symbols-outlined">check_circle</span>
+      <span class="toast-msg">${message}</span>
+    `;
+    container.appendChild(toast);
+
+    setTimeout(() => {
+      toast.classList.add('toast-hide');
+      setTimeout(() => toast.remove(), 500);
+    }, 4000);
+
+    const modal = document.getElementById('inquiry-modal');
+    if (modal.classList.contains('modal-open')) toggleInquiryModal();
+  }
+
+  // Inquiry Modal Toggle
+  function toggleInquiryModal() {
+    const modal = document.getElementById('inquiry-modal');
+    modal.classList.toggle('modal-open');
+  }
+
+  // Prospectus Download Interaction
+  document.getElementById('download-btn').addEventListener('click', () => {
+    showToast('Prospectus download started! Check your downloads folder.');
+  });
+
+  // Initialize
+  document.addEventListener('DOMContentLoaded', () => {
+    type();
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  });
+</script>
+
+</body>
+</html>
