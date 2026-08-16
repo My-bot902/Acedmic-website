@@ -1,377 +1,3077 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Winners Academy | Elite Concept-Based Learning</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Winners Academy | Matriculation &amp; Intermediate Coaching</title>
+  <meta name="description"
+    content="The Winners Academy — Concept-based Matriculation and Intermediate coaching under the guidance of Sir Imtiaz Ahmad.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet">
+
+  <!-- AOS (Animate On Scroll) library — used for section entry animations -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+
+  <style>
+    /* ============================================================================
+   THE WINNERS ACADEMY — MERGED DESIGN SYSTEM
+   Base: light, clean, educational-platform theme (client's preferred design)
+   Enhancements borrowed from the competitor build: motion, hover depth,
+   3D tilt, glass accents, results/faculty/admission section logic —
+   all re-skinned to the light + green palette below.
+   ============================================================================ */
+
+    :root {
+      /* ---- Core palette (kept from the approved light design) ---- */
+      --color-surface: #f7f9fb;
+      --color-background: #f7f9fb;
+      --color-surface-container-low: #f2f4f6;
+      --color-surface-container: #eceef0;
+      --color-surface-container-high: #e6e8ea;
+      --color-surface-container-highest: #e0e3e5;
+      --color-surface-bright: #ffffff;
+      --color-surface-container-lowest: #ffffff;
+
+      --color-on-surface: #191c1e;
+      --color-on-surface-variant: #46464d;
+      --color-outline: #76767e;
+      --color-outline-variant: #c6c6ce;
+
+      --color-primary: #0A1128;
+      /* deep navy — headers, footer, dark sections */
+      --color-primary-container: #0A1128;
+      --color-on-primary-container: #7c839f;
+
+      --color-secondary: #00A86B;
+      /* signature green accent */
+      --color-secondary-fixed: #78fbb6;
+      --color-secondary-fixed-dim: #59de9b;
+      --color-secondary-container: #75f8b3;
+      --color-on-secondary: #ffffff;
+      --color-on-secondary-container: #007147;
+
+      --color-error: #ba1a1a;
+
+      /* ---- Derived tints for glass / blob / glow effects (light-safe) ---- */
+      --green-tint-06: rgba(0, 168, 107, 0.06);
+      --green-tint-10: rgba(0, 168, 107, 0.10);
+      --green-tint-14: rgba(0, 168, 107, 0.14);
+      --green-tint-25: rgba(0, 168, 107, 0.25);
+      --navy-tint-05: rgba(10, 17, 40, 0.05);
+      --navy-tint-08: rgba(10, 17, 40, 0.08);
+      --navy-tint-12: rgba(10, 17, 40, 0.12);
+      --glass-bg: rgba(255, 255, 255, 0.65);
+      --glass-border: rgba(10, 17, 40, 0.09);
+
+      /* ---- Gradients (navy → green, replaces competitor's violet/coral) ---- */
+      --grad-primary: linear-gradient(135deg, #00A86B, #00c27d);
+      --grad-navy: linear-gradient(135deg, #0A1128, #1c2747);
+      --grad-text: linear-gradient(100deg, #0A1128, #00A86B 65%);
+
+      /* ---- Shadows ---- */
+      --shadow-soft: 0 2px 10px rgba(10, 17, 40, 0.06);
+      --shadow-mid: 0 16px 34px -8px rgba(10, 17, 40, 0.12), 0 4px 10px rgba(10, 17, 40, 0.06);
+      --shadow-deep: 0 30px 60px -20px rgba(10, 17, 40, 0.28), 0 10px 24px -10px rgba(10, 17, 40, 0.16);
+      --shadow-green: 0 16px 34px -10px rgba(0, 168, 107, 0.45);
+
+      /* ---- Radius scale ---- */
+      --radius-sm: 10px;
+      --radius-lg: 0.25rem;
+      --radius-md: 18px;
+      --radius-xl: 24px;
+      --radius-2xl: 32px;
+      --radius-full: 999px;
+
+      /* ---- Spacing ---- */
+      --margin-mobile: 20px;
+      --margin-desktop: 64px;
+      --container-max: 1240px;
+
+      /* ---- Typography ---- */
+      --font-family-base: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-data: 'Space Grotesk', 'Plus Jakarta Sans', sans-serif;
+    }
+
+    /* ==========================================================================
+   Reset
+   ========================================================================== */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--color-surface);
+      color: var(--color-on-surface);
+      font-family: var(--font-family-base);
+      font-size: 16px;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.3s ease;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font-family: inherit;
+      font-size: inherit;
+    }
+
+    button {
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    p,
+    blockquote,
+    form {
+      margin: 0;
+    }
+
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      line-height: 1;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible {
+      outline: 3px solid var(--color-secondary);
+      outline-offset: 3px;
+      border-radius: 6px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 var(--margin-mobile);
+      position: relative;
+      z-index: 2;
+    }
+
+    .grad-text {
+      background: var(--grad-text);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .page-main {
+      padding-top: 80px;
+    }
+
+    .br-desktop {
+      display: none;
+    }
+
+    /* Decorative soft blobs — light-safe version of the competitor's aurora blobs */
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(70px);
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.7;
+    }
+
+    .blob-green {
+      background: var(--green-tint-25);
+    }
+
+    .blob-navy {
+      background: var(--navy-tint-12);
+    }
+
+    .aurora-drift {
+      animation: drift 20s ease-in-out infinite alternate;
+    }
+
+    .aurora-drift.b2 {
+      animation-duration: 24s;
+      animation-delay: -6s;
+    }
+
+    @keyframes drift {
+      0% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      100% {
+        transform: translate(30px, -24px) scale(1.08);
+      }
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-data);
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--color-secondary);
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 3px;
+      background: var(--grad-primary);
+      display: inline-block;
+    }
+
+    .section-heading {
+      text-align: left;
+      margin-bottom: 40px;
+    }
+
+    .section-heading.center {
+      text-align: center;
+      max-width: 640px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .section-title {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--color-primary);
+      margin-top: 14px;
+      margin-bottom: 16px;
+    }
+
+    .section-subtitle {
+      font-size: 14px;
+      color: var(--color-on-surface-variant);
+      max-width: 42rem;
+      line-height: 1.7;
+    }
+
+    .section-heading.center .section-subtitle {
+      margin: 0 auto;
+    }
+
+    @media (min-width: 768px) {
+      .section-title {
+        font-size: 34px;
+      }
+
+      .br-desktop {
+        display: inline;
+      }
+    }
+
+    /* ==========================================================================
+   Buttons (shared) — smooth transitions everywhere per spec
+   ========================================================================== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 13px 26px;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: var(--radius-xl);
+      border: none;
+      width: 100%;
+      transition: all 0.3s ease;
+    }
+
+    .btn-icon {
+      font-size: 18px;
+    }
+
+    .btn-primary {
+      background: var(--grad-primary);
+      color: #fff;
+      box-shadow: var(--shadow-green);
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 20px 34px -8px rgba(0, 168, 107, 0.5);
+      transform: translateY(-4px);
+    }
+
+    .btn-primary:active {
+      transform: translateY(-1px) scale(0.98);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--color-primary);
+      border: 2px solid var(--color-primary);
+    }
+
+    .btn-outline:hover {
+      background: var(--color-primary);
+      color: #fff;
+      transform: translateY(-3px);
+    }
+
+    .btn-ghost-dark {
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+
+    .btn-ghost-dark:hover {
+      background: rgba(255, 255, 255, 0.18);
+      transform: translateY(-3px);
+    }
+
+    .btn-block {
+      width: 100%;
+    }
+
+    .btn-lg {
+      padding: 16px 40px;
+      font-size: 15.5px;
+    }
+
+    @media (min-width: 768px) {
+      .btn {
+        width: auto;
+        padding: 15px 34px;
+        font-size: 15px;
+      }
+    }
+
+    /* ==========================================================================
+   Navigation
+   ========================================================================== */
+    .top-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(247, 249, 251, 0.8);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(198, 198, 206, 0.35);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .top-nav.scrolled {
+      box-shadow: 0 4px 20px rgba(10, 17, 40, 0.06);
+      background: rgba(255, 255, 255, 0.95);
+    }
+
+    .nav-inner {
+      position: relative;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: var(--container-max);
+      height: 78px;
+      margin: 0 auto;
+      padding: 0 var(--margin-mobile);
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .nav-logo-badge {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      flex-shrink: 0;
+      background: var(--grad-navy);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-data);
+      font-weight: 700;
+      color: #fff;
+      font-size: 14px;
+      box-shadow: var(--shadow-mid);
+      transform: perspective(400px) rotateY(-10deg);
+      transition: transform 0.4s ease;
+    }
+
+    .nav-brand:hover .nav-logo-badge {
+      transform: perspective(400px) rotateY(8deg) scale(1.06);
+    }
+
+    .nav-brand-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.15;
+      min-width: 0;
+    }
+
+    .nav-brand-name {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--color-primary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .nav-brand-sub {
+      font-family: var(--font-data);
+      font-size: 9.5px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-secondary);
+    }
+
+    .nav-links {
+      display: none;
+      align-items: center;
+      gap: 34px;
+    }
+
+    .nav-link {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--color-on-surface-variant);
+      padding-bottom: 4px;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      width: 0;
+      height: 2px;
+      background: var(--color-secondary);
+      transition: width 0.3s ease;
+    }
+
+    .nav-link:hover {
+      color: var(--color-primary);
+    }
+
+    .nav-link:hover::after,
+    .nav-link.nav-link-active::after {
+      width: 100%;
+    }
+
+    .nav-link.nav-link-active {
+      color: var(--color-secondary);
+    }
+
+    .nav-cta {
+      display: none;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-admin {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--color-primary);
+      color: #fff;
+      padding: 10px 22px;
+      font-size: 13.5px;
+      font-weight: 600;
+      border-radius: var(--radius-lg);
+      box-shadow: 0 4px 6px rgba(10, 17, 40, 0.15);
+      transition: all 0.3s ease;
+    }
+
+    .btn-admin:hover {
+      transform: scale(1.05);
+      box-shadow: var(--shadow-mid);
+    }
+
+    .btn-admin:active {
+      transform: scale(0.95);
+    }
+
+    .mobile-menu-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: none;
+      padding: 8px;
+      color: var(--color-primary);
+    }
+
+    .mobile-menu-btn .material-symbols-outlined {
+      font-size: 28px;
+    }
+
+    .mobile-drawer {
+      position: fixed;
+      top: 78px;
+      left: 0;
+      width: 100%;
+      z-index: 900;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      padding: 22px;
+      background: rgba(255, 255, 255, 0.97);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 10px 24px rgba(10, 17, 40, 0.1);
+      border-bottom: 1px solid rgba(198, 198, 206, 0.35);
+      transform: translateY(-150%);
+      transition: transform 0.35s ease-in-out;
+    }
+
+    .mobile-drawer.drawer-open {
+      transform: translateY(0);
+    }
+
+    .mobile-link {
+      width: 100%;
+      padding: 12px 0;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--color-on-surface-variant);
+      border-bottom: 1px solid rgba(198, 198, 206, 0.25);
+      transition: color 0.3s ease, padding-left 0.3s ease;
+    }
+
+    .mobile-link:hover {
+      color: var(--color-secondary);
+      padding-left: 6px;
+    }
+
+    .mobile-link-active {
+      color: var(--color-secondary);
+    }
+
+    .mobile-link-cta {
+      margin-top: 6px;
+      padding: 12px 24px;
+      text-align: center;
+      background: var(--grad-primary);
+      color: #fff;
+      border-radius: var(--radius-lg);
+      border-bottom: none;
+    }
+
+    @media (min-width: 768px) {
+      .nav-inner {
+        padding: 0 var(--margin-desktop);
+      }
+
+      .nav-links {
+        display: flex;
+      }
+
+      .nav-cta {
+        display: flex;
+      }
+
+      .mobile-menu-btn,
+      .mobile-drawer {
+        display: none;
+      }
+    }
+
+    /* ==========================================================================
+   Hero
+   ========================================================================== */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 130px var(--margin-mobile) 60px;
+      max-width: var(--container-max);
+      margin: 0 auto;
+      isolation: isolate;
+    }
+
+    .hero .blob-1 {
+      width: 420px;
+      height: 420px;
+      top: -140px;
+      left: -140px;
+    }
+
+    .hero .blob-2 {
+      width: 360px;
+      height: 360px;
+      bottom: -160px;
+      right: -100px;
+      opacity: 0.5;
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .hero-copy {
+      text-align: left;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 16px;
+      background: var(--green-tint-10);
+      color: var(--color-secondary);
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      border-radius: var(--radius-full);
+      margin-bottom: 22px;
+    }
+
+    .badge .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--color-secondary);
+      box-shadow: 0 0 10px var(--green-tint-25);
+    }
+
+    .hero-title {
+      font-size: 30px;
+      font-weight: 800;
+      color: var(--color-primary);
+      line-height: 1.22;
+      margin-bottom: 22px;
+    }
+
+    .hero-accent {
+      color: var(--color-secondary);
+    }
+
+    .typewriter::after {
+      content: '|';
+      animation: blink 0.7s infinite;
+    }
+
+    @keyframes blink {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0;
+      }
+    }
+
+    .hero-text {
+      font-size: 15px;
+      color: var(--color-on-surface-variant);
+      max-width: 34rem;
+      margin-bottom: 30px;
+      line-height: 1.75;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      width: 100%;
+      margin-bottom: 40px;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .hero-stat strong {
+      display: block;
+      font-family: var(--font-data);
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--color-primary);
+    }
+
+    .hero-stat:nth-child(2) strong {
+      color: var(--color-secondary);
+    }
+
+    .hero-stat span {
+      display: block;
+      font-size: 12px;
+      color: var(--color-on-surface-variant);
+      margin-top: 3px;
+    }
+
+    /* Hero visual — floating glass cards, re-themed light */
+    .hero-media {
+      position: relative;
+      height: 380px;
+      perspective: 1500px;
+    }
+
+    .hero-frame {
+      position: absolute;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-deep);
+    }
+
+    .hero-frame-back {
+      top: 0;
+      right: 0;
+      width: 75%;
+      height: 75%;
+      max-height: 220px;
+    }
+
+    .staggered-frame {
+      position: relative;
+      z-index: 1;
+    }
+
+    .staggered-frame::before {
+      content: '';
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      right: -20px;
+      bottom: -20px;
+      border: 2px solid var(--color-secondary);
+      border-radius: var(--radius-xl);
+      z-index: -1;
+    }
+
+    .hero-frame-front {
+      bottom: 0;
+      left: 0;
+      width: 66.6667%;
+      height: 66.6667%;
+      max-height: 200px;
+      border: 4px solid #fff;
+      z-index: 10;
+    }
+
+    .hero-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .glass-card {
+      position: absolute;
+      border-radius: 18px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 16px 18px;
+      color: var(--color-primary);
+      box-shadow: var(--shadow-mid);
+      animation: floaty 7s ease-in-out infinite;
+      z-index: 20;
+      display: none;
+    }
+
+    .glass-card h4 {
+      font-size: 13.5px;
+      font-weight: 700;
+    }
+
+    .glass-card p {
+      color: var(--color-on-surface-variant);
+      font-size: 11.5px;
+      margin-top: 3px;
+    }
+
+    .glass-card .tag {
+      display: inline-block;
+      margin-top: 10px;
+      font-family: var(--font-data);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: var(--green-tint-14);
+      color: var(--color-on-secondary-container);
+    }
+
+    @keyframes floaty {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-14px);
+      }
+    }
+
+    @media (min-width: 768px) {
+      .hero {
+        padding: 150px var(--margin-desktop) 90px;
+      }
+
+      .hero-title {
+        font-size: 46px;
+      }
+
+      .hero-text {
+        font-size: 16px;
+      }
+
+      .hero-actions {
+        flex-direction: row;
+      }
+
+      .hero-media {
+        height: 480px;
+      }
+
+      .hero-frame-back,
+      .hero-frame-front {
+        max-height: none;
+      }
+
+      .glass-card {
+        display: block;
+        width: 168px;
+        top: 4%;
+        right: 2%;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .hero-inner {
+        grid-template-columns: 1fr 1fr;
+        gap: 70px;
+      }
+    }
+
+    /* ==========================================================================
+   Features
+   ========================================================================== */
+    .features {
+      padding: 60px var(--margin-mobile);
+      background: var(--color-surface-container-low);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .features .blob-1 {
+      width: 340px;
+      height: 340px;
+      top: -120px;
+      left: 30%;
+      opacity: 0.5;
+    }
+
+    .features-inner {
+      max-width: var(--container-max);
+      margin: 0 auto;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 22px;
+    }
+
+    .feature-card {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+      width: 100%;
+      background: #fff;
+      padding: 26px;
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(118, 118, 126, 0.18);
+      transition: box-shadow 0.35s ease, transform 0.35s ease;
+    }
+
+    .feature-card:hover {
+      box-shadow: var(--shadow-deep);
+      transform: translateY(-8px);
+    }
+
+    .feature-icon {
+      width: 50px;
+      height: 50px;
+      background: var(--navy-tint-05);
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .feature-icon .material-symbols-outlined {
+      font-size: 28px;
+    }
+
+    .feature-card:hover .feature-icon {
+      background: var(--grad-primary);
+      color: #fff;
+    }
+
+    .feature-title {
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--color-primary);
+      margin-bottom: 8px;
+    }
+
+    .feature-text {
+      font-size: 14px;
+      color: var(--color-on-surface-variant);
+    }
+
+    @media (min-width: 768px) {
+      .features {
+        padding: 90px var(--margin-desktop);
+      }
+
+      .feature-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+      }
+
+      .feature-card {
+        padding: 44px;
+      }
+    }
+
+    /* ==========================================================================
+   About + Principal (merged: bio card + quote + checklist)
+   ========================================================================== */
+    .about-section {
+      padding: 60px var(--margin-mobile);
+      max-width: var(--container-max);
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-section .blob-1 {
+      width: 380px;
+      height: 380px;
+      top: -80px;
+      right: -140px;
+      opacity: 0.5;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .about-portrait {
+      position: relative;
+      perspective: 1200px;
+    }
+
+    .portrait-frame {
+      border-radius: var(--radius-2xl);
+      background: var(--grad-navy);
+      box-shadow: var(--shadow-deep);
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      position: relative;
+      overflow: hidden;
+      transform: rotateY(-6deg) rotateX(2deg);
+      transition: transform 0.5s ease;
+      min-height: 320px;
+      justify-content: flex-end;
+    }
+
+    .about-portrait:hover .portrait-frame {
+      transform: rotateY(0deg) rotateX(0deg);
+    }
+
+    .portrait-frame::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 25% 15%, rgba(0, 168, 107, 0.35), transparent 55%);
+    }
+
+    .portrait-media {
+      position: relative;
+      z-index: 1;
+      margin: -32px -28px 8px;
+      height: 220px;
+      overflow: hidden;
+    }
+
+    .portrait-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+    }
+
+    .portrait-frame h4 {
+      color: #fff;
+      font-size: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .portrait-frame p {
+      color: rgba(255, 255, 255, 0.65);
+      font-size: 13px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .portrait-badge {
+      position: absolute;
+      bottom: -18px;
+      right: 24px;
+      background: #fff;
+      border-radius: 16px;
+      padding: 14px 18px;
+      box-shadow: var(--shadow-mid);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 2;
+    }
+
+    .portrait-badge strong {
+      display: block;
+      font-family: var(--font-data);
+      font-size: 20px;
+      color: var(--color-secondary);
+    }
+
+    .portrait-badge span {
+      font-size: 11px;
+      color: var(--color-on-surface-variant);
+    }
+
+    .about-copy p {
+      color: var(--color-on-surface-variant);
+      font-size: 15px;
+      line-height: 1.8;
+      margin-top: 16px;
+    }
+
+    .principal-quote {
+      position: relative;
+      font-size: 14px;
+      font-style: italic;
+      color: var(--color-on-surface-variant);
+      padding-left: 22px;
+      margin: 22px 0;
+      line-height: 1.75;
+    }
+
+    .quote-mark {
+      position: absolute;
+      top: -8px;
+      left: 0;
+      font-size: 30px;
+      color: var(--navy-tint-12);
+    }
+
+    .about-location {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-top: 24px;
+      padding: 16px 18px;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: var(--shadow-soft);
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+
+    .about-location:hover {
+      box-shadow: var(--shadow-mid);
+      transform: translateY(-3px);
+    }
+
+    .about-location .pin {
+      width: 38px;
+      height: 38px;
+      border-radius: 11px;
+      flex-shrink: 0;
+      background: var(--grad-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 18px;
+    }
+
+    .about-location strong {
+      display: block;
+      font-size: 14px;
+      color: var(--color-primary);
+    }
+
+    .about-location span {
+      font-size: 13px;
+      color: var(--color-on-surface-variant);
+    }
+
+    .about-points {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .about-point {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .about-point .check {
+      width: 24px;
+      height: 24px;
+      border-radius: 8px;
+      background: var(--green-tint-10);
+      color: var(--color-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      font-weight: 700;
+    }
+
+    .about-point span {
+      font-size: 14px;
+      color: var(--color-on-surface-variant);
+    }
+
+    @media (min-width: 768px) {
+      .about-section {
+        padding: 90px var(--margin-desktop);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .about-grid {
+        grid-template-columns: 0.85fr 1.15fr;
+        gap: 70px;
+      }
+
+      .about-points {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    /* ==========================================================================
+   Programs — 3D tilt cards
+   ========================================================================== */
+    .programs-section {
+      padding: 60px var(--margin-mobile);
+      background: var(--color-surface-container-low);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .programs-section .blob-1 {
+      width: 340px;
+      height: 340px;
+      bottom: -120px;
+      left: -100px;
+      opacity: 0.45;
+    }
+
+    .programs-inner {
+      max-width: var(--container-max);
+      margin: 0 auto;
+    }
+
+    .programs-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .tilt-card {
+      position: relative;
+      padding: 28px 24px;
+      border-radius: var(--radius-xl);
+      background: #fff;
+      border: 1px solid rgba(118, 118, 126, 0.18);
+      box-shadow: var(--shadow-soft);
+      transform-style: preserve-3d;
+      transition: transform 0.12s ease, box-shadow 0.3s ease;
+      overflow: hidden;
+    }
+
+    .tilt-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 50%), var(--green-tint-10), transparent 60%);
+    }
+
+    .tilt-card:hover::before {
+      opacity: 1;
+    }
+
+    .tilt-card:hover {
+      box-shadow: var(--shadow-deep);
+    }
+
+    .program-level {
+      display: inline-block;
+      font-family: var(--font-data);
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 999px;
+      margin-bottom: 16px;
+    }
+
+    .level-matric {
+      background: var(--navy-tint-08);
+      color: var(--color-primary);
+    }
+
+    .level-inter {
+      background: var(--green-tint-14);
+      color: var(--color-on-secondary-container);
+    }
+
+    .program-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      margin-bottom: 16px;
+      background: var(--grad-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 22px;
+      box-shadow: var(--shadow-green);
+      transform: translateZ(18px);
+    }
+
+    .tilt-card h3 {
+      font-size: 19px;
+      color: var(--color-primary);
+      transform: translateZ(12px);
+    }
+
+    .tilt-card p.desc {
+      color: var(--color-on-surface-variant);
+      font-size: 13.5px;
+      margin-top: 8px;
+      line-height: 1.6;
+      transform: translateZ(8px);
+    }
+
+    .program-meta {
+      display: flex;
+      gap: 8px;
+      margin-top: 18px;
+      flex-wrap: wrap;
+    }
+
+    .program-meta span {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--color-on-surface-variant);
+      background: var(--color-surface-container-low);
+      padding: 5px 10px;
+      border-radius: 8px;
+    }
+
+    @media (min-width: 768px) {
+      .programs-section {
+        padding: 90px var(--margin-desktop);
+      }
+
+      .programs-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 22px;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .programs-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    /* ==========================================================================
+   Transport banner
+   ========================================================================== */
+    .transport {
+      margin: 50px var(--margin-mobile);
+      max-width: var(--container-max);
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .transport-card {
+      position: relative;
+      background: var(--grad-navy);
+      border-radius: var(--radius-2xl);
+      overflow: hidden;
+    }
+
+    .transport-glow {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 168, 107, 0.14);
+      pointer-events: none;
+      transition: transform 0.7s ease;
+    }
+
+    .transport-card:hover .transport-glow {
+      transform: translateX(8%);
+    }
+
+    .transport-inner {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 22px;
+      padding: 32px 24px;
+    }
+
+    .transport-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .transport-icon-wrap {
+      display: none;
+      width: 62px;
+      height: 62px;
+      border-radius: var(--radius-full);
+      background: rgba(255, 255, 255, 0.1);
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .transport-icon {
+      font-size: 34px;
+      color: var(--color-secondary-fixed);
+    }
+
+    .transport-title {
+      font-size: 19px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .transport-text {
+      font-size: 13.5px;
+      color: rgba(255, 255, 255, 0.65);
+      max-width: 36rem;
+    }
+
+    .transport-btn {
+      width: 100%;
+      flex-shrink: 0;
+    }
+
+    @media (min-width: 768px) {
+      .transport {
+        margin: 90px var(--margin-desktop);
+      }
+
+      .transport-inner {
+        flex-direction: row;
+        align-items: center;
+        padding: 32px 48px;
+      }
+
+      .transport-icon-wrap {
+        display: flex;
+      }
+
+      .transport-btn {
+        width: auto;
+      }
+    }
+
+    /* ==========================================================================
+   Results — light re-skin of competitor's dark stats/podium
+   ========================================================================== */
+    .results-section {
+      padding: 60px var(--margin-mobile);
+      background: var(--color-primary);
+      position: relative;
+      overflow: hidden;
+      color: #fff;
+    }
+
+    .results-section .blob-1 {
+      width: 420px;
+      height: 420px;
+      top: -160px;
+      left: 8%;
+      opacity: 0.28;
+    }
+
+    .results-section .blob-2 {
+      width: 340px;
+      height: 340px;
+      bottom: -140px;
+      right: 6%;
+      opacity: 0.22;
+    }
+
+    .results-inner {
+      max-width: var(--container-max);
+      margin: 0 auto;
+    }
+
+    .results-section .eyebrow {
+      color: var(--color-secondary-fixed);
+    }
+
+    .results-section .section-title {
+      color: #fff;
+    }
+
+    .results-section .section-subtitle {
+      color: rgba(255, 255, 255, 0.62);
+    }
+
+    .year-tabs {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+      justify-content: center;
+    }
+
+    .year-tab {
+      padding: 9px 20px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.06);
+      color: rgba(255, 255, 255, 0.72);
+      font-family: var(--font-data);
+      font-size: 13px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .year-tab.active,
+    .year-tab:hover {
+      background: var(--grad-primary);
+      color: #fff;
+      border-color: transparent;
+      box-shadow: var(--shadow-green);
+    }
+
+    .results-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .result-card {
+      padding: 26px 18px;
+      border-radius: var(--radius-xl);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      text-align: center;
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .result-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-deep);
+    }
+
+    .result-card .big-num {
+      font-family: var(--font-data);
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--color-secondary-fixed);
+    }
+
+    .result-card .label {
+      display: block;
+      margin-top: 6px;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 12.5px;
+    }
+
+    .result-card .placeholder-note {
+      display: block;
+      margin-top: 10px;
+      font-size: 10.5px;
+      color: rgba(255, 255, 255, 0.32);
+      font-style: italic;
+    }
+
+    .podium-wrap {
+      margin-top: 56px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .podium {
+      display: flex;
+      align-items: flex-end;
+      gap: 14px;
+    }
+
+    .podium-step {
+      width: 140px;
+      border-radius: 16px 16px 0 0;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-bottom: none;
+      padding: 18px 12px;
+      text-align: center;
+      box-shadow: var(--shadow-mid);
+    }
+
+    .podium-step .medal-mini {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      margin: 0 auto 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-data);
+      font-weight: 700;
+      font-size: 15px;
+      color: #fff;
+      background: var(--grad-primary);
+    }
+
+    .podium-step h4 {
+      color: #fff;
+      font-size: 13px;
+    }
+
+    .podium-step span {
+      display: block;
+      color: rgba(255, 255, 255, 0.55);
+      font-size: 11px;
+      margin-top: 4px;
+    }
+
+    .podium-1 {
+      height: 176px;
+      order: 2;
+    }
+
+    .podium-2 {
+      height: 148px;
+      order: 1;
+    }
+
+    .podium-3 {
+      height: 126px;
+      order: 3;
+    }
+
+    @media (min-width: 768px) {
+      .results-section {
+        padding: 90px var(--margin-desktop);
+      }
+
+      .results-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .podium-step {
+        width: 168px;
+      }
+    }
+
+    /* ==========================================================================
+   Faculty
+   ========================================================================== */
+    .faculty-section {
+      padding: 60px var(--margin-mobile);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .faculty-section .blob-1 {
+      width: 360px;
+      height: 360px;
+      top: -100px;
+      right: -120px;
+      opacity: 0.45;
+    }
+
+    .faculty-inner {
+      max-width: var(--container-max);
+      margin: 0 auto;
+    }
+
+    .faculty-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .faculty-card {
+      border-radius: var(--radius-xl);
+      background: #fff;
+      border: 1px solid rgba(118, 118, 126, 0.18);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+      text-align: center;
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .faculty-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-deep);
+    }
+
+    .faculty-photo {
+      aspect-ratio: 1/0.95;
+      margin: 24px auto 0;
+      width: 108px;
+      border-radius: 50%;
+      background: var(--color-surface-container-low);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-on-surface-variant);
+      font-size: 12px;
+      font-weight: 600;
+      border: 2px dashed var(--green-tint-25);
+      position: relative;
+    }
+
+    .faculty-photo::before {
+      content: "📷";
+      font-size: 24px;
+      opacity: 0.45;
+      position: absolute;
+      top: 14px;
+    }
+
+    .faculty-photo span {
+      margin-top: 34px;
+      font-size: 10.5px;
+      text-align: center;
+      padding: 0 10px;
+    }
+
+    .faculty-body {
+      padding: 18px 18px 26px;
+    }
+
+    .faculty-name {
+      font-size: 15.5px;
+      font-weight: 700;
+      color: var(--color-primary);
+    }
+
+    .faculty-name.placeholder {
+      color: var(--color-on-surface-variant);
+      font-weight: 600;
+      font-style: italic;
+    }
+
+    .faculty-subject {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 999px;
+      background: var(--green-tint-10);
+      color: var(--color-on-secondary-container);
+    }
+
+    .faculty-exp {
+      margin-top: 10px;
+      font-size: 12px;
+      color: var(--color-on-surface-variant);
+    }
+
+    @media (min-width: 768px) {
+      .faculty-section {
+        padding: 90px var(--margin-desktop);
+      }
+
+      .faculty-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 22px;
+      }
+    }
+
+    /* ==========================================================================
+   Admission form (WhatsApp integration) — light glass card
+   ========================================================================== */
+    .admission-section {
+      padding: 60px var(--margin-mobile);
+      background: var(--color-surface-container-low);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .admission-section .blob-1 {
+      width: 360px;
+      height: 360px;
+      bottom: -140px;
+      left: -100px;
+      opacity: 0.5;
+    }
+
+    .admission-inner {
+      max-width: var(--container-max);
+      margin: 0 auto;
+    }
+
+    .admission-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .admission-copy p {
+      color: var(--color-on-surface-variant);
+      font-size: 15px;
+      line-height: 1.8;
+      margin-top: 16px;
+    }
+
+    .admission-steps {
+      margin-top: 26px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .admission-step {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .admission-step .num {
+      width: 30px;
+      height: 30px;
+      border-radius: 9px;
+      flex-shrink: 0;
+      background: var(--grad-primary);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-data);
+      font-weight: 700;
+      font-size: 12.5px;
+    }
+
+    .admission-step strong {
+      display: block;
+      color: var(--color-primary);
+      font-size: 14px;
+    }
+
+    .admission-step span {
+      font-size: 12.5px;
+      color: var(--color-on-surface-variant);
+    }
+
+    .admission-whatsapp {
+      margin-top: 26px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--color-on-surface-variant);
+      font-size: 13px;
+    }
+
+    .admission-whatsapp strong {
+      color: var(--color-primary);
+    }
+
+    .form-card {
+      background: #fff;
+      border: 1px solid rgba(118, 118, 126, 0.18);
+      border-radius: var(--radius-2xl);
+      padding: 32px;
+      box-shadow: var(--shadow-deep);
+      transform: perspective(1400px) rotateY(-2deg);
+      transition: transform 0.5s ease;
+    }
+
+    .form-card:hover {
+      transform: perspective(1400px) rotateY(0deg);
+    }
+
+    .form-card h3 {
+      font-size: 20px;
+      color: var(--color-primary);
+    }
+
+    .form-card .sub {
+      color: var(--color-on-surface-variant);
+      font-size: 13.5px;
+      margin-top: 6px;
+    }
+
+    .field {
+      margin-top: 20px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--color-on-surface);
+      margin-bottom: 8px;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      padding: 13px 15px;
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--color-outline-variant);
+      font-family: var(--font-family-base);
+      font-size: 14px;
+      color: var(--color-on-surface);
+      background: #fff;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: var(--color-secondary);
+      box-shadow: 0 0 0 4px var(--green-tint-10);
+      outline: none;
+    }
+
+    .field textarea {
+      resize: vertical;
+      min-height: 96px;
+    }
+
+    .form-note {
+      margin-top: 10px;
+      font-size: 11.5px;
+      color: var(--color-outline);
+    }
+
+    .form-submit {
+      margin-top: 24px;
+    }
+
+    .form-status {
+      margin-top: 12px;
+      font-size: 12.5px;
+      color: var(--color-secondary);
+      display: none;
+    }
+
+    .form-status.show {
+      display: block;
+    }
+
+    @media (min-width: 768px) {
+      .admission-section {
+        padding: 90px var(--margin-desktop);
+      }
+
+      .form-card {
+        padding: 40px;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .admission-grid {
+        grid-template-columns: 1fr 1.1fr;
+        gap: 60px;
+      }
+    }
+
+    /* ==========================================================================
+   CTA
+   ========================================================================== */
+    .cta {
+      background: var(--grad-navy);
+      color: #fff;
+      padding: 56px var(--margin-mobile);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta .blob-1 {
+      width: 360px;
+      height: 360px;
+      top: -140px;
+      left: 30%;
+      opacity: 0.25;
+    }
+
+    .cta-inner {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .cta-title {
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .cta-text {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.68);
+      max-width: 42rem;
+      margin: 0 auto 32px;
+    }
+
+    .cta-actions {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 16px;
+      width: 100%;
+    }
+
+    @media (min-width: 768px) {
+      .cta {
+        padding: 90px var(--margin-desktop);
+      }
+
+      .cta-title {
+        font-size: 40px;
+      }
+
+      .cta-text {
+        font-size: 16px;
+      }
+
+      .cta-actions {
+        flex-direction: row;
+        gap: 24px;
+      }
+    }
+
+    /* ==========================================================================
+   Modal
+   ========================================================================== */
+    .modal-overlay-wrap {
+      position: fixed;
+      inset: 0;
+      z-index: 1100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .modal-overlay-wrap.modal-open {
+      display: flex;
+    }
+
+    .modal-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(10, 17, 40, 0.45);
+      backdrop-filter: blur(4px);
+    }
+
+    .modal-card {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 28rem;
+      max-height: 90vh;
+      overflow-y: auto;
+      background: #fff;
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-deep);
+      padding: 24px;
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 22px;
+    }
+
+    .modal-title {
+      font-size: 19px;
+      font-weight: 800;
+      color: var(--color-primary);
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      color: var(--color-on-surface-variant);
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    .modal-close:hover {
+      color: var(--color-error);
+      transform: rotate(90deg);
+    }
+
+    .modal-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .modal-submit {
+      width: 100%;
+      margin-top: 22px;
+    }
+
+    @media (min-width: 768px) {
+      .modal-card {
+        padding: 44px;
+      }
+    }
+
+    /* ==========================================================================
+   Toast
+   ========================================================================== */
+    .toast-container {
+      position: fixed;
+      top: 92px;
+      right: 16px;
+      z-index: 1200;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .toast {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--grad-primary);
+      color: #fff;
+      padding: 12px 22px;
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-deep);
+      font-size: 13.5px;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .toast.toast-hide {
+      opacity: 0;
+      transform: translateX(110%);
+    }
+
+    @media (min-width: 768px) {
+      .toast-container {
+        right: 32px;
+      }
+    }
+
+    /* ==========================================================================
+   Footer
+   ========================================================================== */
+    .footer {
+      background: var(--color-primary);
+      color: var(--color-on-primary-container);
+      padding: 56px var(--margin-mobile) 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .footer .blob-1 {
+      width: 320px;
+      height: 320px;
+      top: -140px;
+      left: 25%;
+      opacity: 0.18;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 34px;
+      max-width: var(--container-max);
+      margin: 0 auto;
+      text-align: left;
+      padding-bottom: 36px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .footer-col {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .footer-logo-badge {
+      width: 38px;
+      height: 38px;
+      border-radius: 11px;
+      background: var(--grad-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-data);
+      font-weight: 700;
+      color: #fff;
+      font-size: 13px;
+    }
+
+    .footer-brand-name {
+      font-size: 18px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .footer-desc {
+      font-size: 13.5px;
+      opacity: 0.75;
+      line-height: 1.7;
+      max-width: 280px;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 12px;
+    }
+
+    .social-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .social-btn:hover {
+      background: var(--color-secondary);
+      border-color: var(--color-secondary);
+      transform: translateY(-3px);
+    }
+
+    .social-icon {
+      width: 15px;
+      height: 15px;
+      color: #fff;
+    }
+
+    .footer-heading {
+      color: #fff;
+      font-weight: 700;
+      font-size: 16.5px;
+      margin-bottom: 6px;
+    }
+
+    .footer-list {
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+      font-size: 13.5px;
+    }
+
+    .footer-link {
+      transition: color 0.3s ease, padding-left 0.3s ease;
+      opacity: 0.78;
+    }
+
+    .footer-link:hover {
+      color: var(--color-secondary-fixed);
+      padding-left: 4px;
+      opacity: 1;
+    }
+
+    .footer-list-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 11px;
+      opacity: 0.78;
+    }
+
+    .footer-icon {
+      font-size: 19px;
+      color: var(--color-secondary-fixed);
+      flex-shrink: 0;
+    }
+
+    .footer-bottom {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 22px var(--margin-mobile);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      text-align: center;
+      opacity: 0.55;
+      font-size: 11.5px;
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    @media (min-width: 768px) {
+      .footer {
+        padding: 90px var(--margin-desktop) 0;
+      }
+
+      .footer-grid {
+        gap: 24px;
+        padding-bottom: 60px;
+        grid-template-columns: 1.4fr 1fr 1fr 1.1fr;
+      }
+
+      .footer-bottom {
+        padding: 22px var(--margin-desktop);
+        margin-top: 12px;
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    }
+
+    /* Floating WhatsApp quick-contact button */
+    .wa-float {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 950;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: linear-gradient(150deg, #25D366, #1DA851);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 25px;
+      box-shadow: 0 16px 32px -8px rgba(29, 168, 81, 0.5);
+      animation: pulse-wa 2.6s ease-in-out infinite;
+      transition: transform 0.3s ease;
+    }
+
+    .wa-float:hover {
+      transform: scale(1.08);
+    }
+
+    @keyframes pulse-wa {
+
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.06);
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<!-- Toast Notification Container -->
-<div class="toast-container" id="toast-container"></div>
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
 
-<!-- Navigation -->
-<nav class="top-nav" id="top-nav">
-  <div class="nav-inner">
-    <div class="nav-brand">
-      <img alt="The Winners Academy Logo" class="nav-logo-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBiuTSyi6XmYUTVQqQNqsDjstOPBLBX2mRJc9H7nVqPFlzqwXHmb1UpE_sMCOermppvM2JnJPCxXty4AkzsFmSr1N7AKu99zCmNH20n1R0wOlbuXPc8l6GxVpOW_Jp26RbxWyTu08iePtlYXBqvsrvSJFluyYkvf7lATQw-JYimppxk3Z8xKgFfMHFjJY9kbEwiBncVUNKy1SwhdY8i9D4L0rQDd3MKzZpwWCwhGoj5M7n4vu7yOaDbhSm1XdqWYk-bUKeUOsg0PY8">
-      <span class="nav-brand-name">The Winners Academy</span>
+  <!-- ============================= NAVIGATION ============================= -->
+  <nav class="top-nav" id="top-nav">
+    <div class="nav-inner">
+      <a href="#home" class="nav-brand">
+        <div class="nav-logo-badge">WA</div>
+        <div class="nav-brand-text">
+          <span class="nav-brand-name">The Winners Academy</span>
+          <span class="nav-brand-sub">Matric &amp; Intermediate</span>
+        </div>
+      </a>
+
+      <div class="nav-links" id="mainNav">
+        <a class="nav-link nav-link-active" href="#home">Home</a>
+        <a class="nav-link" href="#about">About</a>
+        <a class="nav-link" href="#programs">Programs</a>
+        <a class="nav-link" href="#results">Results</a>
+        <a class="nav-link" href="#faculty">Faculty</a>
+        <a class="nav-link" href="#admission">Admission</a>
+      </div>
+
+      <div class="nav-cta">
+        <a class="btn-admin" href="login.html">Admin Portal</a>
+      </div>
+
+      <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle menu" aria-expanded="false">
+        <span class="material-symbols-outlined" id="mobile-menu-icon">menu</span>
+      </button>
     </div>
 
-    <div class="nav-links">
-      <a class="nav-link nav-link-active" href="#">Home</a>
-      <a class="nav-link" href="#">About Us</a>
-      <a class="nav-link" href="#">Admissions</a>
+    <!-- Mobile Drawer -->
+    <div class="mobile-drawer" id="mobile-drawer">
+      <a class="mobile-link mobile-link-active" href="#home">Home</a>
+      <a class="mobile-link" href="#about">About</a>
+      <a class="mobile-link" href="#programs">Programs</a>
+      <a class="mobile-link" href="#results">Results</a>
+      <a class="mobile-link" href="#faculty">Faculty</a>
+      <a class="mobile-link" href="#admission">Admission</a>
+      <a class="mobile-link mobile-link-cta" href="login.html">Admin Portal</a>
     </div>
+  </nav>
 
-    <a class="btn-admin" href="login.html">Admin Portal</a>
+  <main class="page-main">
 
-    <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle menu">
-      <span class="material-symbols-outlined" id="mobile-menu-icon">menu</span>
-    </button>
-  </div>
+    <!-- ============================= HERO ============================= -->
+    <section class="hero" id="home">
+      <div class="blob blob-green aurora-drift blob-1"></div>
+      <div class="blob blob-navy aurora-drift b2 blob-2"></div>
 
-  <!-- Mobile Drawer -->
-  <div class="mobile-drawer" id="mobile-drawer">
-    <a class="mobile-link mobile-link-active" href="#">Home</a>
-    <a class="mobile-link" href="#">About Us</a>
-    <a class="mobile-link" href="#">Admissions</a>
-    <a class="mobile-link mobile-link-cta" href="login.html">Admin Portal</a>
-  </div>
-</nav>
+      <div class="hero-inner">
+        <div class="hero-copy" data-aos="fade-up">
+          <span class="badge"><span class="dot"></span>ADMISSIONS OPEN — NEW SESSION</span>
+          <h1 class="hero-title">
+            Mastering Knowledge Through <br class="br-desktop">
+            <span class="hero-accent typewriter" id="typewriter">Concept-Based Learning.</span>
+          </h1>
+          <p class="hero-text">
+            We don't just teach students to memorize; we empower them to understand. Matriculation and Intermediate
+            coaching built on discipline, expert mentorship, and a genuine focus on results.
+          </p>
+          <div class="hero-actions">
+            <button class="btn btn-primary" id="inquire-btn" onclick="toggleInquiryModal()">
+              Inquire Now
+              <span class="material-symbols-outlined btn-icon">arrow_forward</span>
+            </button>
+            <a class="btn btn-outline" href="#admission">Admission Form</a>
+          </div>
+          <div class="hero-stats">
+            <div class="hero-stat"><strong>[X]+</strong><span>Years of Teaching</span></div>
+            <div class="hero-stat"><strong>[X]+</strong><span>Students Guided</span></div>
+            <div class="hero-stat"><strong>[X]%</strong><span>A+ / A Grade Rate</span></div>
+          </div>
+        </div>
 
-<main class="page-main">
+        <div class="hero-media" data-aos="fade-up" data-aos-delay="150">
+          <div class="hero-frame hero-frame-back staggered-frame">
+            <img class="hero-img" alt="Student studying with a laptop"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKejT2JWpzWkDYZ_fEwgE8iHhsJ465Oavnq3iJ66CkzrZvE6mN1FiigE9TZ3wMnktfDufqfoJVWG831yTeTd1D_oqUwjefov5CM7inL428hfsEUbW3YG5QFFwtCYeGEXl8n1ueNE1Rc9OC7Bi0iQZ3RNyBBCTEPo615X1tZpciJs-wWl_zVVjiKIaKTrcdWhH0ItqIUHkPxesEqq4NROBMkrMWey81cLCvfWgXvvQIjomxHmbfjQuF3LFvPR7LcoBty17oLr3xzik">
+          </div>
+          <div class="hero-frame hero-frame-front">
+            <img class="hero-img" alt="Smiling student in a school hallway holding an A+ paper"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBucrjKDFrVRoSJPudQdbgzG46UeNB-YBcNmmg_6ClPpdsCL6O7ciGdmM3IuR4QIbmSUWAtE6GrNA0fl-luEACo_7tF6_GF5tflX2jFoWIqme5g_Yi8yUMT2iOVHHBFxE0gMXvYePw9cRrV-fT2JWKthCCr5lQgaxys0dTOS5vDOegMnt46g7p-Z9ORAofZ7F-SQro5W2Mbgsr2imqEYoshI-AVyFSxNZinuWQbUrjDDsoD6yuCqfVccsYPoS6T4cpWVb7a1nIvlgo">
+          </div>
+          <div class="glass-card">
+            <h4>Sir Imtiaz Ahmad</h4>
+            <p>Principal &amp; Lead Mentor</p>
+            <span class="tag">Personally Supervised</span>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="hero-inner">
-      <div class="hero-copy reveal active">
-        <span class="badge">ACADEMIC EXCELLENCE</span>
-        <h1 class="hero-title">
-          Mastering Knowledge Through <br class="br-desktop">
-          <span class="hero-accent typewriter" id="typewriter">Concept-Based Learning.</span>
-        </h1>
-        <p class="hero-text">
-          We don't just teach students to memorize; we empower them to understand. Our unique approach builds a foundation for lifelong achievement and analytical thinking.
-        </p>
-        <div class="hero-actions">
-          <button class="btn btn-primary" id="inquire-btn" onclick="toggleInquiryModal()">
-            Inquire Now
-            <span class="material-symbols-outlined btn-icon">arrow_forward</span>
+    <!-- ============================= FEATURES ============================= -->
+    <section class="features">
+      <div class="blob blob-green blob-1"></div>
+      <div class="features-inner">
+        <div class="section-heading center" data-aos="fade-up">
+          <span class="eyebrow">Why Choose Us</span>
+          <h2 class="section-title">Why Choose The Winners Academy?</h2>
+          <p class="section-subtitle">Providing a world-class environment designed for focus, safety, and modern
+            technological integration.</p>
+        </div>
+
+        <div class="feature-grid">
+          <div class="feature-card" data-aos="fade-up" data-aos-delay="0">
+            <div class="feature-icon"><span class="material-symbols-outlined">ac_unit</span></div>
+            <h3 class="feature-title">Climate Controlled Learning</h3>
+            <p class="feature-text">Our fully AC Classrooms provide a comfortable environment that maximizes
+              concentration even in extreme weather conditions.</p>
+          </div>
+          <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="feature-icon"><span class="material-symbols-outlined">school</span></div>
+            <h3 class="feature-title">Expert Faculty</h3>
+            <p class="feature-text">Seasoned educators with decades of combined experience, dedicated to nurturing the
+              unique potential of every student.</p>
+          </div>
+          <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="feature-icon"><span class="material-symbols-outlined">computer</span></div>
+            <h3 class="feature-title">Digital Labs</h3>
+            <p class="feature-text">High-speed Multimedia Labs for interactive learning, coding, and preparing students
+              for a tech-driven future.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================= ABOUT / PRINCIPAL ============================= -->
+    <section class="about-section" id="about">
+      <div class="blob blob-green blob-1"></div>
+      <div class="about-grid">
+        <div class="about-portrait" data-aos="fade-right">
+          <div class="portrait-frame">
+            <div class="portrait-media">
+              <img alt="Sir Imtiaz, Principal"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYJYEEUBDY653f6M9WXFTw0UjPHj_yan2SaEu8wHW7ubJQFe3HpTLKLGi0ZilvL1lvPUx8k73Ey9V28xn8K_aRfH-S693rpmIWMHz3V9NoZIBWBcUNxrJifS_0eQpuyBTkCHTYznQOOY_Qyn_f4JdlXNSFeP7SMoyhGlUmpQLntG2-2IwVVX0gmGDEkSuyRbd6wMLQ553otSthuP_DWVVDfFZIzsU3MOfxiHqQTDMd2hQGNJRpn4QWOmnSQY8cMe53SV5BXhjqjPk">
+            </div>
+            <h4>Sir Imtiaz Ahmad</h4>
+            <p>Principal &amp; Visionary</p>
+            <div class="portrait-badge">
+              <strong>[X]+</strong>
+              <span>Years of<br>Experience</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-copy" data-aos="fade-left">
+          <span class="eyebrow">About The Academy</span>
+          <h2 class="section-title" style="margin-bottom:0;">Built on Discipline. Led by Experience.</h2>
+          <p>The Winners Academy was founded with one purpose — to give Matriculation and Intermediate students the
+            structured environment, expert guidance, and consistent practice they need to genuinely excel in their board
+            examinations. We don't just teach students to memorize; we empower them to understand.</p>
+
+          <blockquote class="principal-quote">
+            <span class="material-symbols-outlined quote-mark">format_quote</span>
+            "At The Winners Academy, we believe every child is a winner waiting to be discovered. We provide the tools,
+            the environment, and the guidance — our students provide the ambition."
+          </blockquote>
+
+          <div class="about-location">
+            <div class="pin">📍</div>
+            <div>
+              <strong>Our Campus</strong>
+              <span>Near Allah Wali Masjid, Mohalla Qaim Wala</span>
+            </div>
+          </div>
+
+          <div class="about-points">
+            <div class="about-point">
+              <div class="check">✓</div><span>Experienced, subject-specialist faculty</span>
+            </div>
+            <div class="about-point">
+              <div class="check">✓</div><span>Regular tests &amp; performance tracking</span>
+            </div>
+            <div class="about-point">
+              <div class="check">✓</div><span>Small batches, focused attention</span>
+            </div>
+            <div class="about-point">
+              <div class="check">✓</div><span>Strong board-exam track record</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================= PROGRAMS ============================= -->
+    <section class="programs-section" id="programs">
+      <div class="blob blob-navy blob-1"></div>
+      <div class="programs-inner">
+        <div class="section-heading center" data-aos="fade-up">
+          <span class="eyebrow">Classes We Offer</span>
+          <h2 class="section-title">Programs Built Around Board Success</h2>
+          <p class="section-subtitle">Structured coaching for every stage — from Matriculation foundations to
+            Intermediate specialization.</p>
+        </div>
+
+        <div class="programs-grid">
+          <div class="tilt-card" data-aos="fade-up" data-aos-delay="0">
+            <span class="program-level level-matric">Matriculation</span>
+            <div class="program-icon">📘</div>
+            <h3>9th Class</h3>
+            <p class="desc">Strong conceptual foundation across Science &amp; General group subjects to prepare for
+              board patterns early.</p>
+            <div class="program-meta"><span>All Groups</span><span>Board Pattern</span></div>
+          </div>
+
+          <div class="tilt-card" data-aos="fade-up" data-aos-delay="60">
+            <span class="program-level level-matric">Matriculation</span>
+            <div class="program-icon">📗</div>
+            <h3>10th Class</h3>
+            <p class="desc">Final-year intensive preparation with focused revision, past papers, and mock testing for
+              top results.</p>
+            <div class="program-meta"><span>All Groups</span><span>Final Year</span></div>
+          </div>
+
+          <div class="tilt-card" data-aos="fade-up" data-aos-delay="120">
+            <span class="program-level level-inter">Intermediate</span>
+            <div class="program-icon">🧪</div>
+            <h3>FSc (Pre-Medical / Pre-Engineering)</h3>
+            <p class="desc">In-depth coverage of Physics, Chemistry, Biology &amp; Mathematics for Part I and Part II
+              students.</p>
+            <div class="program-meta"><span>Part I &amp; II</span><span>Practical Focus</span></div>
+          </div>
+
+          <div class="tilt-card" data-aos="fade-up" data-aos-delay="180">
+            <span class="program-level level-inter">Intermediate</span>
+            <div class="program-icon">💻</div>
+            <h3>ICS</h3>
+            <p class="desc">Computer Science, Mathematics &amp; Physics taught with practical, exam-oriented problem
+              solving.</p>
+            <div class="program-meta"><span>Part I &amp; II</span><span>Computer Science</span></div>
+          </div>
+
+          <div class="tilt-card" data-aos="fade-up" data-aos-delay="240">
+            <span class="program-level level-inter">Intermediate</span>
+            <div class="program-icon">📚</div>
+            <h3>FA</h3>
+            <p class="desc">Arts &amp; Humanities subjects taught with strong emphasis on writing skills and concept
+              clarity.</p>
+            <div class="program-meta"><span>Part I &amp; II</span><span>Humanities</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================= TRANSPORT BANNER ============================= -->
+    <section class="transport" data-aos="fade-up">
+      <div class="transport-card">
+        <div class="transport-glow"></div>
+        <div class="transport-inner">
+          <div class="transport-left">
+            <div class="transport-icon-wrap"><span class="material-symbols-outlined transport-icon">commute</span></div>
+            <div>
+              <h3 class="transport-title">Premium Pick &amp; Drop Service</h3>
+              <p class="transport-text">Safety is our priority. Our managed transport system covers all major routes,
+                ensuring your child reaches home securely.</p>
+            </div>
+          </div>
+          <button class="btn btn-primary transport-btn"
+            onclick="alert('Route maps loading... Our fleet serves Zone A, B, and the Corporate Hub.')">
+            Check Routes
           </button>
-          <button class="btn btn-outline">Admission Form</button>
         </div>
       </div>
+    </section>
 
-      <div class="hero-media reveal active">
-        <div class="hero-frame hero-frame-back staggered-frame">
-          <img class="hero-img" alt="Student studying with a laptop" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKejT2JWpzWkDYZ_fEwgE8iHhsJ465Oavnq3iJ66CkzrZvE6mN1FiigE9TZ3wMnktfDufqfoJVWG831yTeTd1D_oqUwjefov5CM7inL428hfsEUbW3YG5QFFwtCYeGEXl8n1ueNE1Rc9OC7Bi0iQZ3RNyBBCTEPo615X1tZpciJs-wWl_zVVjiKIaKTrcdWhH0ItqIUHkPxesEqq4NROBMkrMWey81cLCvfWgXvvQIjomxHmbfjQuF3LFvPR7LcoBty17oLr3xzik">
-        </div>
-        <div class="hero-frame hero-frame-front">
-          <img class="hero-img" alt="Smiling student in a school hallway holding an A+ paper" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBucrjKDFrVRoSJPudQdbgzG46UeNB-YBcNmmg_6ClPpdsCL6O7ciGdmM3IuR4QIbmSUWAtE6GrNA0fl-luEACo_7tF6_GF5tflX2jFoWIqme5g_Yi8yUMT2iOVHHBFxE0gMXvYePw9cRrV-fT2JWKthCCr5lQgaxys0dTOS5vDOegMnt46g7p-Z9ORAofZ7F-SQro5W2Mbgsr2imqEYoshI-AVyFSxNZinuWQbUrjDDsoD6yuCqfVccsYPoS6T4cpWVb7a1nIvlgo">
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Features Section -->
-  <section class="features">
-    <div class="features-inner">
-      <div class="section-heading reveal active">
-        <h2 class="section-title">Why Choose The Winners Academy?</h2>
-        <p class="section-subtitle">Providing a world-class environment designed for focus, safety, and modern technological integration.</p>
-      </div>
-
-      <div class="feature-grid">
-        <div class="feature-card reveal active">
-          <div class="feature-icon">
-            <span class="material-symbols-outlined">ac_unit</span>
-          </div>
-          <h3 class="feature-title">Climate Controlled Learning</h3>
-          <p class="feature-text">Our fully AC Classrooms provide a comfortable environment that maximizes concentration even in extreme weather conditions.</p>
+    <!-- ============================= RESULTS ============================= -->
+    <section class="results-section" id="results">
+      <div class="blob blob-green blob-1"></div>
+      <div class="blob blob-green blob-2"></div>
+      <div class="results-inner">
+        <div class="section-heading center" data-aos="fade-up">
+          <span class="eyebrow">Our Track Record</span>
+          <h2 class="section-title">Previous 5 Years' Results</h2>
+          <p class="section-subtitle">A summary of our students' board examination performance. Replace the placeholders
+            below with your verified yearly data.</p>
         </div>
 
-        <div class="feature-card reveal active" style="transition-delay: 100ms;">
-          <div class="feature-icon">
-            <span class="material-symbols-outlined">school</span>
-          </div>
-          <h3 class="feature-title">Expert Faculty</h3>
-          <p class="feature-text">Seasoned educators with decades of combined experience, dedicated to nurturing the unique potential of every student.</p>
+        <div class="year-tabs" id="yearTabs" data-aos="fade-up">
+          <button class="year-tab active" data-year="2025">2025</button>
+          <button class="year-tab" data-year="2024">2024</button>
+          <button class="year-tab" data-year="2023">2023</button>
+          <button class="year-tab" data-year="2022">2022</button>
+          <button class="year-tab" data-year="2021">2021</button>
         </div>
 
-        <div class="feature-card reveal active" style="transition-delay: 200ms;">
-          <div class="feature-icon">
-            <span class="material-symbols-outlined">computer</span>
-          </div>
-          <h3 class="feature-title">Digital Labs</h3>
-          <p class="feature-text">High-speed Multimedia Labs for interactive learning, coding, and preparing students for a tech-driven future.</p>
+        <div class="results-grid" data-aos="fade-up">
+          <div class="result-card"><span class="big-num">[XX]</span><span class="label">Students Appeared</span><span
+              class="placeholder-note">Update with actual figure</span></div>
+          <div class="result-card"><span class="big-num">[XX]%</span><span class="label">A+ / A Grade
+              Achievers</span><span class="placeholder-note">Update with actual figure</span></div>
+          <div class="result-card"><span class="big-num">[XX]%</span><span class="label">Overall Pass Rate</span><span
+              class="placeholder-note">Update with actual figure</span></div>
+          <div class="result-card"><span class="big-num">[XX]</span><span class="label">Position Holders</span><span
+              class="placeholder-note">Update with actual figure</span></div>
         </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- Transport Banner -->
-  <section class="transport reveal active">
-    <div class="transport-card">
-      <div class="transport-glow"></div>
-      <div class="transport-inner">
-        <div class="transport-left">
-          <div class="transport-icon-wrap">
-            <span class="material-symbols-outlined transport-icon">commute</span>
-          </div>
-          <div>
-            <h3 class="transport-title">Premium Pick &amp; Drop Service</h3>
-            <p class="transport-text">Safety is our priority. Our managed transport system covers all major routes, ensuring your child reaches home securely.</p>
+        <div class="podium-wrap" data-aos="zoom-in">
+          <div class="podium">
+            <div class="podium-step podium-1">
+              <div class="medal-mini">1st</div>
+              <h4>[Student Name]</h4><span>[Marks / % — Class]</span>
+            </div>
+            <div class="podium-step podium-2">
+              <div class="medal-mini">2nd</div>
+              <h4>[Student Name]</h4><span>[Marks / % — Class]</span>
+            </div>
+            <div class="podium-step podium-3">
+              <div class="medal-mini">3rd</div>
+              <h4>[Student Name]</h4><span>[Marks / % — Class]</span>
+            </div>
           </div>
         </div>
-        <button class="btn btn-primary transport-btn" onclick="alert('Route maps loading... Our fleet serves Zone A, B, and the Corporate Hub.')">
-          Check Routes
-        </button>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Principal Section -->
-  <section class="principal reveal active">
-    <div class="principal-card">
-      <div class="principal-media">
-        <img alt="Sir Imtiaz, Principal" class="principal-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYJYEEUBDY653f6M9WXFTw0UjPHj_yan2SaEu8wHW7ubJQFe3HpTLKLGi0ZilvL1lvPUx8k73Ey9V28xn8K_aRfH-S693rpmIWMHz3V9NoZIBWBcUNxrJifS_0eQpuyBTkCHTYznQOOY_Qyn_f4JdlXNSFeP7SMoyhGlUmpQLntG2-2IwVVX0gmGDEkSuyRbd6wMLQ553otSthuP_DWVVDfFZIzsU3MOfxiHqQTDMd2hQGNJRpn4QWOmnSQY8cMe53SV5BXhjqjPk">
-      </div>
-      <div class="principal-content">
-        <div class="principal-rule"></div>
-        <h2 class="principal-name">Sir Imtiaz</h2>
-        <p class="principal-role">PRINCIPAL &amp; VISIONARY</p>
-        <blockquote class="principal-quote">
-          <span class="material-symbols-outlined quote-mark">format_quote</span>
-          "At The Winners Academy, we believe every child is a winner waiting to be discovered. Our mission is to move beyond the traditional rote-learning model and ignite a genuine passion for discovery. We provide the tools, the environment, and the guidance—our students provide the ambition."
-        </blockquote>
-        <div class="principal-signature">
-          <div class="signature-icon">
-            <span class="material-symbols-outlined">signature</span>
+    <!-- ============================= FACULTY ============================= -->
+    <section class="faculty-section" id="faculty">
+      <div class="blob blob-green blob-1"></div>
+      <div class="faculty-inner">
+        <div class="section-heading center" data-aos="fade-up">
+          <span class="eyebrow">Meet The Team</span>
+          <h2 class="section-title">Our Expert Faculty</h2>
+          <p class="section-subtitle">Subject-specialist teachers dedicated to helping every student reach their full
+            potential. Photos and details to be added.</p>
+        </div>
+
+        <div class="faculty-grid">
+          <div class="faculty-card" data-aos="fade-up" data-aos-delay="0">
+            <div class="faculty-photo"><span>Photo Placeholder</span></div>
+            <div class="faculty-body">
+              <div class="faculty-name">Sir Imtiaz Ahmad</div>
+              <div class="faculty-subject">Principal · Mentor</div>
+              <p class="faculty-exp">[X]+ years of teaching experience</p>
+            </div>
           </div>
-          Official Vision Statement 2024
+          <div class="faculty-card" data-aos="fade-up" data-aos-delay="60">
+            <div class="faculty-photo"><span>Photo Placeholder</span></div>
+            <div class="faculty-body">
+              <div class="faculty-name placeholder">[Teacher Name]</div>
+              <div class="faculty-subject">[Subject]</div>
+              <p class="faculty-exp">[X]+ years of teaching experience</p>
+            </div>
+          </div>
+          <div class="faculty-card" data-aos="fade-up" data-aos-delay="120">
+            <div class="faculty-photo"><span>Photo Placeholder</span></div>
+            <div class="faculty-body">
+              <div class="faculty-name placeholder">[Teacher Name]</div>
+              <div class="faculty-subject">[Subject]</div>
+              <p class="faculty-exp">[X]+ years of teaching experience</p>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- CTA Section -->
-  <section class="cta reveal active">
-    <div class="cta-inner">
-      <h2 class="cta-title">Join the Winners Circle Today</h2>
-      <p class="cta-text">Admissions are now open for the upcoming session. Secure your spot in the region's premier concept-based learning institution.</p>
-      <div class="cta-actions">
-        <button class="btn btn-primary" id="download-btn">Download Prospectus</button>
-        <button class="btn btn-ghost">Contact Us</button>
-      </div>
-    </div>
-  </section>
+    <!-- ============================= ADMISSION / WHATSAPP FORM ============================= -->
+    <section class="admission-section" id="admission">
+      <div class="blob blob-navy blob-1"></div>
+      <div class="admission-inner">
+        <div class="admission-grid">
+          <div class="admission-copy" data-aos="fade-right">
+            <span class="eyebrow">Admissions</span>
+            <h2 class="section-title" style="margin-bottom:0;">Apply in Under a Minute</h2>
+            <p>Fill in your details and hit submit — your admission enquiry will open directly in WhatsApp, pre-filled
+              and ready to send to Sir Imtiaz Ahmad.</p>
 
-</main>
+            <div class="admission-steps">
+              <div class="admission-step">
+                <div class="num">1</div>
+                <div><strong>Fill the form</strong><span>Name, class, and a short message</span></div>
+              </div>
+              <div class="admission-step">
+                <div class="num">2</div>
+                <div><strong>Tap Submit</strong><span>Your details are compiled automatically</span></div>
+              </div>
+              <div class="admission-step">
+                <div class="num">3</div>
+                <div><strong>Send on WhatsApp</strong><span>Chat opens instantly with Sir Imtiaz Ahmad</span></div>
+              </div>
+            </div>
 
-<!-- Inquiry Modal -->
-<div class="modal-overlay-wrap" id="inquiry-modal">
-  <div class="modal-overlay" onclick="toggleInquiryModal()"></div>
-  <div class="modal-card reveal active">
-    <div class="modal-header">
-      <h3 class="modal-title">Inquiry Form</h3>
-      <button class="modal-close material-symbols-outlined" onclick="toggleInquiryModal()">close</button>
+            <div class="admission-whatsapp">💬 Or message us directly at <strong>0302&nbsp;7189099</strong></div>
+          </div>
+
+          <div class="form-card" data-aos="fade-left" id="admissionFormCard">
+            <h3>Admission Enquiry Form</h3>
+            <p class="sub">All fields marked * are required.</p>
+
+            <form id="admissionForm">
+              <div class="field">
+                <label for="studentName">Full Name *</label>
+                <input type="text" id="studentName" name="studentName" placeholder="e.g. Ali Hassan" required>
+              </div>
+              <div class="field">
+                <label for="studentClass">Class Applying For *</label>
+                <select id="studentClass" name="studentClass" required>
+                  <option value="" disabled selected>Select a class</option>
+                  <option value="9th Class">9th Class (Matriculation)</option>
+                  <option value="10th Class">10th Class (Matriculation)</option>
+                  <option value="FSc">FSc (Intermediate)</option>
+                  <option value="ICS">ICS (Intermediate)</option>
+                  <option value="FA">FA (Intermediate)</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="studentMessage">Message (optional)</label>
+                <textarea id="studentMessage" name="studentMessage"
+                  placeholder="Any questions about admission, fees, or timing..."></textarea>
+              </div>
+              <div class="form-submit">
+                <button type="submit" class="btn btn-primary btn-lg btn-block">Submit &amp; Continue on WhatsApp
+                  →</button>
+              </div>
+              <p class="form-note">On submit, WhatsApp will open in a new tab with your details pre-filled — you just
+                tap send.</p>
+              <p class="form-status" id="formStatus">Redirecting you to WhatsApp…</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================= CTA ============================= -->
+    <section class="cta" data-aos="fade-up">
+      <div class="blob blob-green blob-1"></div>
+      <div class="cta-inner">
+        <h2 class="cta-title">Join the Winners Circle Today</h2>
+        <p class="cta-text">Admissions are now open for the upcoming session. Secure your spot in the region's premier
+          concept-based learning institution.</p>
+        <div class="cta-actions">
+          <button class="btn btn-primary" id="download-btn">Download Prospectus</button>
+          <a class="btn btn-ghost-dark" href="#admission">Apply Now</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Inquiry Modal -->
+  <div class="modal-overlay-wrap" id="inquiry-modal">
+    <div class="modal-overlay" onclick="toggleInquiryModal()"></div>
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">Inquiry Form</h3>
+        <button class="modal-close material-symbols-outlined" onclick="toggleInquiryModal()">close</button>
+      </div>
+      <form class="modal-form"
+        onsubmit="event.preventDefault(); showToast('Inquiry sent successfully! We will contact you shortly.')">
+        <div class="field">
+          <label for="modal-student-name">Student Name</label>
+          <input class="form-input" id="modal-student-name" placeholder="Enter name" type="text">
+        </div>
+        <div class="field">
+          <label for="modal-student-grade">Grade/Class</label>
+          <select class="form-input" id="modal-student-grade">
+            <option>Primary School</option>
+            <option>Middle School</option>
+            <option>O-Levels / Secondary</option>
+          </select>
+        </div>
+        <button class="btn btn-primary modal-submit" type="submit">Submit Inquiry</button>
+      </form>
     </div>
-    <form class="modal-form" onsubmit="event.preventDefault(); showToast('Inquiry sent successfully! We will contact you shortly.')">
-      <div class="form-group">
-        <label class="form-label" for="student-name">Student Name</label>
-        <input class="form-input" id="student-name" placeholder="Enter name" type="text">
-      </div>
-      <div class="form-group">
-        <label class="form-label" for="student-grade">Grade/Class</label>
-        <select class="form-input" id="student-grade">
-          <option>Primary School</option>
-          <option>Middle School</option>
-          <option>O-Levels / Secondary</option>
-        </select>
-      </div>
-      <button class="btn btn-primary modal-submit" type="submit">Submit Inquiry</button>
-    </form>
   </div>
-</div>
 
-<!-- Footer -->
-<footer class="footer">
-  <div class="footer-grid">
-    <div class="footer-col">
-      <div class="footer-brand">
-        <img alt="Logo" class="footer-logo-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBiuTSyi6XmYUTVQqQNqsDjstOPBLBX2mRJc9H7nVqPFlzqwXHmb1UpE_sMCOermppvM2JnJPCxXty4AkzsFmSr1N7AKu99zCmNH20n1R0wOlbuXPc8l6GxVpOW_Jp26RbxWyTu08iePtlYXBqvsrvSJFluyYkvf7lATQw-JYimppxk3Z8xKgFfMHFjJY9kbEwiBncVUNKy1SwhdY8i9D4L0rQDd3MKzZpwWCwhGoj5M7n4vu7yOaDbhSm1XdqWYk-bUKeUOsg0PY8">
-        <span class="footer-brand-name">The Winners Academy</span>
+  <!-- ============================= FOOTER ============================= -->
+  <footer class="footer" id="contact">
+    <div class="blob blob-green blob-1"></div>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-brand">
+          <div class="footer-logo-badge">WA</div>
+          <span class="footer-brand-name">The Winners Academy</span>
+        </div>
+        <p class="footer-desc">Empowering the next generation through conceptual excellence and modern pedagogy.
+          Coaching Matriculation and Intermediate students with discipline and genuine mentorship.</p>
+        <div class="footer-social">
+          <a class="social-btn" href="#" aria-label="Facebook">
+            <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.51 1.49-3.9 3.77-3.9 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.89h2.78l-.44 2.91h-2.34V22c4.78-.79 8.44-4.94 8.44-9.94Z" />
+            </svg>
+          </a>
+          <a class="social-btn" href="#" aria-label="Instagram">
+            <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M12 2c2.72 0 3.06.01 4.12.06 1.06.05 1.79.22 2.43.47.66.26 1.22.6 1.77 1.15.55.55.9 1.11 1.15 1.77.25.64.42 1.37.47 2.43.05 1.06.06 1.4.06 4.12s-.01 3.06-.06 4.12c-.05 1.06-.22 1.79-.47 2.43a4.9 4.9 0 0 1-1.15 1.77 4.9 4.9 0 0 1-1.77 1.15c-.64.25-1.37.42-2.43.47-1.06.05-1.4.06-4.12.06s-3.06-.01-4.12-.06c-1.06-.05-1.79-.22-2.43-.47a4.9 4.9 0 0 1-1.77-1.15 4.9 4.9 0 0 1-1.15-1.77c-.25-.64-.42-1.37-.47-2.43C2.01 15.06 2 14.72 2 12s.01-3.06.06-4.12c.05-1.06.22-1.79.47-2.43.26-.66.6-1.22 1.15-1.77A4.9 4.9 0 0 1 5.45.53c.64-.25 1.37-.42 2.43-.47C8.94 2.01 9.28 2 12 2Zm0 1.8c-2.67 0-2.99.01-4.04.06-.87.04-1.34.18-1.65.3-.42.16-.71.35-1.02.66-.31.31-.5.6-.66 1.02-.12.31-.26.78-.3 1.65C4.28 8.53 4.27 8.85 4.27 12s.01 3.47.06 4.51c.04.87.18 1.34.3 1.65.16.42.35.71.66 1.02.31.31.6.5 1.02.66.31.12.78.26 1.65.3 1.05.05 1.37.06 4.04.06s2.99-.01 4.04-.06c.87-.04 1.34-.18 1.65-.3.42-.16.71-.35 1.02-.66.31-.31.5-.6.66-1.02.12-.31.26-.78.3-1.65.05-1.04.06-1.36.06-4.51s-.01-3.47-.06-4.51c-.04-.87-.18-1.34-.3-1.65a2.75 2.75 0 0 0-.66-1.02 2.75 2.75 0 0 0-1.02-.66c-.31-.12-.78-.26-1.65-.3C14.99 3.81 14.67 3.8 12 3.8Zm0 3.06a5.14 5.14 0 1 1 0 10.28 5.14 5.14 0 0 1 0-10.28Zm0 1.8a3.34 3.34 0 1 0 0 6.68 3.34 3.34 0 0 0 0-6.68Zm5.35-1.99a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0Z" />
+            </svg>
+          </a>
+          <a class="social-btn" href="https://wa.me/923027189099" target="_blank" rel="noopener" aria-label="WhatsApp">
+            <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.3-.4.1-.2 0-.3 0-.5s-.7-1.6-.9-2.2c-.2-.5-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4 0 1.4 1 2.8 1.2 3 .1.2 2.1 3.1 5 4.4.7.3 1.2.5 1.7.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 2-1.4.2-.7.2-1.3.1-1.4-.1-.1-.2-.2-.5-.3ZM12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.6 1.4 5.1L2 22l5.1-1.3C8.5 21.6 10.2 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2Zm0 18c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20Z" />
+            </svg>
+          </a>
+        </div>
       </div>
-      <p class="footer-desc">Empowering the next generation through conceptual excellence and modern pedagogy since 2010.</p>
-      <div class="footer-social">
-        <a class="social-btn" href="#" aria-label="Facebook">
-          <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.51 1.49-3.9 3.77-3.9 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.89h2.78l-.44 2.91h-2.34V22c4.78-.79 8.44-4.94 8.44-9.94Z"/></svg>
-        </a>
-        <a class="social-btn" href="#" aria-label="LinkedIn">
-          <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M20.45 20.45h-3.56v-5.58c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.15 1.45-2.15 2.94v5.68H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45Z"/></svg>
-        </a>
-        <a class="social-btn" href="#" aria-label="Instagram">
-          <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2c2.72 0 3.06.01 4.12.06 1.06.05 1.79.22 2.43.47.66.26 1.22.6 1.77 1.15.55.55.9 1.11 1.15 1.77.25.64.42 1.37.47 2.43.05 1.06.06 1.4.06 4.12s-.01 3.06-.06 4.12c-.05 1.06-.22 1.79-.47 2.43a4.9 4.9 0 0 1-1.15 1.77 4.9 4.9 0 0 1-1.77 1.15c-.64.25-1.37.42-2.43.47-1.06.05-1.4.06-4.12.06s-3.06-.01-4.12-.06c-1.06-.05-1.79-.22-2.43-.47a4.9 4.9 0 0 1-1.77-1.15 4.9 4.9 0 0 1-1.15-1.77c-.25-.64-.42-1.37-.47-2.43C2.01 15.06 2 14.72 2 12s.01-3.06.06-4.12c.05-1.06.22-1.79.47-2.43.26-.66.6-1.22 1.15-1.77A4.9 4.9 0 0 1 5.45.53c.64-.25 1.37-.42 2.43-.47C8.94 2.01 9.28 2 12 2Zm0 1.8c-2.67 0-2.99.01-4.04.06-.87.04-1.34.18-1.65.3-.42.16-.71.35-1.02.66-.31.31-.5.6-.66 1.02-.12.31-.26.78-.3 1.65C4.28 8.53 4.27 8.85 4.27 12s.01 3.47.06 4.51c.04.87.18 1.34.3 1.65.16.42.35.71.66 1.02.31.31.6.5 1.02.66.31.12.78.26 1.65.3 1.05.05 1.37.06 4.04.06s2.99-.01 4.04-.06c.87-.04 1.34-.18 1.65-.3.42-.16.71-.35 1.02-.66.31-.31.5-.6.66-1.02.12-.31.26-.78.3-1.65.05-1.04.06-1.36.06-4.51s-.01-3.47-.06-4.51c-.04-.87-.18-1.34-.3-1.65a2.75 2.75 0 0 0-.66-1.02 2.75 2.75 0 0 0-1.02-.66c-.31-.12-.78-.26-1.65-.3C14.99 3.81 14.67 3.8 12 3.8Zm0 3.06a5.14 5.14 0 1 1 0 10.28 5.14 5.14 0 0 1 0-10.28Zm0 1.8a3.34 3.34 0 1 0 0 6.68 3.34 3.34 0 0 0 0-6.68Zm5.35-1.99a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0Z"/></svg>
-        </a>
+
+      <div class="footer-col">
+        <h4 class="footer-heading">Quick Links</h4>
+        <ul class="footer-list">
+          <li><a class="footer-link" href="#home">Home</a></li>
+          <li><a class="footer-link" href="#about">About Us</a></li>
+          <li><a class="footer-link" href="#programs">Programs</a></li>
+          <li><a class="footer-link" href="#results">Results</a></li>
+          <li><a class="footer-link" href="#faculty">Faculty</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-heading">Programs</h4>
+        <ul class="footer-list">
+          <li><a class="footer-link" href="#programs">9th Class</a></li>
+          <li><a class="footer-link" href="#programs">10th Class</a></li>
+          <li><a class="footer-link" href="#programs">FSc</a></li>
+          <li><a class="footer-link" href="#programs">ICS</a></li>
+          <li><a class="footer-link" href="#programs">FA</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-heading">Contact Info</h4>
+        <ul class="footer-list">
+          <li class="footer-list-item"><span class="material-symbols-outlined footer-icon">location_on</span>Near Allah
+            Wali Masjid, Mohalla Qaim Wala</li>
+          <li class="footer-list-item"><span class="material-symbols-outlined footer-icon">call</span>+92 0302 7189099
+          </li>
+          <li class="footer-list-item"><span
+              class="material-symbols-outlined footer-icon">mail</span>admissions@winners.edu</li>
+        </ul>
       </div>
     </div>
 
-    <div class="footer-col footer-col-links">
-      <h4 class="footer-heading">Quick Links</h4>
-      <ul class="footer-list">
-        <li><a class="footer-link" href="#">Home</a></li>
-        <li><a class="footer-link" href="#">About Us</a></li>
-        <li><a class="footer-link" href="#">Contact Us</a></li>
-        <li><a class="footer-link" href="#">Privacy Policy</a></li>
-      </ul>
+    <div class="footer-bottom">
+      <span>&copy; <span id="year"></span> The Winners Academy. All rights reserved.</span>
+      <span>Designed for a future of results, not shortcuts.</span>
     </div>
+  </footer>
 
-    <div class="footer-col">
-      <h4 class="footer-heading">Contact Info</h4>
-      <ul class="footer-list">
-        <li class="footer-list-item">
-          <span class="material-symbols-outlined footer-icon">location_on</span>
-          123 Academic Drive, Excellence Zone
-        </li>
-        <li class="footer-list-item">
-          <span class="material-symbols-outlined footer-icon">call</span>
-          +92 0302 7189099
-        </li>
-        <li class="footer-list-item">
-          <span class="material-symbols-outlined footer-icon">mail</span>
-          admissions@winners.edu
-        </li>
-      </ul>
-    </div>
-  </div>
+  <!-- Floating WhatsApp quick-contact button -->
+  <a class="wa-float"
+    href="https://wa.me/923027189099?text=Assalam-o-Alaikum%2C%20I%20would%20like%20to%20know%20more%20about%20admissions%20at%20The%20Winners%20Academy."
+    target="_blank" rel="noopener" aria-label="Chat on WhatsApp">💬</a>
 
-  <div class="footer-bottom">
-    &copy; 2026 The Winners Academy. All rights reserved.
-  </div>
-</footer>
+  <!-- AOS library script -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script>
+    /* ============================================================
+       THE WINNERS ACADEMY — CORE INTERACTIONS
+       ============================================================ */
 
-<script>
-  // Mobile Menu Toggle
-  const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-  const mobileMenuIcon = document.getElementById('mobile-menu-icon');
-  const mobileDrawer = document.getElementById('mobile-drawer');
-  const mobileLinks = document.querySelectorAll('.mobile-link');
+    // ---- Init AOS (Animate On Scroll) ----
+    AOS.init({ duration: 700, easing: 'ease-out-cubic', once: true, offset: 60 });
 
-  function toggleMenu() {
-    const isOpen = mobileDrawer.classList.toggle('drawer-open');
-    mobileMenuIcon.textContent = isOpen ? 'close' : 'menu';
-  }
+    // ---- Mobile menu toggle ----
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenuIcon = document.getElementById('mobile-menu-icon');
+    const mobileDrawer = document.getElementById('mobile-drawer');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
 
-  if (mobileMenuBtn) {
-    mobileMenuBtn.addEventListener('click', toggleMenu);
-  }
-
-  mobileLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      if (mobileDrawer.classList.contains('drawer-open')) {
-        toggleMenu();
-      }
+    function toggleMenu() {
+      const isOpen = mobileDrawer.classList.toggle('drawer-open');
+      mobileMenuIcon.textContent = isOpen ? 'close' : 'menu';
+      mobileMenuBtn.setAttribute('aria-expanded', isOpen);
+    }
+    if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', toggleMenu);
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        if (mobileDrawer.classList.contains('drawer-open')) toggleMenu();
+      });
     });
-  });
 
-  // Typewriter Effect
-  const textElement = document.getElementById('typewriter');
-  const phrases = ["Concept-Based Learning.", "Creative Problem Solving.", "Future Leaders.", "Academic Excellence."];
-  let phraseIndex = 0;
-  let charIndex = 0;
-  let isDeleting = false;
-  let typingSpeed = 100;
+    // ---- Typewriter effect ----
+    const textElement = document.getElementById('typewriter');
+    const phrases = ["Concept-Based Learning.", "Creative Problem Solving.", "Future Leaders.", "Academic Excellence."];
+    let phraseIndex = 0, charIndex = 0, isDeleting = false, typingSpeed = 100;
 
-  function type() {
-    const currentPhrase = phrases[phraseIndex];
-    if (isDeleting) {
-      textElement.textContent = currentPhrase.substring(0, charIndex - 1);
-      charIndex--;
-      typingSpeed = 50;
-    } else {
-      textElement.textContent = currentPhrase.substring(0, charIndex + 1);
-      charIndex++;
-      typingSpeed = 100;
+    function type() {
+      const currentPhrase = phrases[phraseIndex];
+      if (isDeleting) {
+        textElement.textContent = currentPhrase.substring(0, charIndex - 1);
+        charIndex--; typingSpeed = 50;
+      } else {
+        textElement.textContent = currentPhrase.substring(0, charIndex + 1);
+        charIndex++; typingSpeed = 100;
+      }
+      if (!isDeleting && charIndex === currentPhrase.length) { isDeleting = true; typingSpeed = 2000; }
+      else if (isDeleting && charIndex === 0) { isDeleting = false; phraseIndex = (phraseIndex + 1) % phrases.length; typingSpeed = 500; }
+      setTimeout(type, typingSpeed);
     }
 
-    if (!isDeleting && charIndex === currentPhrase.length) {
-      isDeleting = true;
-      typingSpeed = 2000;
-    } else if (isDeleting && charIndex === 0) {
-      isDeleting = false;
-      phraseIndex = (phraseIndex + 1) % phrases.length;
-      typingSpeed = 500;
-    }
-
-    setTimeout(type, typingSpeed);
-  }
-
-  // Scroll reveal animation
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-  };
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('active');
-      }
-    });
-  }, observerOptions);
-
-  // Navbar scroll effect
-  window.addEventListener('scroll', () => {
+    // ---- Navbar scroll state + active link scroll-spy ----
     const nav = document.getElementById('top-nav');
-    if (window.scrollY > 50) {
-      nav.classList.add('scrolled');
-    } else {
-      nav.classList.remove('scrolled');
+    const navSections = ['home', 'about', 'programs', 'results', 'faculty', 'admission'];
+
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 50);
+
+      let current = navSections[0];
+      for (const id of navSections) {
+        const el = document.getElementById(id);
+        if (el && window.scrollY >= el.offsetTop - 140) current = id;
+      }
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.toggle('nav-link-active', link.getAttribute('href') === `#${current}`);
+      });
+    });
+
+    // ---- Toast Notification System ----
+    function showToast(message) {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.innerHTML = `<span class="material-symbols-outlined">check_circle</span><span class="toast-msg">${message}</span>`;
+      container.appendChild(toast);
+      setTimeout(() => { toast.classList.add('toast-hide'); setTimeout(() => toast.remove(), 500); }, 4000);
+      const modal = document.getElementById('inquiry-modal');
+      if (modal.classList.contains('modal-open')) toggleInquiryModal();
     }
-  });
 
-  // Toast Notification System
-  function showToast(message) {
-    const container = document.getElementById('toast-container');
-    const toast = document.createElement('div');
-    toast.className = 'toast';
-    toast.innerHTML = `
-      <span class="material-symbols-outlined">check_circle</span>
-      <span class="toast-msg">${message}</span>
-    `;
-    container.appendChild(toast);
+    // ---- Inquiry Modal Toggle ----
+    function toggleInquiryModal() {
+      document.getElementById('inquiry-modal').classList.toggle('modal-open');
+    }
 
-    setTimeout(() => {
-      toast.classList.add('toast-hide');
-      setTimeout(() => toast.remove(), 500);
-    }, 4000);
+    // ---- Prospectus Download Interaction ----
+    document.getElementById('download-btn').addEventListener('click', () => {
+      showToast('Prospectus download started! Check your downloads folder.');
+    });
 
-    const modal = document.getElementById('inquiry-modal');
-    if (modal.classList.contains('modal-open')) toggleInquiryModal();
-  }
+    // ---- 3D tilt effect for program cards (mouse-follow glow + rotation) ----
+    document.querySelectorAll('.tilt-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left, y = e.clientY - rect.top;
+        const centerX = rect.width / 2, centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -5;
+        const rotateY = ((x - centerX) / centerX) * 5;
+        card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+        card.style.setProperty('--mx', `${x}px`);
+        card.style.setProperty('--my', `${y}px`);
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) translateY(0)';
+      });
+    });
 
-  // Inquiry Modal Toggle
-  function toggleInquiryModal() {
-    const modal = document.getElementById('inquiry-modal');
-    modal.classList.toggle('modal-open');
-  }
+    // ---- Results year tabs (visual state only — wire up real data later) ----
+    document.querySelectorAll('.year-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.year-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        // NOTE: When real yearly data is available, swap the numbers in
+        // .results-grid based on tab.dataset.year here.
+      });
+    });
 
-  // Prospectus Download Interaction
-  document.getElementById('download-btn').addEventListener('click', () => {
-    showToast('Prospectus download started! Check your downloads folder.');
-  });
+    // ---- Footer year ----
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-  // Initialize
-  document.addEventListener('DOMContentLoaded', () => {
-    type();
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-  });
-</script>
+    // ---- Admission form -> WhatsApp redirect ----
+    const WHATSAPP_NUMBER = '923027189099'; // Sir Imtiaz Ahmad — country code 92 + 3027189099
+    const admissionForm = document.getElementById('admissionForm');
+    const formStatus = document.getElementById('formStatus');
+
+    admissionForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const name = document.getElementById('studentName').value.trim();
+      const studentClass = document.getElementById('studentClass').value;
+      const message = document.getElementById('studentMessage').value.trim();
+
+      if (!name || !studentClass) {
+        formStatus.textContent = 'Please fill in your name and select a class.';
+        formStatus.style.color = '#ba1a1a';
+        formStatus.classList.add('show');
+        return;
+      }
+
+      const lines = [
+        'Assalam-o-Alaikum, I would like to apply for admission at The Winners Academy.',
+        '', `Name: ${name}`, `Class: ${studentClass}`
+      ];
+      if (message) lines.push(`Message: ${message}`);
+
+      const whatsappURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(lines.join('\n'))}`;
+
+      formStatus.textContent = 'Redirecting you to WhatsApp…';
+      formStatus.style.color = '#00A86B';
+      formStatus.classList.add('show');
+
+      const newTab = window.open(whatsappURL, '_blank');
+      if (!newTab) window.location.href = whatsappURL;
+
+      admissionForm.reset();
+    });
+
+    // ---- Initialize ----
+    document.addEventListener('DOMContentLoaded', () => { type(); });
+  </script>
 
 </body>
+
 </html>

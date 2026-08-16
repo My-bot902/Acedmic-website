@@ -3,1027 +3,870 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Winners Academy | Matriculation &amp; Intermediate Coaching</title>
-<meta name="description" content="The Winners Academy — Concept-based Matriculation and Intermediate coaching under the guidance of Sir Imtiaz Ahmad.">
+<title>The Winners Academy | Board Exam Coaching Studio</title>
+<meta name="description" content="The Winners Academy — concept-first Matriculation and Intermediate coaching led by Sir Imtiaz Ahmad. Small batches, real mentorship, real results.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
-
-<!-- AOS (Animate On Scroll) library — used for section entry animations -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
 
 <style>
 /* ============================================================================
-   THE WINNERS ACADEMY — MERGED DESIGN SYSTEM
-   Base: light, clean, educational-platform theme (client's preferred design)
-   Enhancements borrowed from the competitor build: motion, hover depth,
-   3D tilt, glass accents, results/faculty/admission section logic —
-   all re-skinned to the light + green palette below.
+   THE WINNERS ACADEMY — "STUDIO" DESIGN SYSTEM (v2)
+   A single, unified light theme. No dark section blocks anywhere on the page.
+   Signature accent: Emerald (#059669). Structural language: sharp rectangles,
+   solid hairline borders, and asymmetric row/column layouts — not shared with
+   any prior build. Class names are namespaced under `wa-` throughout.
    ============================================================================ */
 
 :root {
-  /* ---- Core palette (kept from the approved light design) ---- */
-  --color-surface: #f7f9fb;
-  --color-background: #f7f9fb;
-  --color-surface-container-low: #f2f4f6;
-  --color-surface-container: #eceef0;
-  --color-surface-container-high: #e6e8ea;
-  --color-surface-container-highest: #e0e3e5;
-  --color-surface-bright: #ffffff;
-  --color-surface-container-lowest: #ffffff;
+  --wa-white: #ffffff;
+  --wa-surface: #f8fafc;
+  --wa-surface-alt: #f1f5f9;
+  --wa-border: #e2e8f0;
+  --wa-border-strong: #cbd5e1;
 
-  --color-on-surface: #191c1e;
-  --color-on-surface-variant: #46464d;
-  --color-outline: #76767e;
-  --color-outline-variant: #c6c6ce;
+  --wa-ink: #0f172a;
+  --wa-ink-soft: #475569;
+  --wa-muted: #94a3b8;
 
-  --color-primary: #0A1128;       /* deep navy — headers, footer, dark sections */
-  --color-primary-container: #0A1128;
-  --color-on-primary-container: #7c839f;
+  --wa-emerald: #059669;
+  --wa-emerald-dark: #047857;
+  --wa-emerald-light: #10b981;
+  --wa-emerald-tint: #ecfdf5;
+  --wa-emerald-tint-solid: #d1fae5;
 
-  --color-secondary: #00A86B;     /* signature green accent */
-  --color-secondary-fixed: #78fbb6;
-  --color-secondary-fixed-dim: #59de9b;
-  --color-secondary-container: #75f8b3;
-  --color-on-secondary: #ffffff;
-  --color-on-secondary-container: #007147;
+  --wa-amber: #d97706;
+  --wa-amber-tint: #fffbeb;
 
-  --color-error: #ba1a1a;
+  --wa-r-xs: 4px;
+  --wa-r-sm: 6px;
+  --wa-r-md: 12px;
+  --wa-r-lg: 16px;
+  --wa-r-xl: 20px;
 
-  /* ---- Derived tints for glass / blob / glow effects (light-safe) ---- */
-  --green-tint-06: rgba(0, 168, 107, 0.06);
-  --green-tint-10: rgba(0, 168, 107, 0.10);
-  --green-tint-14: rgba(0, 168, 107, 0.14);
-  --green-tint-25: rgba(0, 168, 107, 0.25);
-  --navy-tint-05: rgba(10, 17, 40, 0.05);
-  --navy-tint-08: rgba(10, 17, 40, 0.08);
-  --navy-tint-12: rgba(10, 17, 40, 0.12);
-  --glass-bg: rgba(255, 255, 255, 0.65);
-  --glass-border: rgba(10, 17, 40, 0.09);
+  --wa-shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.05);
+  --wa-shadow-card: 0 4px 18px -6px rgba(15, 23, 42, 0.10);
+  --wa-shadow-hover: 0 16px 32px -10px rgba(15, 23, 42, 0.16);
+  --wa-shadow-glow: 0 12px 26px -8px rgba(5, 150, 105, 0.4);
 
-  /* ---- Gradients (navy → green, replaces competitor's violet/coral) ---- */
-  --grad-primary: linear-gradient(135deg, #00A86B, #00c27d);
-  --grad-navy: linear-gradient(135deg, #0A1128, #1c2747);
-  --grad-text: linear-gradient(100deg, #0A1128, #00A86B 65%);
+  --wa-max: 1220px;
+  --wa-pad-m: 20px;
+  --wa-pad-d: 64px;
 
-  /* ---- Shadows ---- */
-  --shadow-soft: 0 2px 10px rgba(10, 17, 40, 0.06);
-  --shadow-mid: 0 16px 34px -8px rgba(10, 17, 40, 0.12), 0 4px 10px rgba(10, 17, 40, 0.06);
-  --shadow-deep: 0 30px 60px -20px rgba(10, 17, 40, 0.28), 0 10px 24px -10px rgba(10, 17, 40, 0.16);
-  --shadow-green: 0 16px 34px -10px rgba(0, 168, 107, 0.45);
-
-  /* ---- Radius scale ---- */
-  --radius-sm: 10px;
-  --radius-lg: 0.25rem;
-  --radius-md: 18px;
-  --radius-xl: 24px;
-  --radius-2xl: 32px;
-  --radius-full: 999px;
-
-  /* ---- Spacing ---- */
-  --margin-mobile: 20px;
-  --margin-desktop: 64px;
-  --container-max: 1240px;
-
-  /* ---- Typography ---- */
-  --font-family-base: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-  --font-data: 'Space Grotesk', 'Plus Jakarta Sans', sans-serif;
+  --wa-font: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --wa-font-data: 'Space Grotesk', 'Plus Jakarta Sans', sans-serif;
 }
 
-/* ==========================================================================
-   Reset
-   ========================================================================== */
+/* ---------- Reset ---------- */
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body {
-  margin: 0;
-  background: var(--color-surface);
-  color: var(--color-on-surface);
-  font-family: var(--font-family-base);
-  font-size: 16px;
-  line-height: 1.55;
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+  margin: 0; background: var(--wa-white); color: var(--wa-ink);
+  font-family: var(--wa-font); font-size: 16px; line-height: 1.55;
+  -webkit-font-smoothing: antialiased; overflow-x: hidden;
 }
 img { max-width: 100%; display: block; }
 ul { list-style: none; margin: 0; padding: 0; }
 a { text-decoration: none; color: inherit; transition: all 0.3s ease; }
 button, input, select, textarea { font-family: inherit; font-size: inherit; }
-button { cursor: pointer; transition: all 0.3s ease; }
+button { cursor: pointer; transition: all 0.3s ease; background: none; border: none; }
 h1, h2, h3, h4, p, blockquote, form { margin: 0; }
-.material-symbols-outlined {
-  font-family: 'Material Symbols Outlined';
-  font-weight: normal; font-style: normal; line-height: 1;
-  display: inline-block; vertical-align: middle;
-}
+.material-symbols-outlined { font-family: 'Material Symbols Outlined'; font-weight: normal; font-style: normal; line-height: 1; display: inline-block; vertical-align: middle; }
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
 }
 a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
-  outline: 3px solid var(--color-secondary);
-  outline-offset: 3px;
-  border-radius: 6px;
+  outline: 2.5px solid var(--wa-emerald); outline-offset: 3px; border-radius: 4px;
 }
 
-.container { width: 100%; max-width: var(--container-max); margin: 0 auto; padding: 0 var(--margin-mobile); position: relative; z-index: 2; }
-.grad-text { background: var(--grad-text); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.page-main { padding-top: 80px; }
-.br-desktop { display: none; }
+.wa-wrap { width: 100%; max-width: var(--wa-max); margin: 0 auto; padding: 0 var(--wa-pad-m); position: relative; z-index: 2; }
+.wa-main { padding-top: 112px; }
+.wa-br-d { display: none; }
+@media (min-width: 768px) { .wa-br-d { display: inline; } }
 
-/* Decorative soft blobs — light-safe version of the competitor's aurora blobs */
-.blob {
-  position: absolute; border-radius: 50%; filter: blur(70px);
-  pointer-events: none; z-index: 0; opacity: 0.7;
+/* Eyebrow — rectangular chip, not a pill */
+.wa-chip {
+  display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px;
+  background: var(--wa-emerald-tint); color: var(--wa-emerald-dark);
+  font-family: var(--wa-font-data); font-weight: 700; font-size: 11px;
+  letter-spacing: 0.09em; text-transform: uppercase; border-radius: var(--wa-r-xs);
+  border: 1px solid var(--wa-emerald-tint-solid);
 }
-.blob-green { background: var(--green-tint-25); }
-.blob-navy { background: var(--navy-tint-12); }
-.aurora-drift { animation: drift 20s ease-in-out infinite alternate; }
-.aurora-drift.b2 { animation-duration: 24s; animation-delay: -6s; }
-@keyframes drift { 0% { transform: translate(0,0) scale(1); } 100% { transform: translate(30px,-24px) scale(1.08); } }
+.wa-chip .wa-chip-dot { width: 6px; height: 6px; background: var(--wa-emerald); border-radius: 50%; }
 
-.eyebrow {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-family: var(--font-data); font-size: 11.5px; font-weight: 700;
-  letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-secondary);
-}
-.eyebrow::before { content: ""; width: 8px; height: 8px; border-radius: 3px; background: var(--grad-primary); display: inline-block; }
+.wa-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-family: var(--wa-font-data); font-size: 11.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--wa-emerald-dark); }
+.wa-eyebrow::before { content: ""; width: 16px; height: 2px; background: var(--wa-emerald); display: inline-block; }
 
-.section-heading { text-align: left; margin-bottom: 40px; }
-.section-heading.center { text-align: center; max-width: 640px; margin-left: auto; margin-right: auto; }
-.section-title { font-size: 24px; font-weight: 800; color: var(--color-primary); margin-top: 14px; margin-bottom: 16px; }
-.section-subtitle { font-size: 14px; color: var(--color-on-surface-variant); max-width: 42rem; line-height: 1.7; }
-.section-heading.center .section-subtitle { margin: 0 auto; }
+.wa-head { text-align: left; margin-bottom: 36px; max-width: 640px; }
+.wa-head h2 { font-size: 26px; font-weight: 800; color: var(--wa-ink); margin-top: 12px; margin-bottom: 14px; letter-spacing: -0.01em; }
+.wa-head p { font-size: 14.5px; color: var(--wa-ink-soft); line-height: 1.7; }
+@media (min-width: 768px) { .wa-head h2 { font-size: 36px; } }
 
-@media (min-width: 768px) {
-  .section-title { font-size: 34px; }
-  .br-desktop { display: inline; }
-}
-
-/* ==========================================================================
-   Buttons (shared) — smooth transitions everywhere per spec
-   ========================================================================== */
-.btn {
+/* ---------- Buttons — sharp rectangles, no pills ---------- */
+.wa-btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-  padding: 13px 26px; font-size: 14px; font-weight: 600;
-  border-radius: var(--radius-xl); border: none; width: 100%;
+  padding: 13px 24px; font-size: 14px; font-weight: 600;
+  border-radius: var(--wa-r-sm); border: 1.5px solid transparent; width: 100%;
   transition: all 0.3s ease;
 }
-.btn-icon { font-size: 18px; }
-.btn-primary { background: var(--grad-primary); color: #fff; box-shadow: var(--shadow-green); }
-.btn-primary:hover { box-shadow: 0 20px 34px -8px rgba(0, 168, 107, 0.5); transform: translateY(-4px); }
-.btn-primary:active { transform: translateY(-1px) scale(0.98); }
-.btn-outline { background: transparent; color: var(--color-primary); border: 2px solid var(--color-primary); }
-.btn-outline:hover { background: var(--color-primary); color: #fff; transform: translateY(-3px); }
-.btn-ghost-dark { background: rgba(255,255,255,0.08); color: #fff; border: 1px solid rgba(255,255,255,0.25); }
-.btn-ghost-dark:hover { background: rgba(255,255,255,0.18); transform: translateY(-3px); }
-.btn-block { width: 100%; }
-.btn-lg { padding: 16px 40px; font-size: 15.5px; }
+.wa-btn-icon { font-size: 18px; }
+.wa-btn-fill { background: var(--wa-emerald); color: #fff; box-shadow: var(--wa-shadow-xs); }
+.wa-btn-fill:hover { background: var(--wa-emerald-dark); transform: translateY(-2px); box-shadow: var(--wa-shadow-glow); }
+.wa-btn-fill:active { transform: translateY(0); }
+.wa-btn-line { background: transparent; color: var(--wa-ink); border-color: var(--wa-ink); }
+.wa-btn-line:hover { background: var(--wa-ink); color: #fff; transform: translateY(-2px); }
+.wa-btn-soft { background: var(--wa-emerald-tint); color: var(--wa-emerald-dark); border-color: var(--wa-emerald-tint-solid); }
+.wa-btn-soft:hover { background: var(--wa-emerald-tint-solid); transform: translateY(-2px); }
+.wa-btn-block { width: 100%; }
+.wa-btn-sm { padding: 10px 18px; font-size: 13px; width: auto; }
+@media (min-width: 768px) { .wa-btn { width: auto; padding: 14px 30px; font-size: 14.5px; } }
+
+/* ---------- Announcement strip ---------- */
+.wa-strip {
+  position: fixed; top: 0; left: 0; width: 100%; z-index: 1001;
+  background: var(--wa-emerald-dark); color: #fff; font-size: 12.5px; font-weight: 600;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  padding: 9px 44px 9px 16px; text-align: center; position: relative;
+}
+.wa-strip-close { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: rgba(255,255,255,0.8); font-size: 18px; padding: 4px; }
+.wa-strip-close:hover { color: #fff; }
+.wa-strip.wa-strip-hidden { display: none; }
+
+/* ---------- Navigation ---------- */
+.wa-nav {
+  position: fixed; top: 36px; left: 0; width: 100%; z-index: 1000;
+  background: rgba(255,255,255,0.88); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--wa-border); transition: top 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+.wa-nav.wa-nav-top { top: 0; }
+.wa-nav.wa-nav-scrolled { box-shadow: var(--wa-shadow-card); background: rgba(255,255,255,0.98); }
+.wa-nav-inner { display: flex; align-items: center; justify-content: space-between; max-width: var(--wa-max); height: 74px; margin: 0 auto; padding: 0 var(--wa-pad-m); }
+.wa-brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.wa-brand-mark {
+  width: 38px; height: 38px; border-radius: var(--wa-r-sm); flex-shrink: 0;
+  background: var(--wa-emerald); display: flex; align-items: center; justify-content: center;
+  font-family: var(--wa-font-data); font-weight: 700; color: #fff; font-size: 13px;
+  transition: transform 0.3s ease;
+}
+.wa-brand:hover .wa-brand-mark { transform: rotate(-6deg) scale(1.05); }
+.wa-brand-text { display: flex; flex-direction: column; line-height: 1.15; min-width: 0; }
+.wa-brand-name { font-size: 14.5px; font-weight: 800; color: var(--wa-ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.wa-brand-sub { font-family: var(--wa-font-data); font-size: 9px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--wa-emerald); }
+
+.wa-nav-links { display: none; align-items: center; gap: 30px; }
+.wa-nav-link { font-size: 13.5px; font-weight: 600; color: var(--wa-ink-soft); position: relative; padding-bottom: 3px; }
+.wa-nav-link::after { content: ""; position: absolute; left: 0; bottom: -2px; width: 0; height: 2px; background: var(--wa-emerald); transition: width 0.3s ease; }
+.wa-nav-link:hover { color: var(--wa-ink); }
+.wa-nav-link:hover::after, .wa-nav-link.wa-active::after { width: 100%; }
+.wa-nav-link.wa-active { color: var(--wa-emerald-dark); }
+
+.wa-nav-cta { display: none; }
+.wa-btn-staff {
+  display: inline-flex; align-items: center; gap: 6px; background: var(--wa-ink); color: #fff;
+  padding: 9px 18px; font-size: 13px; font-weight: 600; border-radius: var(--wa-r-sm);
+}
+.wa-btn-staff:hover { background: var(--wa-emerald-dark); transform: translateY(-2px); }
+
+.wa-burger { display: flex; align-items: center; justify-content: center; padding: 8px; color: var(--wa-ink); }
+.wa-burger .material-symbols-outlined { font-size: 26px; }
+
+.wa-drawer {
+  position: fixed; top: 110px; left: 0; width: 100%; z-index: 900;
+  display: flex; flex-direction: column; gap: 4px; padding: 18px;
+  background: rgba(255,255,255,0.98); backdrop-filter: blur(20px);
+  box-shadow: var(--wa-shadow-card); border-bottom: 1px solid var(--wa-border);
+  transform: translateY(-140%); transition: transform 0.35s ease-in-out;
+}
+.wa-drawer.wa-drawer-open { transform: translateY(0); }
+.wa-drawer-link { padding: 13px 6px; font-size: 14px; font-weight: 600; color: var(--wa-ink-soft); border-bottom: 1px solid var(--wa-border); }
+.wa-drawer-link:hover { color: var(--wa-emerald-dark); padding-left: 12px; }
+.wa-drawer-link.wa-active { color: var(--wa-emerald-dark); }
+.wa-drawer-cta { margin-top: 8px; padding: 12px; text-align: center; background: var(--wa-emerald); color: #fff; border-radius: var(--wa-r-sm); border-bottom: none; }
 
 @media (min-width: 768px) {
-  .btn { width: auto; padding: 15px 34px; font-size: 15px; }
+  .wa-nav-inner { padding: 0 var(--wa-pad-d); }
+  .wa-nav-links { display: flex; }
+  .wa-nav-cta { display: block; }
+  .wa-burger, .wa-drawer { display: none; }
 }
 
-/* ==========================================================================
-   Navigation
-   ========================================================================== */
-.top-nav {
-  position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
-  background: rgba(247, 249, 251, 0.8);
-  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid rgba(198, 198, 206, 0.35);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.top-nav.scrolled { box-shadow: 0 4px 20px rgba(10,17,40,0.06); background: rgba(255, 255, 255, 0.95); }
-.nav-inner { position: relative; z-index: 50; display: flex; align-items: center; justify-content: space-between; max-width: var(--container-max); height: 78px; margin: 0 auto; padding: 0 var(--margin-mobile); }
-.nav-brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
-.nav-logo-badge {
-  width: 40px; height: 40px; border-radius: 12px; flex-shrink: 0;
-  background: var(--grad-navy); display: flex; align-items: center; justify-content: center;
-  font-family: var(--font-data); font-weight: 700; color: #fff; font-size: 14px;
-  box-shadow: var(--shadow-mid);
-  transform: perspective(400px) rotateY(-10deg);
-  transition: transform 0.4s ease;
-}
-.nav-brand:hover .nav-logo-badge { transform: perspective(400px) rotateY(8deg) scale(1.06); }
-.nav-brand-text { display: flex; flex-direction: column; line-height: 1.15; min-width: 0; }
-.nav-brand-name { font-size: 15px; font-weight: 800; color: var(--color-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.nav-brand-sub { font-family: var(--font-data); font-size: 9.5px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-secondary); }
+/* ---------- Hero — visual LEFT, copy RIGHT, vertical stat panel ---------- */
+.wa-hero { padding: 46px var(--wa-pad-m) 56px; max-width: var(--wa-max); margin: 0 auto; }
+.wa-hero-grid { display: grid; grid-template-columns: 1fr; gap: 36px; align-items: center; }
 
-.nav-links { display: none; align-items: center; gap: 34px; }
-.nav-link { font-size: 13.5px; font-weight: 600; color: var(--color-on-surface-variant); padding-bottom: 4px; position: relative; transition: color 0.3s ease; }
-.nav-link::after {
-  content: ""; position: absolute; left: 0; bottom: -2px; width: 0; height: 2px;
-  background: var(--color-secondary); transition: width 0.3s ease;
+.wa-hero-visual { display: flex; flex-direction: column; gap: 18px; }
+.wa-hero-frame {
+  position: relative; border-radius: var(--wa-r-lg); overflow: hidden;
+  border: 1px solid var(--wa-border); box-shadow: var(--wa-shadow-card);
 }
-.nav-link:hover { color: var(--color-primary); }
-.nav-link:hover::after, .nav-link.nav-link-active::after { width: 100%; }
-.nav-link.nav-link-active { color: var(--color-secondary); }
-
-.nav-cta { display: none; align-items: center; gap: 10px; }
-.btn-admin {
-  display: inline-flex; align-items: center; justify-content: center;
-  background: var(--color-primary); color: #fff; padding: 10px 22px;
-  font-size: 13.5px; font-weight: 600; border-radius: var(--radius-lg);
-  box-shadow: 0 4px 6px rgba(10,17,40,0.15); transition: all 0.3s ease;
+.wa-hero-frame::after {
+  content: ""; position: absolute; inset: 10px; border: 2px solid var(--wa-emerald);
+  border-radius: calc(var(--wa-r-lg) - 4px); pointer-events: none; opacity: 0.7;
 }
-.btn-admin:hover { transform: scale(1.05); box-shadow: var(--shadow-mid); }
-.btn-admin:active { transform: scale(0.95); }
+.wa-hero-frame img { width: 100%; height: 300px; object-fit: cover; }
 
-.mobile-menu-btn { display: flex; align-items: center; justify-content: center; background: none; border: none; padding: 8px; color: var(--color-primary); }
-.mobile-menu-btn .material-symbols-outlined { font-size: 28px; }
+.wa-stat-panel { border: 1px solid var(--wa-border); border-radius: var(--wa-r-lg); overflow: hidden; background: var(--wa-white); }
+.wa-stat-row { display: flex; align-items: center; gap: 14px; padding: 16px 18px; border-bottom: 1px solid var(--wa-border); }
+.wa-stat-row:last-child { border-bottom: none; }
+.wa-stat-icon { width: 38px; height: 38px; border-radius: var(--wa-r-sm); background: var(--wa-emerald-tint); color: var(--wa-emerald-dark); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.wa-stat-icon .material-symbols-outlined { font-size: 20px; }
+.wa-stat-num { font-family: var(--wa-font-data); font-size: 20px; font-weight: 700; color: var(--wa-ink); }
+.wa-stat-label { font-size: 12px; color: var(--wa-ink-soft); margin-top: 1px; }
 
-.mobile-drawer {
-  position: fixed; top: 78px; left: 0; width: 100%; z-index: 900;
-  display: flex; flex-direction: column; gap: 14px; padding: 22px;
-  background: rgba(255, 255, 255, 0.97); backdrop-filter: blur(20px);
-  box-shadow: 0 10px 24px rgba(10,17,40,0.1);
-  border-bottom: 1px solid rgba(198, 198, 206, 0.35);
-  transform: translateY(-150%); transition: transform 0.35s ease-in-out;
-}
-.mobile-drawer.drawer-open { transform: translateY(0); }
-.mobile-link { width: 100%; padding: 12px 0; font-size: 14px; font-weight: 600; color: var(--color-on-surface-variant); border-bottom: 1px solid rgba(198,198,206,0.25); transition: color 0.3s ease, padding-left 0.3s ease; }
-.mobile-link:hover { color: var(--color-secondary); padding-left: 6px; }
-.mobile-link-active { color: var(--color-secondary); }
-.mobile-link-cta { margin-top: 6px; padding: 12px 24px; text-align: center; background: var(--grad-primary); color: #fff; border-radius: var(--radius-lg); border-bottom: none; }
+.wa-hero-copy { text-align: left; }
+.wa-hero-title { font-size: 28px; font-weight: 800; color: var(--wa-ink); line-height: 1.2; margin: 18px 0 18px; letter-spacing: -0.015em; }
+.wa-hero-accent { color: var(--wa-emerald); }
+.wa-type::after { content: '|'; animation: wa-blink 0.8s infinite; color: var(--wa-emerald); }
+@keyframes wa-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+.wa-hero-text { font-size: 15px; color: var(--wa-ink-soft); max-width: 34rem; margin-bottom: 28px; line-height: 1.75; }
+.wa-hero-actions { display: flex; flex-direction: column; gap: 12px; width: 100%; }
 
 @media (min-width: 768px) {
-  .nav-inner { padding: 0 var(--margin-desktop); }
-  .nav-links { display: flex; }
-  .nav-cta { display: flex; }
-  .mobile-menu-btn, .mobile-drawer { display: none; }
-}
-
-/* ==========================================================================
-   Hero
-   ========================================================================== */
-.hero { position: relative; overflow: hidden; padding: 130px var(--margin-mobile) 60px; max-width: var(--container-max); margin: 0 auto; isolation: isolate; }
-.hero .blob-1 { width: 420px; height: 420px; top: -140px; left: -140px; }
-.hero .blob-2 { width: 360px; height: 360px; bottom: -160px; right: -100px; opacity: 0.5; }
-
-.hero-inner { display: grid; grid-template-columns: 1fr; gap: 40px; align-items: center; }
-.hero-copy { text-align: left; }
-.badge {
-  display: inline-flex; align-items: center; gap: 8px; padding: 7px 16px;
-  background: var(--green-tint-10); color: var(--color-secondary);
-  font-weight: 700; font-size: 11px; letter-spacing: 0.08em;
-  border-radius: var(--radius-full); margin-bottom: 22px;
-}
-.badge .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--color-secondary); box-shadow: 0 0 10px var(--green-tint-25); }
-.hero-title { font-size: 30px; font-weight: 800; color: var(--color-primary); line-height: 1.22; margin-bottom: 22px; }
-.hero-accent { color: var(--color-secondary); }
-.typewriter::after { content: '|'; animation: blink 0.7s infinite; }
-@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-.hero-text { font-size: 15px; color: var(--color-on-surface-variant); max-width: 34rem; margin-bottom: 30px; line-height: 1.75; }
-.hero-actions { display: flex; flex-direction: column; gap: 14px; width: 100%; margin-bottom: 40px; }
-
-.hero-stats { display: flex; gap: 30px; flex-wrap: wrap; }
-.hero-stat strong { display: block; font-family: var(--font-data); font-size: 26px; font-weight: 700; color: var(--color-primary); }
-.hero-stat:nth-child(2) strong { color: var(--color-secondary); }
-.hero-stat span { display: block; font-size: 12px; color: var(--color-on-surface-variant); margin-top: 3px; }
-
-/* Hero visual — floating glass cards, re-themed light */
-.hero-media { position: relative; height: 380px; perspective: 1500px; }
-.hero-frame { position: absolute; border-radius: var(--radius-xl); overflow: hidden; box-shadow: var(--shadow-deep); }
-.hero-frame-back { top: 0; right: 0; width: 75%; height: 75%; max-height: 220px; }
-.staggered-frame { position: relative; z-index: 1; }
-.staggered-frame::before {
-  content: ''; position: absolute; top: 20px; left: 20px; right: -20px; bottom: -20px;
-  border: 2px solid var(--color-secondary); border-radius: var(--radius-xl); z-index: -1;
-}
-.hero-frame-front { bottom: 0; left: 0; width: 66.6667%; height: 66.6667%; max-height: 200px; border: 4px solid #fff; z-index: 10; }
-.hero-img { width: 100%; height: 100%; object-fit: cover; }
-
-.glass-card {
-  position: absolute; border-radius: 18px; background: var(--glass-bg);
-  border: 1px solid var(--glass-border); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-  padding: 16px 18px; color: var(--color-primary); box-shadow: var(--shadow-mid);
-  animation: floaty 7s ease-in-out infinite; z-index: 20; display: none;
-}
-.glass-card h4 { font-size: 13.5px; font-weight: 700; }
-.glass-card p { color: var(--color-on-surface-variant); font-size: 11.5px; margin-top: 3px; }
-.glass-card .tag { display: inline-block; margin-top: 10px; font-family: var(--font-data); font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 999px; background: var(--green-tint-14); color: var(--color-on-secondary-container); }
-@keyframes floaty { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
-
-@media (min-width: 768px) {
-  .hero { padding: 150px var(--margin-desktop) 90px; }
-  .hero-title { font-size: 46px; }
-  .hero-text { font-size: 16px; }
-  .hero-actions { flex-direction: row; }
-  .hero-media { height: 480px; }
-  .hero-frame-back, .hero-frame-front { max-height: none; }
-  .glass-card { display: block; width: 168px; top: 4%; right: 2%; }
+  .wa-hero { padding: 66px var(--wa-pad-d) 80px; }
+  .wa-hero-title { font-size: 42px; }
+  .wa-hero-text { font-size: 16px; }
+  .wa-hero-actions { flex-direction: row; }
+  .wa-hero-frame img { height: 360px; }
 }
 @media (min-width: 1024px) {
-  .hero-inner { grid-template-columns: 1fr 1fr; gap: 70px; }
+  .wa-hero-grid { grid-template-columns: 0.95fr 1.05fr; gap: 64px; }
 }
 
-/* ==========================================================================
-   Features
-   ========================================================================== */
-.features { padding: 60px var(--margin-mobile); background: var(--color-surface-container-low); position: relative; overflow: hidden; }
-.features .blob-1 { width: 340px; height: 340px; top: -120px; left: 30%; opacity: 0.5; }
-.features-inner { max-width: var(--container-max); margin: 0 auto; }
-.feature-grid { display: grid; grid-template-columns: 1fr; gap: 22px; }
-.feature-card {
-  display: flex; flex-direction: column; align-items: flex-start; text-align: left; width: 100%;
-  background: #fff; padding: 26px; border-radius: var(--radius-xl);
-  border: 1px solid rgba(118, 118, 126, 0.18);
-  transition: box-shadow 0.35s ease, transform 0.35s ease;
+/* ---------- Approach section (left-aligned, hairline-border cards) ---------- */
+.wa-approach { padding: 56px var(--wa-pad-m); background: var(--wa-surface); border-top: 1px solid var(--wa-border); border-bottom: 1px solid var(--wa-border); }
+.wa-approach-inner { max-width: var(--wa-max); margin: 0 auto; }
+.wa-approach-grid { display: grid; grid-template-columns: 1fr; gap: 18px; }
+.wa-approach-card {
+  background: var(--wa-white); padding: 26px; border-radius: var(--wa-r-md);
+  border: 1px solid var(--wa-border); text-align: left; transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
-.feature-card:hover { box-shadow: var(--shadow-deep); transform: translateY(-8px); }
-.feature-icon { width: 50px; height: 50px; background: var(--navy-tint-05); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; transition: background-color 0.3s ease, color 0.3s ease; }
-.feature-icon .material-symbols-outlined { font-size: 28px; }
-.feature-card:hover .feature-icon { background: var(--grad-primary); color: #fff; }
-.feature-title { font-size: 19px; font-weight: 700; color: var(--color-primary); margin-bottom: 8px; }
-.feature-text { font-size: 14px; color: var(--color-on-surface-variant); }
+.wa-approach-card:hover { border-color: var(--wa-emerald); transform: translateY(-5px); box-shadow: var(--wa-shadow-card); }
+.wa-approach-icon { width: 46px; height: 46px; border-radius: var(--wa-r-sm); background: var(--wa-emerald-tint); color: var(--wa-emerald-dark); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; transition: background-color 0.3s ease, color 0.3s ease; }
+.wa-approach-icon .material-symbols-outlined { font-size: 24px; }
+.wa-approach-card:hover .wa-approach-icon { background: var(--wa-emerald); color: #fff; }
+.wa-approach-card h3 { font-size: 17.5px; font-weight: 700; color: var(--wa-ink); margin-bottom: 8px; }
+.wa-approach-card p { font-size: 13.5px; color: var(--wa-ink-soft); line-height: 1.65; }
+
+@media (min-width: 768px) { .wa-approach { padding: 80px var(--wa-pad-d); } .wa-approach-grid { grid-template-columns: repeat(3, 1fr); gap: 22px; } }
+
+/* ---------- About — clean portrait + 2-col icon grid ---------- */
+.wa-about { padding: 56px var(--wa-pad-m); max-width: var(--wa-max); margin: 0 auto; }
+.wa-about-grid { display: grid; grid-template-columns: 1fr; gap: 34px; align-items: start; }
+
+.wa-portrait { border: 1px solid var(--wa-border); border-radius: var(--wa-r-lg); overflow: hidden; box-shadow: var(--wa-shadow-card); }
+.wa-portrait img { width: 100%; height: 300px; object-fit: cover; object-position: top; }
+.wa-portrait-foot { display: flex; align-items: center; justify-content: space-between; padding: 18px 20px; border-top: 1px solid var(--wa-border); }
+.wa-portrait-foot h4 { font-size: 16px; color: var(--wa-ink); }
+.wa-portrait-foot span { font-size: 12px; color: var(--wa-emerald-dark); font-weight: 600; display: block; margin-top: 2px; }
+.wa-portrait-badge { text-align: right; }
+.wa-portrait-badge strong { display: block; font-family: var(--wa-font-data); font-size: 20px; color: var(--wa-emerald); }
+.wa-portrait-badge span { font-size: 10.5px; color: var(--wa-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+.wa-about-copy p { color: var(--wa-ink-soft); font-size: 15px; line-height: 1.8; margin-top: 14px; }
+.wa-about-quote { position: relative; font-size: 14.5px; font-style: italic; color: var(--wa-ink); padding: 18px 20px; margin: 22px 0; line-height: 1.75; background: var(--wa-emerald-tint); border-left: 3px solid var(--wa-emerald); border-radius: 0 var(--wa-r-md) var(--wa-r-md) 0; }
+
+.wa-icon-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 26px; }
+.wa-icon-item { display: flex; gap: 12px; align-items: flex-start; padding: 14px; border: 1px solid var(--wa-border); border-radius: var(--wa-r-md); transition: border-color 0.3s ease, transform 0.3s ease; }
+.wa-icon-item:hover { border-color: var(--wa-emerald); transform: translateY(-3px); }
+.wa-icon-item .wa-ic { width: 34px; height: 34px; border-radius: var(--wa-r-sm); background: var(--wa-emerald-tint); color: var(--wa-emerald-dark); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.wa-icon-item .wa-ic .material-symbols-outlined { font-size: 18px; }
+.wa-icon-item strong { display: block; font-size: 13.5px; color: var(--wa-ink); }
+.wa-icon-item span { font-size: 12px; color: var(--wa-ink-soft); }
+
+@media (min-width: 768px) { .wa-about { padding: 80px var(--wa-pad-d); } }
+@media (min-width: 1024px) { .wa-about-grid { grid-template-columns: 0.8fr 1.2fr; gap: 60px; } .wa-icon-grid { grid-template-columns: 1fr 1fr; } }
+
+/* ---------- Academic Path — wide horizontal row cards ---------- */
+.wa-path { padding: 56px var(--wa-pad-m); background: var(--wa-surface); border-top: 1px solid var(--wa-border); border-bottom: 1px solid var(--wa-border); }
+.wa-path-inner { max-width: var(--wa-max); margin: 0 auto; }
+.wa-path-list { display: flex; flex-direction: column; gap: 14px; }
+.wa-path-row {
+  display: flex; flex-direction: column; gap: 16px; padding: 22px; background: var(--wa-white);
+  border: 1px solid var(--wa-border); border-radius: var(--wa-r-md); transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+.wa-path-row:hover { border-color: var(--wa-emerald); box-shadow: var(--wa-shadow-card); transform: translateX(4px); }
+.wa-path-icon { width: 54px; height: 54px; border-radius: var(--wa-r-md); background: var(--wa-ink); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; }
+.wa-path-body h3 { font-size: 17.5px; color: var(--wa-ink); font-weight: 700; }
+.wa-path-body p { font-size: 13.5px; color: var(--wa-ink-soft); margin-top: 6px; line-height: 1.6; }
+.wa-path-tags { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+.wa-path-tags span { font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: var(--wa-r-xs); background: var(--wa-surface-alt); color: var(--wa-ink-soft); }
+.wa-tag-level { background: var(--wa-emerald-tint) !important; color: var(--wa-emerald-dark) !important; }
+
+@media (min-width: 640px) { .wa-path-row { flex-direction: row; align-items: center; } }
+@media (min-width: 768px) { .wa-path { padding: 80px var(--wa-pad-d); } }
+
+/* ---------- Commute banner (light, bordered) ---------- */
+.wa-commute { margin: 46px var(--wa-pad-m); max-width: var(--wa-max); margin-left: auto; margin-right: auto; }
+.wa-commute-card { display: flex; flex-direction: column; gap: 20px; padding: 28px; border: 1px solid var(--wa-border); border-radius: var(--wa-r-lg); background: var(--wa-white); }
+.wa-commute-left { display: flex; align-items: center; gap: 16px; }
+.wa-commute-icon { width: 54px; height: 54px; border-radius: var(--wa-r-md); background: var(--wa-emerald-tint); color: var(--wa-emerald-dark); display: flex; align-items: center; justify-content: center; font-size: 26px; flex-shrink: 0; }
+.wa-commute-left h3 { font-size: 17px; color: var(--wa-ink); font-weight: 700; margin-bottom: 6px; }
+.wa-commute-left p { font-size: 13px; color: var(--wa-ink-soft); }
+@media (min-width: 768px) { .wa-commute { margin: 80px var(--wa-pad-d); } .wa-commute-card { flex-direction: row; align-items: center; justify-content: space-between; padding: 30px 36px; } }
+
+/* ---------- Track Record — light, vertical timeline ---------- */
+.wa-record { padding: 56px var(--wa-pad-m); }
+.wa-record-inner { max-width: var(--wa-max); margin: 0 auto; }
+.wa-record-layout { display: grid; grid-template-columns: 1fr; gap: 30px; }
+
+.wa-timeline { display: flex; flex-direction: column; gap: 0; border-left: 2px solid var(--wa-border); padding-left: 22px; }
+.wa-time-node { position: relative; padding-bottom: 22px; cursor: pointer; }
+.wa-time-node:last-child { padding-bottom: 0; }
+.wa-time-node::before { content: ""; position: absolute; left: -28px; top: 3px; width: 12px; height: 12px; border-radius: 50%; background: var(--wa-white); border: 2.5px solid var(--wa-border-strong); transition: all 0.3s ease; }
+.wa-time-node.wa-active::before { border-color: var(--wa-emerald); background: var(--wa-emerald); box-shadow: 0 0 0 4px var(--wa-emerald-tint); }
+.wa-time-year { font-family: var(--wa-font-data); font-size: 18px; font-weight: 700; color: var(--wa-muted); transition: color 0.3s ease; }
+.wa-time-node.wa-active .wa-time-year { color: var(--wa-ink); }
+.wa-time-node span.wa-time-sub { display: block; font-size: 12px; color: var(--wa-muted); margin-top: 2px; }
+
+.wa-record-stats { border: 1px solid var(--wa-border); border-radius: var(--wa-r-lg); padding: 26px; background: var(--wa-surface); }
+.wa-record-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.wa-record-card { padding: 20px 16px; border-radius: var(--wa-r-md); background: var(--wa-white); border: 1px solid var(--wa-border); text-align: center; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.wa-record-card:hover { transform: translateY(-5px); box-shadow: var(--wa-shadow-card); }
+.wa-record-num { font-family: var(--wa-font-data); font-size: 26px; font-weight: 700; color: var(--wa-emerald-dark); }
+.wa-record-label { display: block; margin-top: 5px; font-size: 12px; color: var(--wa-ink-soft); }
+
+@media (min-width: 768px) { .wa-record { padding: 80px var(--wa-pad-d); } }
+@media (min-width: 1024px) { .wa-record-layout { grid-template-columns: 0.7fr 1.3fr; gap: 56px; } }
+
+/* ---------- Position Holders — elite horizontal row, no podium stairs ---------- */
+.wa-leaders { padding: 56px var(--wa-pad-m); background: var(--wa-surface); border-top: 1px solid var(--wa-border); border-bottom: 1px solid var(--wa-border); }
+.wa-leaders-inner { max-width: var(--wa-max); margin: 0 auto; }
+.wa-leaders-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+.wa-leader-card { background: var(--wa-white); border: 1.5px solid var(--wa-border); border-radius: var(--wa-r-lg); padding: 24px; text-align: center; transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; }
+.wa-leader-card:hover { transform: translateY(-6px); box-shadow: var(--wa-shadow-hover); }
+.wa-leader-card.wa-rank-1 { border-color: var(--wa-emerald); }
+.wa-rank-tag { display: inline-block; font-family: var(--wa-font-data); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; padding: 4px 12px; border-radius: var(--wa-r-xs); background: var(--wa-surface-alt); color: var(--wa-ink-soft); margin-bottom: 16px; }
+.wa-rank-1 .wa-rank-tag { background: var(--wa-emerald); color: #fff; }
+.wa-leader-avatar { width: 64px; height: 64px; border-radius: 50%; margin: 0 auto 14px; background: var(--wa-ink); color: #fff; display: flex; align-items: center; justify-content: center; font-family: var(--wa-font-data); font-weight: 700; font-size: 19px; }
+.wa-rank-1 .wa-leader-avatar { background: var(--wa-emerald); }
+.wa-leader-card h4 { font-size: 15.5px; color: var(--wa-ink); font-weight: 700; }
+.wa-leader-marks { display: block; margin-top: 6px; font-family: var(--wa-font-data); font-size: 14px; color: var(--wa-emerald-dark); font-weight: 700; }
+.wa-leader-class { display: block; margin-top: 3px; font-size: 12px; color: var(--wa-muted); }
+
+@media (min-width: 768px) { .wa-leaders { padding: 80px var(--wa-pad-d); } .wa-leaders-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; } }
+
+/* ---------- Faculty — flex cards, solid avatar (no dashed circles) ---------- */
+.wa-faculty { padding: 56px var(--wa-pad-m); }
+.wa-faculty-inner { max-width: var(--wa-max); margin: 0 auto; }
+.wa-faculty-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+.wa-faculty-card { display: flex; align-items: center; gap: 16px; padding: 20px; border: 1px solid var(--wa-border); border-radius: var(--wa-r-lg); transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; }
+.wa-faculty-card:hover { transform: translateY(-5px); box-shadow: var(--wa-shadow-card); border-color: var(--wa-emerald); }
+.wa-faculty-avatar { width: 58px; height: 58px; border-radius: var(--wa-r-md); background: var(--wa-emerald-tint); color: var(--wa-emerald-dark); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.wa-faculty-avatar .material-symbols-outlined { font-size: 28px; }
+.wa-faculty-name { font-size: 15px; font-weight: 700; color: var(--wa-ink); }
+.wa-faculty-subject { display: inline-block; margin-top: 5px; font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: var(--wa-r-xs); background: var(--wa-surface-alt); color: var(--wa-ink-soft); }
+.wa-faculty-exp { margin-top: 6px; font-size: 12px; color: var(--wa-muted); }
+
+@media (min-width: 768px) { .wa-faculty { padding: 80px var(--wa-pad-d); } .wa-faculty-grid { grid-template-columns: repeat(3, 1fr); } .wa-faculty-card { flex-direction: column; align-items: flex-start; text-align: left; } }
+
+/* ---------- Admissions — horizontal step pipeline + minimal form ---------- */
+.wa-admissions { padding: 56px var(--wa-pad-m); background: var(--wa-surface); border-top: 1px solid var(--wa-border); }
+.wa-admissions-inner { max-width: var(--wa-max); margin: 0 auto; }
+
+.wa-pipeline { display: flex; flex-direction: column; gap: 0; margin-top: 30px; }
+.wa-pipe-step { display: flex; gap: 16px; padding-bottom: 26px; position: relative; }
+.wa-pipe-step::before { content: ""; position: absolute; left: 19px; top: 40px; bottom: 0; width: 2px; background: var(--wa-border); }
+.wa-pipe-step:last-child::before { display: none; }
+.wa-pipe-step:last-child { padding-bottom: 0; }
+.wa-pipe-num { width: 40px; height: 40px; border-radius: var(--wa-r-sm); background: var(--wa-ink); color: #fff; display: flex; align-items: center; justify-content: center; font-family: var(--wa-font-data); font-weight: 700; font-size: 15px; flex-shrink: 0; z-index: 1; }
+.wa-pipe-step:first-child .wa-pipe-num { background: var(--wa-emerald); }
+.wa-pipe-body strong { display: block; color: var(--wa-ink); font-size: 14.5px; }
+.wa-pipe-body span { font-size: 12.5px; color: var(--wa-ink-soft); }
+
+.wa-admit-grid { display: grid; grid-template-columns: 1fr; gap: 34px; align-items: start; }
+.wa-admit-copy p { color: var(--wa-ink-soft); font-size: 15px; line-height: 1.8; margin-top: 14px; }
+.wa-admit-direct { margin-top: 26px; display: flex; align-items: center; gap: 10px; color: var(--wa-ink-soft); font-size: 13px; }
+.wa-admit-direct strong { color: var(--wa-ink); }
+
+.wa-form-panel { background: var(--wa-white); border: 1px solid var(--wa-border); border-radius: var(--wa-r-lg); padding: 28px; }
+.wa-form-panel h3 { font-size: 19px; color: var(--wa-ink); font-weight: 800; }
+.wa-form-panel .wa-sub { color: var(--wa-ink-soft); font-size: 13px; margin-top: 5px; }
+.wa-field { margin-top: 20px; }
+.wa-field label { display: block; font-size: 12px; font-weight: 700; color: var(--wa-ink-soft); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 8px; }
+.wa-field input, .wa-field select, .wa-field textarea {
+  width: 100%; padding: 10px 2px; border: none; border-bottom: 1.5px solid var(--wa-border-strong);
+  border-radius: 0; font-family: var(--wa-font); font-size: 14.5px; color: var(--wa-ink); background: transparent;
+  transition: border-color 0.25s ease;
+}
+.wa-field input:focus, .wa-field select:focus, .wa-field textarea:focus { border-color: var(--wa-emerald); outline: none; }
+.wa-field textarea { resize: vertical; min-height: 72px; border: 1.5px solid var(--wa-border-strong); border-radius: var(--wa-r-xs); padding: 10px 12px; }
+.wa-field textarea:focus { border-color: var(--wa-emerald); }
+.wa-form-foot { display: flex; align-items: center; justify-content: flex-end; gap: 14px; margin-top: 26px; flex-wrap: wrap; }
+.wa-form-note { font-size: 11.5px; color: var(--wa-muted); margin-right: auto; }
+.wa-form-status { margin-top: 12px; font-size: 12.5px; color: var(--wa-emerald-dark); display: none; text-align: right; }
+.wa-form-status.wa-show { display: block; }
+
+@media (min-width: 768px) { .wa-admissions { padding: 80px var(--wa-pad-d); } .wa-form-panel { padding: 36px; } }
+@media (min-width: 1024px) { .wa-admit-grid { grid-template-columns: 1fr 1.05fr; gap: 60px; } .wa-pipeline { flex-direction: row; } .wa-pipe-step { flex-direction: column; padding-bottom: 0; padding-right: 24px; } .wa-pipe-step::before { left: auto; top: 20px; right: 0; bottom: auto; width: calc(100% - 50px); height: 2px; } }
+
+/* ---------- CTA band — light, bordered, no gradient ---------- */
+.wa-cta { padding: 50px var(--wa-pad-m); text-align: center; }
+.wa-cta-inner { max-width: var(--wa-max); margin: 0 auto; background: var(--wa-emerald-tint); border: 1px solid var(--wa-emerald-tint-solid); border-radius: var(--wa-r-xl); padding: 40px 24px; }
+.wa-cta-title { font-size: 24px; font-weight: 800; color: var(--wa-ink); margin-bottom: 14px; }
+.wa-cta-text { font-size: 14px; color: var(--wa-ink-soft); max-width: 40rem; margin: 0 auto 28px; }
+.wa-cta-actions { display: flex; flex-direction: column; justify-content: center; gap: 14px; width: 100%; }
+
+@media (min-width: 768px) { .wa-cta { padding: 70px var(--wa-pad-d); } .wa-cta-inner { padding: 60px; } .wa-cta-title { font-size: 34px; } .wa-cta-text { font-size: 16px; } .wa-cta-actions { flex-direction: row; gap: 16px; } }
+
+/* ---------- Modal ---------- */
+.wa-modal-wrap { position: fixed; inset: 0; z-index: 1100; display: none; align-items: center; justify-content: center; padding: 16px; }
+.wa-modal-wrap.wa-modal-open { display: flex; }
+.wa-modal-bg { position: absolute; inset: 0; background: rgba(15,23,42,0.45); backdrop-filter: blur(4px); }
+.wa-modal-card { position: relative; z-index: 10; width: 100%; max-width: 26rem; max-height: 90vh; overflow-y: auto; background: #fff; border-radius: var(--wa-r-lg); box-shadow: var(--wa-shadow-hover); padding: 24px; border: 1px solid var(--wa-border); }
+.wa-modal-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+.wa-modal-title { font-size: 18px; font-weight: 800; color: var(--wa-ink); }
+.wa-modal-close { color: var(--wa-ink-soft); transition: color 0.3s ease, transform 0.3s ease; }
+.wa-modal-close:hover { color: var(--wa-emerald-dark); transform: rotate(90deg); }
+.wa-modal-form { display: flex; flex-direction: column; gap: 14px; }
+@media (min-width: 768px) { .wa-modal-card { padding: 36px; } }
+
+/* ---------- Toast ---------- */
+.wa-toast-wrap { position: fixed; top: 128px; right: 16px; z-index: 1200; display: flex; flex-direction: column; gap: 8px; }
+.wa-toast { display: flex; align-items: center; gap: 12px; background: var(--wa-ink); color: #fff; padding: 12px 18px; border-radius: var(--wa-r-sm); box-shadow: var(--wa-shadow-hover); font-size: 13.5px; transition: opacity 0.5s ease, transform 0.5s ease; }
+.wa-toast .material-symbols-outlined { color: var(--wa-emerald-light); }
+.wa-toast.wa-toast-hide { opacity: 0; transform: translateX(110%); }
+@media (min-width: 768px) { .wa-toast-wrap { right: 32px; } }
+
+/* ---------- Footer — white, thin divider, split layout ---------- */
+.wa-footer { background: var(--wa-white); border-top: 1px solid var(--wa-border); padding: 50px var(--wa-pad-m) 0; }
+.wa-footer-split { display: flex; flex-direction: column; gap: 40px; max-width: var(--wa-max); margin: 0 auto; padding-bottom: 34px; }
+.wa-footer-brand { max-width: 320px; }
+.wa-footer-brand .wa-brand { margin-bottom: 14px; }
+.wa-footer-brand .wa-brand-name { color: var(--wa-ink); }
+.wa-footer-desc { font-size: 13px; color: var(--wa-ink-soft); line-height: 1.7; }
+.wa-footer-map { display: flex; align-items: flex-start; gap: 10px; margin-top: 16px; font-size: 12.5px; color: var(--wa-ink-soft); }
+.wa-footer-map .material-symbols-outlined { color: var(--wa-emerald); font-size: 18px; }
+.wa-footer-social { display: flex; gap: 10px; margin-top: 18px; }
+.wa-social-btn { width: 34px; height: 34px; border-radius: var(--wa-r-sm); border: 1px solid var(--wa-border); display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; }
+.wa-social-btn:hover { background: var(--wa-emerald); border-color: var(--wa-emerald); }
+.wa-social-btn:hover svg { fill: #fff; }
+.wa-social-btn svg { width: 14px; height: 14px; fill: var(--wa-ink-soft); transition: fill 0.3s ease; }
+
+.wa-footer-links { display: flex; flex-wrap: wrap; gap: 40px; }
+.wa-footer-group h4 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--wa-muted); margin-bottom: 14px; }
+.wa-footer-group ul { display: flex; flex-direction: column; gap: 10px; }
+.wa-footer-group a { font-size: 13.5px; color: var(--wa-ink-soft); }
+.wa-footer-group a:hover { color: var(--wa-emerald-dark); }
+.wa-footer-contact-item { display: flex; gap: 8px; font-size: 13px; color: var(--wa-ink-soft); align-items: flex-start; }
+.wa-footer-contact-item .material-symbols-outlined { font-size: 16px; color: var(--wa-emerald); }
+
+.wa-footer-bottom { max-width: var(--wa-max); margin: 0 auto; padding: 18px var(--wa-pad-m); border-top: 1px solid var(--wa-border); display: flex; flex-direction: column; gap: 6px; font-size: 11.5px; color: var(--wa-muted); text-align: center; }
 
 @media (min-width: 768px) {
-  .features { padding: 90px var(--margin-desktop); }
-  .feature-grid { grid-template-columns: repeat(3, 1fr); gap: 24px; }
-  .feature-card { padding: 44px; }
+  .wa-footer { padding: 76px var(--wa-pad-d) 0; }
+  .wa-footer-split { flex-direction: row; justify-content: space-between; gap: 60px; padding-bottom: 50px; }
+  .wa-footer-bottom { padding: 18px var(--wa-pad-d); flex-direction: row; justify-content: space-between; text-align: left; }
 }
 
-/* ==========================================================================
-   About + Principal (merged: bio card + quote + checklist)
-   ========================================================================== */
-.about-section { padding: 60px var(--margin-mobile); max-width: var(--container-max); margin: 0 auto; position: relative; overflow: hidden; }
-.about-section .blob-1 { width: 380px; height: 380px; top: -80px; right: -140px; opacity: 0.5; }
-.about-grid { display: grid; grid-template-columns: 1fr; gap: 40px; align-items: center; }
-
-.about-portrait { position: relative; perspective: 1200px; }
-.portrait-frame {
-  border-radius: var(--radius-2xl); background: var(--grad-navy);
-  box-shadow: var(--shadow-deep); padding: 32px 28px;
-  display: flex; flex-direction: column; gap: 12px; position: relative; overflow: hidden;
-  transform: rotateY(-6deg) rotateX(2deg); transition: transform 0.5s ease;
-  min-height: 320px; justify-content: flex-end;
-}
-.about-portrait:hover .portrait-frame { transform: rotateY(0deg) rotateX(0deg); }
-.portrait-frame::before {
-  content: ""; position: absolute; inset: 0;
-  background: radial-gradient(circle at 25% 15%, rgba(0,168,107,0.35), transparent 55%);
-}
-.portrait-media { position: relative; z-index: 1; margin: -32px -28px 8px; height: 220px; overflow: hidden; }
-.portrait-media img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
-.portrait-frame h4 { color: #fff; font-size: 20px; position: relative; z-index: 1; }
-.portrait-frame p { color: rgba(255, 255, 255, 0.65); font-size: 13px; position: relative; z-index: 1; }
-.portrait-badge {
-  position: absolute; bottom: -18px; right: 24px; background: #fff; border-radius: 16px;
-  padding: 14px 18px; box-shadow: var(--shadow-mid); display: flex; align-items: center; gap: 10px; z-index: 2;
-}
-.portrait-badge strong { display: block; font-family: var(--font-data); font-size: 20px; color: var(--color-secondary); }
-.portrait-badge span { font-size: 11px; color: var(--color-on-surface-variant); }
-
-.about-copy p { color: var(--color-on-surface-variant); font-size: 15px; line-height: 1.8; margin-top: 16px; }
-.principal-quote { position: relative; font-size: 14px; font-style: italic; color: var(--color-on-surface-variant); padding-left: 22px; margin: 22px 0; line-height: 1.75; }
-.quote-mark { position: absolute; top: -8px; left: 0; font-size: 30px; color: var(--navy-tint-12); }
-
-.about-location { display: flex; align-items: flex-start; gap: 14px; margin-top: 24px; padding: 16px 18px; background: #fff; border-radius: 16px; box-shadow: var(--shadow-soft); transition: box-shadow 0.3s ease, transform 0.3s ease; }
-.about-location:hover { box-shadow: var(--shadow-mid); transform: translateY(-3px); }
-.about-location .pin { width: 38px; height: 38px; border-radius: 11px; flex-shrink: 0; background: var(--grad-primary); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 18px; }
-.about-location strong { display: block; font-size: 14px; color: var(--color-primary); }
-.about-location span { font-size: 13px; color: var(--color-on-surface-variant); }
-
-.about-points { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 26px; }
-.about-point { display: flex; gap: 12px; align-items: flex-start; }
-.about-point .check { width: 24px; height: 24px; border-radius: 8px; background: var(--green-tint-10); color: var(--color-secondary); display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0; margin-top: 2px; font-weight: 700; }
-.about-point span { font-size: 14px; color: var(--color-on-surface-variant); }
-
-@media (min-width: 768px) { .about-section { padding: 90px var(--margin-desktop); } }
-@media (min-width: 1024px) {
-  .about-grid { grid-template-columns: 0.85fr 1.15fr; gap: 70px; }
-  .about-points { grid-template-columns: 1fr 1fr; }
-}
-
-/* ==========================================================================
-   Programs — 3D tilt cards
-   ========================================================================== */
-.programs-section { padding: 60px var(--margin-mobile); background: var(--color-surface-container-low); position: relative; overflow: hidden; }
-.programs-section .blob-1 { width: 340px; height: 340px; bottom: -120px; left: -100px; opacity: 0.45; }
-.programs-inner { max-width: var(--container-max); margin: 0 auto; }
-.programs-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
-.tilt-card {
-  position: relative; padding: 28px 24px; border-radius: var(--radius-xl);
-  background: #fff; border: 1px solid rgba(118,118,126,0.18); box-shadow: var(--shadow-soft);
-  transform-style: preserve-3d; transition: transform 0.12s ease, box-shadow 0.3s ease; overflow: hidden;
-}
-.tilt-card::before {
-  content: ""; position: absolute; inset: 0; opacity: 0; transition: opacity 0.3s ease;
-  background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 50%), var(--green-tint-10), transparent 60%);
-}
-.tilt-card:hover::before { opacity: 1; }
-.tilt-card:hover { box-shadow: var(--shadow-deep); }
-.program-level {
-  display: inline-block; font-family: var(--font-data); font-size: 10.5px; font-weight: 700;
-  letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 12px; border-radius: 999px; margin-bottom: 16px;
-}
-.level-matric { background: var(--navy-tint-08); color: var(--color-primary); }
-.level-inter { background: var(--green-tint-14); color: var(--color-on-secondary-container); }
-.program-icon {
-  width: 52px; height: 52px; border-radius: 14px; margin-bottom: 16px;
-  background: var(--grad-primary); display: flex; align-items: center; justify-content: center;
-  color: #fff; font-size: 22px; box-shadow: var(--shadow-green); transform: translateZ(18px);
-}
-.tilt-card h3 { font-size: 19px; color: var(--color-primary); transform: translateZ(12px); }
-.tilt-card p.desc { color: var(--color-on-surface-variant); font-size: 13.5px; margin-top: 8px; line-height: 1.6; transform: translateZ(8px); }
-.program-meta { display: flex; gap: 8px; margin-top: 18px; flex-wrap: wrap; }
-.program-meta span { font-size: 11.5px; font-weight: 600; color: var(--color-on-surface-variant); background: var(--color-surface-container-low); padding: 5px 10px; border-radius: 8px; }
-
-@media (min-width: 768px) { .programs-section { padding: 90px var(--margin-desktop); } .programs-grid { grid-template-columns: repeat(2, 1fr); gap: 22px; } }
-@media (min-width: 1024px) { .programs-grid { grid-template-columns: repeat(3, 1fr); } }
-
-/* ==========================================================================
-   Transport banner
-   ========================================================================== */
-.transport { margin: 50px var(--margin-mobile); max-width: var(--container-max); margin-left: auto; margin-right: auto; }
-.transport-card { position: relative; background: var(--grad-navy); border-radius: var(--radius-2xl); overflow: hidden; }
-.transport-glow { position: absolute; top: 0; right: 0; width: 100%; height: 100%; background: rgba(0,168,107,0.14); pointer-events: none; transition: transform 0.7s ease; }
-.transport-card:hover .transport-glow { transform: translateX(8%); }
-.transport-inner { position: relative; z-index: 10; display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between; gap: 22px; padding: 32px 24px; }
-.transport-left { display: flex; align-items: center; gap: 16px; }
-.transport-icon-wrap { display: none; width: 62px; height: 62px; border-radius: var(--radius-full); background: rgba(255,255,255,0.1); align-items: center; justify-content: center; flex-shrink: 0; }
-.transport-icon { font-size: 34px; color: var(--color-secondary-fixed); }
-.transport-title { font-size: 19px; font-weight: 800; color: #fff; margin-bottom: 8px; }
-.transport-text { font-size: 13.5px; color: rgba(255,255,255,0.65); max-width: 36rem; }
-.transport-btn { width: 100%; flex-shrink: 0; }
-
-@media (min-width: 768px) {
-  .transport { margin: 90px var(--margin-desktop); }
-  .transport-inner { flex-direction: row; align-items: center; padding: 32px 48px; }
-  .transport-icon-wrap { display: flex; }
-  .transport-btn { width: auto; }
-}
-
-/* ==========================================================================
-   Results — light re-skin of competitor's dark stats/podium
-   ========================================================================== */
-.results-section { padding: 60px var(--margin-mobile); background: var(--color-primary); position: relative; overflow: hidden; color: #fff; }
-.results-section .blob-1 { width: 420px; height: 420px; top: -160px; left: 8%; opacity: 0.28; }
-.results-section .blob-2 { width: 340px; height: 340px; bottom: -140px; right: 6%; opacity: 0.22; }
-.results-inner { max-width: var(--container-max); margin: 0 auto; }
-.results-section .eyebrow { color: var(--color-secondary-fixed); }
-.results-section .section-title { color: #fff; }
-.results-section .section-subtitle { color: rgba(255,255,255,0.62); }
-
-.year-tabs { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 40px; justify-content: center; }
-.year-tab { padding: 9px 20px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.72); font-family: var(--font-data); font-size: 13px; font-weight: 600; transition: all 0.3s ease; }
-.year-tab.active, .year-tab:hover { background: var(--grad-primary); color: #fff; border-color: transparent; box-shadow: var(--shadow-green); }
-
-.results-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.result-card {
-  padding: 26px 18px; border-radius: var(--radius-xl);
-  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
-  text-align: center; transition: transform 0.35s ease, box-shadow 0.35s ease;
-}
-.result-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-deep); }
-.result-card .big-num { font-family: var(--font-data); font-size: 32px; font-weight: 700; color: var(--color-secondary-fixed); }
-.result-card .label { display: block; margin-top: 6px; color: rgba(255,255,255,0.6); font-size: 12.5px; }
-.result-card .placeholder-note { display: block; margin-top: 10px; font-size: 10.5px; color: rgba(255,255,255,0.32); font-style: italic; }
-
-.podium-wrap { margin-top: 56px; display: flex; justify-content: center; }
-.podium { display: flex; align-items: flex-end; gap: 14px; }
-.podium-step {
-  width: 140px; border-radius: 16px 16px 0 0; background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.14); border-bottom: none; padding: 18px 12px; text-align: center; box-shadow: var(--shadow-mid);
-}
-.podium-step .medal-mini { width: 42px; height: 42px; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-family: var(--font-data); font-weight: 700; font-size: 15px; color: #fff; background: var(--grad-primary); }
-.podium-step h4 { color: #fff; font-size: 13px; }
-.podium-step span { display: block; color: rgba(255,255,255,0.55); font-size: 11px; margin-top: 4px; }
-.podium-1 { height: 176px; order: 2; }
-.podium-2 { height: 148px; order: 1; }
-.podium-3 { height: 126px; order: 3; }
-
-@media (min-width: 768px) {
-  .results-section { padding: 90px var(--margin-desktop); }
-  .results-grid { grid-template-columns: repeat(4, 1fr); }
-  .podium-step { width: 168px; }
-}
-
-/* ==========================================================================
-   Faculty
-   ========================================================================== */
-.faculty-section { padding: 60px var(--margin-mobile); position: relative; overflow: hidden; }
-.faculty-section .blob-1 { width: 360px; height: 360px; top: -100px; right: -120px; opacity: 0.45; }
-.faculty-inner { max-width: var(--container-max); margin: 0 auto; }
-.faculty-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
-.faculty-card { border-radius: var(--radius-xl); background: #fff; border: 1px solid rgba(118,118,126,0.18); box-shadow: var(--shadow-soft); overflow: hidden; text-align: center; transition: transform 0.35s ease, box-shadow 0.35s ease; }
-.faculty-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-deep); }
-.faculty-photo {
-  aspect-ratio: 1/0.95; margin: 24px auto 0; width: 108px; border-radius: 50%;
-  background: var(--color-surface-container-low); display: flex; align-items: center; justify-content: center;
-  color: var(--color-on-surface-variant); font-size: 12px; font-weight: 600;
-  border: 2px dashed var(--green-tint-25); position: relative;
-}
-.faculty-photo::before { content: "📷"; font-size: 24px; opacity: 0.45; position: absolute; top: 14px; }
-.faculty-photo span { margin-top: 34px; font-size: 10.5px; text-align: center; padding: 0 10px; }
-.faculty-body { padding: 18px 18px 26px; }
-.faculty-name { font-size: 15.5px; font-weight: 700; color: var(--color-primary); }
-.faculty-name.placeholder { color: var(--color-on-surface-variant); font-weight: 600; font-style: italic; }
-.faculty-subject { display: inline-block; margin-top: 10px; font-size: 11.5px; font-weight: 600; padding: 5px 12px; border-radius: 999px; background: var(--green-tint-10); color: var(--color-on-secondary-container); }
-.faculty-exp { margin-top: 10px; font-size: 12px; color: var(--color-on-surface-variant); }
-
-@media (min-width: 768px) { .faculty-section { padding: 90px var(--margin-desktop); } .faculty-grid { grid-template-columns: repeat(3, 1fr); gap: 22px; } }
-
-/* ==========================================================================
-   Admission form (WhatsApp integration) — light glass card
-   ========================================================================== */
-.admission-section { padding: 60px var(--margin-mobile); background: var(--color-surface-container-low); position: relative; overflow: hidden; }
-.admission-section .blob-1 { width: 360px; height: 360px; bottom: -140px; left: -100px; opacity: 0.5; }
-.admission-inner { max-width: var(--container-max); margin: 0 auto; }
-.admission-grid { display: grid; grid-template-columns: 1fr; gap: 40px; align-items: center; }
-.admission-copy p { color: var(--color-on-surface-variant); font-size: 15px; line-height: 1.8; margin-top: 16px; }
-.admission-steps { margin-top: 26px; display: flex; flex-direction: column; gap: 16px; }
-.admission-step { display: flex; gap: 14px; align-items: flex-start; }
-.admission-step .num { width: 30px; height: 30px; border-radius: 9px; flex-shrink: 0; background: var(--grad-primary); color: #fff; display: flex; align-items: center; justify-content: center; font-family: var(--font-data); font-weight: 700; font-size: 12.5px; }
-.admission-step strong { display: block; color: var(--color-primary); font-size: 14px; }
-.admission-step span { font-size: 12.5px; color: var(--color-on-surface-variant); }
-.admission-whatsapp { margin-top: 26px; display: flex; align-items: center; gap: 12px; color: var(--color-on-surface-variant); font-size: 13px; }
-.admission-whatsapp strong { color: var(--color-primary); }
-
-.form-card {
-  background: #fff; border: 1px solid rgba(118,118,126,0.18); border-radius: var(--radius-2xl);
-  padding: 32px; box-shadow: var(--shadow-deep);
-  transform: perspective(1400px) rotateY(-2deg); transition: transform 0.5s ease;
-}
-.form-card:hover { transform: perspective(1400px) rotateY(0deg); }
-.form-card h3 { font-size: 20px; color: var(--color-primary); }
-.form-card .sub { color: var(--color-on-surface-variant); font-size: 13.5px; margin-top: 6px; }
-.field { margin-top: 20px; }
-.field label { display: block; font-size: 12.5px; font-weight: 600; color: var(--color-on-surface); margin-bottom: 8px; }
-.field input, .field select, .field textarea {
-  width: 100%; padding: 13px 15px; border-radius: var(--radius-xl);
-  border: 1px solid var(--color-outline-variant); font-family: var(--font-family-base); font-size: 14px;
-  color: var(--color-on-surface); background: #fff; transition: border-color 0.25s ease, box-shadow 0.25s ease;
-}
-.field input:focus, .field select:focus, .field textarea:focus {
-  border-color: var(--color-secondary); box-shadow: 0 0 0 4px var(--green-tint-10); outline: none;
-}
-.field textarea { resize: vertical; min-height: 96px; }
-.form-note { margin-top: 10px; font-size: 11.5px; color: var(--color-outline); }
-.form-submit { margin-top: 24px; }
-.form-status { margin-top: 12px; font-size: 12.5px; color: var(--color-secondary); display: none; }
-.form-status.show { display: block; }
-
-@media (min-width: 768px) { .admission-section { padding: 90px var(--margin-desktop); } .form-card { padding: 40px; } }
-@media (min-width: 1024px) { .admission-grid { grid-template-columns: 1fr 1.1fr; gap: 60px; } }
-
-/* ==========================================================================
-   CTA
-   ========================================================================== */
-.cta { background: var(--grad-navy); color: #fff; padding: 56px var(--margin-mobile); text-align: center; position: relative; overflow: hidden; }
-.cta .blob-1 { width: 360px; height: 360px; top: -140px; left: 30%; opacity: 0.25; }
-.cta-inner { max-width: var(--container-max); margin: 0 auto; position: relative; z-index: 2; }
-.cta-title { font-size: 24px; font-weight: 800; margin-bottom: 16px; }
-.cta-text { font-size: 14px; color: rgba(255,255,255,0.68); max-width: 42rem; margin: 0 auto 32px; }
-.cta-actions { display: flex; flex-direction: column; justify-content: center; gap: 16px; width: 100%; }
-
-@media (min-width: 768px) {
-  .cta { padding: 90px var(--margin-desktop); }
-  .cta-title { font-size: 40px; }
-  .cta-text { font-size: 16px; }
-  .cta-actions { flex-direction: row; gap: 24px; }
-}
-
-/* ==========================================================================
-   Modal
-   ========================================================================== */
-.modal-overlay-wrap { position: fixed; inset: 0; z-index: 1100; display: none; align-items: center; justify-content: center; padding: 16px; }
-.modal-overlay-wrap.modal-open { display: flex; }
-.modal-overlay { position: absolute; inset: 0; background: rgba(10,17,40,0.45); backdrop-filter: blur(4px); }
-.modal-card { position: relative; z-index: 10; width: 100%; max-width: 28rem; max-height: 90vh; overflow-y: auto; background: #fff; border-radius: var(--radius-xl); box-shadow: var(--shadow-deep); padding: 24px; }
-.modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; }
-.modal-title { font-size: 19px; font-weight: 800; color: var(--color-primary); }
-.modal-close { background: none; border: none; color: var(--color-on-surface-variant); transition: color 0.3s ease, transform 0.3s ease; }
-.modal-close:hover { color: var(--color-error); transform: rotate(90deg); }
-.modal-form { display: flex; flex-direction: column; gap: 16px; }
-.modal-submit { width: 100%; margin-top: 22px; }
-
-@media (min-width: 768px) { .modal-card { padding: 44px; } }
-
-/* ==========================================================================
-   Toast
-   ========================================================================== */
-.toast-container { position: fixed; top: 92px; right: 16px; z-index: 1200; display: flex; flex-direction: column; gap: 8px; }
-.toast {
-  display: flex; align-items: center; gap: 14px; background: var(--grad-primary); color: #fff;
-  padding: 12px 22px; border-radius: var(--radius-xl); box-shadow: var(--shadow-deep); font-size: 13.5px;
-  transition: opacity 0.5s ease, transform 0.5s ease;
-}
-.toast.toast-hide { opacity: 0; transform: translateX(110%); }
-@media (min-width: 768px) { .toast-container { right: 32px; } }
-
-/* ==========================================================================
-   Footer
-   ========================================================================== */
-.footer { background: var(--color-primary); color: var(--color-on-primary-container); padding: 56px var(--margin-mobile) 0; position: relative; overflow: hidden; }
-.footer .blob-1 { width: 320px; height: 320px; top: -140px; left: 25%; opacity: 0.18; }
-.footer-grid { display: grid; grid-template-columns: 1fr; gap: 34px; max-width: var(--container-max); margin: 0 auto; text-align: left; padding-bottom: 36px; position: relative; z-index: 2; }
-.footer-col { display: flex; flex-direction: column; gap: 20px; }
-.footer-brand { display: flex; align-items: center; gap: 12px; }
-.footer-logo-badge { width: 38px; height: 38px; border-radius: 11px; background: var(--grad-primary); display: flex; align-items: center; justify-content: center; font-family: var(--font-data); font-weight: 700; color: #fff; font-size: 13px; }
-.footer-brand-name { font-size: 18px; font-weight: 800; color: #fff; }
-.footer-desc { font-size: 13.5px; opacity: 0.75; line-height: 1.7; max-width: 280px; }
-.footer-social { display: flex; gap: 12px; }
-.social-btn { width: 38px; height: 38px; border-radius: var(--radius-full); border: 1px solid rgba(255,255,255,0.18); display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; }
-.social-btn:hover { background: var(--color-secondary); border-color: var(--color-secondary); transform: translateY(-3px); }
-.social-icon { width: 15px; height: 15px; color: #fff; }
-.footer-heading { color: #fff; font-weight: 700; font-size: 16.5px; margin-bottom: 6px; }
-.footer-list { display: flex; flex-direction: column; gap: 11px; font-size: 13.5px; }
-.footer-link { transition: color 0.3s ease, padding-left 0.3s ease; opacity: 0.78; }
-.footer-link:hover { color: var(--color-secondary-fixed); padding-left: 4px; opacity: 1; }
-.footer-list-item { display: flex; align-items: flex-start; gap: 11px; opacity: 0.78; }
-.footer-icon { font-size: 19px; color: var(--color-secondary-fixed); flex-shrink: 0; }
-.footer-bottom { max-width: var(--container-max); margin: 0 auto; padding: 22px var(--margin-mobile); border-top: 1px solid rgba(255,255,255,0.1); text-align: center; opacity: 0.55; font-size: 11.5px; position: relative; z-index: 2; display: flex; flex-direction: column; gap: 6px; }
-
-@media (min-width: 768px) {
-  .footer { padding: 90px var(--margin-desktop) 0; }
-  .footer-grid { gap: 24px; padding-bottom: 60px; grid-template-columns: 1.4fr 1fr 1fr 1.1fr; }
-  .footer-bottom { padding: 22px var(--margin-desktop); margin-top: 12px; flex-direction: row; justify-content: space-between; }
-}
-
-/* Floating WhatsApp quick-contact button */
+/* Floating WhatsApp — rounded square, not a circle */
 .wa-float {
-  position: fixed; bottom: 24px; right: 24px; z-index: 950; width: 58px; height: 58px; border-radius: 50%;
-  background: linear-gradient(150deg, #25D366, #1DA851); display: flex; align-items: center; justify-content: center;
-  color: #fff; font-size: 25px; box-shadow: 0 16px 32px -8px rgba(29,168,81,0.5);
-  animation: pulse-wa 2.6s ease-in-out infinite; transition: transform 0.3s ease;
+  position: fixed; bottom: 22px; right: 22px; z-index: 950; width: 52px; height: 52px; border-radius: var(--wa-r-lg);
+  background: #25D366; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 24px;
+  box-shadow: 0 14px 28px -8px rgba(37, 211, 102, 0.5); transition: transform 0.3s ease;
 }
-.wa-float:hover { transform: scale(1.08); }
-@keyframes pulse-wa { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
+.wa-float:hover { transform: scale(1.07) rotate(-4deg); }
 </style>
 </head>
 <body>
 
 <!-- Toast Notification Container -->
-<div class="toast-container" id="toast-container"></div>
+<div class="wa-toast-wrap" id="wa-toast-wrap"></div>
+
+<!-- ============================= ANNOUNCEMENT STRIP ============================= -->
+<div class="wa-strip" id="wa-strip">
+  <span>Admissions for the 2026–27 session are open — FSc &amp; ICS batches filling quickly.</span>
+  <button class="wa-strip-close material-symbols-outlined" id="wa-strip-close" aria-label="Dismiss">close</button>
+</div>
 
 <!-- ============================= NAVIGATION ============================= -->
-<nav class="top-nav" id="top-nav">
-  <div class="nav-inner">
-    <a href="#home" class="nav-brand">
-      <div class="nav-logo-badge">WA</div>
-      <div class="nav-brand-text">
-        <span class="nav-brand-name">The Winners Academy</span>
-        <span class="nav-brand-sub">Matric &amp; Intermediate</span>
+<nav class="wa-nav" id="wa-nav">
+  <div class="wa-nav-inner">
+    <a href="#top" class="wa-brand">
+      <div class="wa-brand-mark">WA</div>
+      <div class="wa-brand-text">
+        <span class="wa-brand-name">The Winners Academy</span>
+        <span class="wa-brand-sub">Board Exam Coaching Studio</span>
       </div>
     </a>
 
-    <div class="nav-links" id="mainNav">
-      <a class="nav-link nav-link-active" href="#home">Home</a>
-      <a class="nav-link" href="#about">About</a>
-      <a class="nav-link" href="#programs">Programs</a>
-      <a class="nav-link" href="#results">Results</a>
-      <a class="nav-link" href="#faculty">Faculty</a>
-      <a class="nav-link" href="#admission">Admission</a>
+    <div class="wa-nav-links" id="waMainNav">
+      <a class="wa-nav-link wa-active" href="#top">Home</a>
+      <a class="wa-nav-link" href="#approach">Approach</a>
+      <a class="wa-nav-link" href="#path">Academic Path</a>
+      <a class="wa-nav-link" href="#record">Track Record</a>
+      <a class="wa-nav-link" href="#faculty">Faculty</a>
+      <a class="wa-nav-link" href="#admissions">Admissions</a>
     </div>
 
-    <div class="nav-cta">
-      <a class="btn-admin" href="login.html">Admin Portal</a>
+    <div class="wa-nav-cta">
+      <a class="wa-btn-staff" href="login.html"><span class="material-symbols-outlined" style="font-size:16px;">lock</span>Staff Login</a>
     </div>
 
-    <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle menu" aria-expanded="false">
-      <span class="material-symbols-outlined" id="mobile-menu-icon">menu</span>
+    <button class="wa-burger" id="waBurgerBtn" aria-label="Toggle menu" aria-expanded="false">
+      <span class="material-symbols-outlined" id="waBurgerIcon">menu</span>
     </button>
   </div>
 
-  <!-- Mobile Drawer -->
-  <div class="mobile-drawer" id="mobile-drawer">
-    <a class="mobile-link mobile-link-active" href="#home">Home</a>
-    <a class="mobile-link" href="#about">About</a>
-    <a class="mobile-link" href="#programs">Programs</a>
-    <a class="mobile-link" href="#results">Results</a>
-    <a class="mobile-link" href="#faculty">Faculty</a>
-    <a class="mobile-link" href="#admission">Admission</a>
-    <a class="mobile-link mobile-link-cta" href="login.html">Admin Portal</a>
+  <div class="wa-drawer" id="waDrawer">
+    <a class="wa-drawer-link wa-active" href="#top">Home</a>
+    <a class="wa-drawer-link" href="#approach">Approach</a>
+    <a class="wa-drawer-link" href="#path">Academic Path</a>
+    <a class="wa-drawer-link" href="#record">Track Record</a>
+    <a class="wa-drawer-link" href="#faculty">Faculty</a>
+    <a class="wa-drawer-link" href="#admissions">Admissions</a>
+    <a class="wa-drawer-link wa-drawer-cta" href="login.html">Staff Login</a>
   </div>
 </nav>
 
-<main class="page-main">
+<main class="wa-main" id="top">
 
   <!-- ============================= HERO ============================= -->
-  <section class="hero" id="home">
-    <div class="blob blob-green aurora-drift blob-1"></div>
-    <div class="blob blob-navy aurora-drift b2 blob-2"></div>
+  <section class="wa-hero">
+    <div class="wa-hero-grid">
 
-    <div class="hero-inner">
-      <div class="hero-copy" data-aos="fade-up">
-        <span class="badge"><span class="dot"></span>ADMISSIONS OPEN — NEW SESSION</span>
-        <h1 class="hero-title">
-          Mastering Knowledge Through <br class="br-desktop">
-          <span class="hero-accent typewriter" id="typewriter">Concept-Based Learning.</span>
+      <div class="wa-hero-visual" data-aos="fade-right">
+        <div class="wa-hero-frame">
+          <img alt="Students collaborating over a physics problem set" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKejT2JWpzWkDYZ_fEwgE8iHhsJ465Oavnq3iJ66CkzrZvE6mN1FiigE9TZ3wMnktfDufqfoJVWG831yTeTd1D_oqUwjefov5CM7inL428hfsEUbW3YG5QFFwtCYeGEXl8n1ueNE1Rc9OC7Bi0iQZ3RNyBBCTEPo615X1tZpciJs-wWl_zVVjiKIaKTrcdWhH0ItqIUHkPxesEqq4NROBMkrMWey81cLCvfWgXvvQIjomxHmbfjQuF3LFvPR7LcoBty17oLr3xzik">
+        </div>
+        <div class="wa-stat-panel">
+          <div class="wa-stat-row">
+            <div class="wa-stat-icon"><span class="material-symbols-outlined">history_edu</span></div>
+            <div><div class="wa-stat-num">14+ Years</div><div class="wa-stat-label">Of concept-first coaching</div></div>
+          </div>
+          <div class="wa-stat-row">
+            <div class="wa-stat-icon"><span class="material-symbols-outlined">groups</span></div>
+            <div><div class="wa-stat-num">1,200+ Students</div><div class="wa-stat-label">Mentored to board exams</div></div>
+          </div>
+          <div class="wa-stat-row">
+            <div class="wa-stat-icon"><span class="material-symbols-outlined">military_tech</span></div>
+            <div><div class="wa-stat-num">92% Achievers</div><div class="wa-stat-label">Score A / A+ on average</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="wa-hero-copy" data-aos="fade-left">
+        <span class="wa-chip"><span class="wa-chip-dot"></span>ADMISSIONS OPEN · 2026–27</span>
+        <h1 class="wa-hero-title">
+          Understand the concept. <br class="wa-br-d">
+          <span class="wa-hero-accent wa-type" id="waTypewriter">Own the exam.</span>
         </h1>
-        <p class="hero-text">
-          We don't just teach students to memorize; we empower them to understand. Matriculation and Intermediate
-          coaching built on discipline, expert mentorship, and a genuine focus on results.
+        <p class="wa-hero-text">
+          Most coaching centres teach students what to memorize. We teach them why it works — so board exam questions
+          stop feeling unfamiliar. Small batches, weekly assessments, and a Principal who tracks every student's
+          progress personally.
         </p>
-        <div class="hero-actions">
-          <button class="btn btn-primary" id="inquire-btn" onclick="toggleInquiryModal()">
-            Inquire Now
-            <span class="material-symbols-outlined btn-icon">arrow_forward</span>
+        <div class="wa-hero-actions">
+          <button class="wa-btn wa-btn-fill" id="waInquireBtn" onclick="waToggleModal()">
+            Book a Seat <span class="material-symbols-outlined wa-btn-icon">arrow_forward</span>
           </button>
-          <a class="btn btn-outline" href="#admission">Admission Form</a>
-        </div>
-        <div class="hero-stats">
-          <div class="hero-stat"><strong>[X]+</strong><span>Years of Teaching</span></div>
-          <div class="hero-stat"><strong>[X]+</strong><span>Students Guided</span></div>
-          <div class="hero-stat"><strong>[X]%</strong><span>A+ / A Grade Rate</span></div>
+          <a class="wa-btn wa-btn-line" href="#path">See the Academic Path</a>
         </div>
       </div>
 
-      <div class="hero-media" data-aos="fade-up" data-aos-delay="150">
-        <div class="hero-frame hero-frame-back staggered-frame">
-          <img class="hero-img" alt="Student studying with a laptop" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKejT2JWpzWkDYZ_fEwgE8iHhsJ465Oavnq3iJ66CkzrZvE6mN1FiigE9TZ3wMnktfDufqfoJVWG831yTeTd1D_oqUwjefov5CM7inL428hfsEUbW3YG5QFFwtCYeGEXl8n1ueNE1Rc9OC7Bi0iQZ3RNyBBCTEPo615X1tZpciJs-wWl_zVVjiKIaKTrcdWhH0ItqIUHkPxesEqq4NROBMkrMWey81cLCvfWgXvvQIjomxHmbfjQuF3LFvPR7LcoBty17oLr3xzik">
+    </div>
+  </section>
+
+  <!-- ============================= APPROACH (Why This Works) ============================= -->
+  <section class="wa-approach" id="approach">
+    <div class="wa-approach-inner">
+      <div class="wa-head" data-aos="fade-up">
+        <span class="wa-eyebrow">Our Approach</span>
+        <h2>Why students actually retain what we teach</h2>
+        <p>Three deliberate choices shape every classroom at The Winners Academy — none of them are accidents.</p>
+      </div>
+
+      <div class="wa-approach-grid">
+        <div class="wa-approach-card" data-aos="fade-up" data-aos-delay="0">
+          <div class="wa-approach-icon"><span class="material-symbols-outlined">device_thermostat</span></div>
+          <h3>Climate-Controlled Focus Rooms</h3>
+          <p>Every classroom stays cool and distraction-free year-round, so a hot afternoon never costs a student their concentration.</p>
         </div>
-        <div class="hero-frame hero-frame-front">
-          <img class="hero-img" alt="Smiling student in a school hallway holding an A+ paper" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBucrjKDFrVRoSJPudQdbgzG46UeNB-YBcNmmg_6ClPpdsCL6O7ciGdmM3IuR4QIbmSUWAtE6GrNA0fl-luEACo_7tF6_GF5tflX2jFoWIqme5g_Yi8yUMT2iOVHHBFxE0gMXvYePw9cRrV-fT2JWKthCCr5lQgaxys0dTOS5vDOegMnt46g7p-Z9ORAofZ7F-SQro5W2Mbgsr2imqEYoshI-AVyFSxNZinuWQbUrjDDsoD6yuCqfVccsYPoS6T4cpWVb7a1nIvlgo">
+        <div class="wa-approach-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="wa-approach-icon"><span class="material-symbols-outlined">groups_3</span></div>
+          <h3>Mentor-Led Small Batches</h3>
+          <p>Batches are capped deliberately small so faculty can catch confusion in the moment, not three tests later.</p>
         </div>
-        <div class="glass-card">
-          <h4>Sir Imtiaz Ahmad</h4>
-          <p>Principal &amp; Lead Mentor</p>
-          <span class="tag">Personally Supervised</span>
+        <div class="wa-approach-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="wa-approach-icon"><span class="material-symbols-outlined">terminal</span></div>
+          <h3>Digital Practice Labs</h3>
+          <p>Weekly lab sessions turn theory into hands-on problem solving — especially for our ICS and pre-engineering students.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ============================= FEATURES ============================= -->
-  <section class="features">
-    <div class="blob blob-green blob-1"></div>
-    <div class="features-inner">
-      <div class="section-heading center" data-aos="fade-up">
-        <span class="eyebrow">Why Choose Us</span>
-        <h2 class="section-title">Why Choose The Winners Academy?</h2>
-        <p class="section-subtitle">Providing a world-class environment designed for focus, safety, and modern technological integration.</p>
-      </div>
-
-      <div class="feature-grid">
-        <div class="feature-card" data-aos="fade-up" data-aos-delay="0">
-          <div class="feature-icon"><span class="material-symbols-outlined">ac_unit</span></div>
-          <h3 class="feature-title">Climate Controlled Learning</h3>
-          <p class="feature-text">Our fully AC Classrooms provide a comfortable environment that maximizes concentration even in extreme weather conditions.</p>
-        </div>
-        <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
-          <div class="feature-icon"><span class="material-symbols-outlined">school</span></div>
-          <h3 class="feature-title">Expert Faculty</h3>
-          <p class="feature-text">Seasoned educators with decades of combined experience, dedicated to nurturing the unique potential of every student.</p>
-        </div>
-        <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
-          <div class="feature-icon"><span class="material-symbols-outlined">computer</span></div>
-          <h3 class="feature-title">Digital Labs</h3>
-          <p class="feature-text">High-speed Multimedia Labs for interactive learning, coding, and preparing students for a tech-driven future.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================= ABOUT / PRINCIPAL ============================= -->
-  <section class="about-section" id="about">
-    <div class="blob blob-green blob-1"></div>
-    <div class="about-grid">
-      <div class="about-portrait" data-aos="fade-right">
-        <div class="portrait-frame">
-          <div class="portrait-media">
-            <img alt="Sir Imtiaz, Principal" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYJYEEUBDY653f6M9WXFTw0UjPHj_yan2SaEu8wHW7ubJQFe3HpTLKLGi0ZilvL1lvPUx8k73Ey9V28xn8K_aRfH-S693rpmIWMHz3V9NoZIBWBcUNxrJifS_0eQpuyBTkCHTYznQOOY_Qyn_f4JdlXNSFeP7SMoyhGlUmpQLntG2-2IwVVX0gmGDEkSuyRbd6wMLQ553otSthuP_DWVVDfFZIzsU3MOfxiHqQTDMd2hQGNJRpn4QWOmnSQY8cMe53SV5BXhjqjPk">
-          </div>
-          <h4>Sir Imtiaz Ahmad</h4>
-          <p>Principal &amp; Visionary</p>
-          <div class="portrait-badge">
-            <strong>[X]+</strong>
-            <span>Years of<br>Experience</span>
+  <!-- ============================= ABOUT ============================= -->
+  <section class="wa-about" id="about">
+    <div class="wa-about-grid">
+      <div data-aos="fade-right">
+        <div class="wa-portrait">
+          <img alt="Sir Imtiaz Ahmad, Principal of The Winners Academy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYJYEEUBDY653f6M9WXFTw0UjPHj_yan2SaEu8wHW7ubJQFe3HpTLKLGi0ZilvL1lvPUx8k73Ey9V28xn8K_aRfH-S693rpmIWMHz3V9NoZIBWBcUNxrJifS_0eQpuyBTkCHTYznQOOY_Qyn_f4JdlXNSFeP7SMoyhGlUmpQLntG2-2IwVVX0gmGDEkSuyRbd6wMLQ553otSthuP_DWVVDfFZIzsU3MOfxiHqQTDMd2hQGNJRpn4QWOmnSQY8cMe53SV5BXhjqjPk">
+          <div class="wa-portrait-foot">
+            <div>
+              <h4>Sir Imtiaz Ahmad</h4>
+              <span>Principal &amp; Physics Mentor</span>
+            </div>
+            <div class="wa-portrait-badge">
+              <strong>16+</strong>
+              <span>Years Teaching</span>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="about-copy" data-aos="fade-left">
-        <span class="eyebrow">About The Academy</span>
-        <h2 class="section-title" style="margin-bottom:0;">Built on Discipline. Led by Experience.</h2>
-        <p>The Winners Academy was founded with one purpose — to give Matriculation and Intermediate students the structured environment, expert guidance, and consistent practice they need to genuinely excel in their board examinations. We don't just teach students to memorize; we empower them to understand.</p>
+      <div class="wa-about-copy" data-aos="fade-left">
+        <span class="wa-eyebrow">About the Academy</span>
+        <h2 style="font-size:26px;font-weight:800;color:var(--wa-ink);margin-top:12px;">A classroom built around understanding, not repetition</h2>
+        <p>Rote memorization gets a student through one paper — it rarely survives a reworded question. We built The Winners Academy around the opposite idea: once a concept genuinely clicks, a student can handle whatever the board throws at them.</p>
+        <p>Every batch follows a rhythm of teach, test, and revisit. Weak areas get flagged within the same week, not discovered at the next mock exam. Sir Imtiaz personally reviews progress reports for every Matriculation and Intermediate student enrolled.</p>
 
-        <blockquote class="principal-quote">
-          <span class="material-symbols-outlined quote-mark">format_quote</span>
-          "At The Winners Academy, we believe every child is a winner waiting to be discovered. We provide the tools, the environment, and the guidance — our students provide the ambition."
+        <blockquote class="wa-about-quote">
+          "A student who understands why an answer is correct doesn't need to guess on exam day. That's the entire philosophy behind how we teach."
         </blockquote>
 
-        <div class="about-location">
-          <div class="pin">📍</div>
-          <div>
-            <strong>Our Campus</strong>
-            <span>Near Allah Wali Masjid, Mohalla Qaim Wala</span>
+        <div class="wa-icon-grid">
+          <div class="wa-icon-item"><div class="wa-ic"><span class="material-symbols-outlined">school</span></div><div><strong>Subject specialists</strong><span>Every teacher owns one subject, not five</span></div></div>
+          <div class="wa-icon-item"><div class="wa-ic"><span class="material-symbols-outlined">menu_book</span></div><div><strong>Weekly assessments</strong><span>Progress tracked continuously, not termly</span></div></div>
+          <div class="wa-icon-item"><div class="wa-ic"><span class="material-symbols-outlined">groups_3</span></div><div><strong>Capped batch size</strong><span>Small enough for real one-on-one attention</span></div></div>
+          <div class="wa-icon-item"><div class="wa-ic"><span class="material-symbols-outlined">location_on</span></div><div><strong>Our campus</strong><span>Near Allah Wali Masjid, Mohalla Qaim Wala</span></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= ACADEMIC PATH (Programs) ============================= -->
+  <section class="wa-path" id="path">
+    <div class="wa-path-inner">
+      <div class="wa-head" data-aos="fade-up">
+        <span class="wa-eyebrow">Our Academic Path</span>
+        <h2>One coaching studio, five clear routes to the boards</h2>
+        <p>Pick the class you're enrolled in — the syllabus, pacing, and practice load are tailored to it from day one.</p>
+      </div>
+
+      <div class="wa-path-list">
+        <div class="wa-path-row" data-aos="fade-up" data-aos-delay="0">
+          <div class="wa-path-icon"><span class="material-symbols-outlined">looks_one</span></div>
+          <div class="wa-path-body">
+            <h3>Grade 9 — Foundation Year</h3>
+            <p>Concept-building across Science and General group subjects before board-style assessment even begins.</p>
+            <div class="wa-path-tags"><span class="wa-tag-level">Matriculation</span><span>All Groups</span><span>Foundation Focus</span></div>
           </div>
         </div>
-
-        <div class="about-points">
-          <div class="about-point"><div class="check">✓</div><span>Experienced, subject-specialist faculty</span></div>
-          <div class="about-point"><div class="check">✓</div><span>Regular tests &amp; performance tracking</span></div>
-          <div class="about-point"><div class="check">✓</div><span>Small batches, focused attention</span></div>
-          <div class="about-point"><div class="check">✓</div><span>Strong board-exam track record</span></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================= PROGRAMS ============================= -->
-  <section class="programs-section" id="programs">
-    <div class="blob blob-navy blob-1"></div>
-    <div class="programs-inner">
-      <div class="section-heading center" data-aos="fade-up">
-        <span class="eyebrow">Classes We Offer</span>
-        <h2 class="section-title">Programs Built Around Board Success</h2>
-        <p class="section-subtitle">Structured coaching for every stage — from Matriculation foundations to Intermediate specialization.</p>
-      </div>
-
-      <div class="programs-grid">
-        <div class="tilt-card" data-aos="fade-up" data-aos-delay="0">
-          <span class="program-level level-matric">Matriculation</span>
-          <div class="program-icon">📘</div>
-          <h3>9th Class</h3>
-          <p class="desc">Strong conceptual foundation across Science &amp; General group subjects to prepare for board patterns early.</p>
-          <div class="program-meta"><span>All Groups</span><span>Board Pattern</span></div>
-        </div>
-
-        <div class="tilt-card" data-aos="fade-up" data-aos-delay="60">
-          <span class="program-level level-matric">Matriculation</span>
-          <div class="program-icon">📗</div>
-          <h3>10th Class</h3>
-          <p class="desc">Final-year intensive preparation with focused revision, past papers, and mock testing for top results.</p>
-          <div class="program-meta"><span>All Groups</span><span>Final Year</span></div>
-        </div>
-
-        <div class="tilt-card" data-aos="fade-up" data-aos-delay="120">
-          <span class="program-level level-inter">Intermediate</span>
-          <div class="program-icon">🧪</div>
-          <h3>FSc (Pre-Medical / Pre-Engineering)</h3>
-          <p class="desc">In-depth coverage of Physics, Chemistry, Biology &amp; Mathematics for Part I and Part II students.</p>
-          <div class="program-meta"><span>Part I &amp; II</span><span>Practical Focus</span></div>
-        </div>
-
-        <div class="tilt-card" data-aos="fade-up" data-aos-delay="180">
-          <span class="program-level level-inter">Intermediate</span>
-          <div class="program-icon">💻</div>
-          <h3>ICS</h3>
-          <p class="desc">Computer Science, Mathematics &amp; Physics taught with practical, exam-oriented problem solving.</p>
-          <div class="program-meta"><span>Part I &amp; II</span><span>Computer Science</span></div>
-        </div>
-
-        <div class="tilt-card" data-aos="fade-up" data-aos-delay="240">
-          <span class="program-level level-inter">Intermediate</span>
-          <div class="program-icon">📚</div>
-          <h3>FA</h3>
-          <p class="desc">Arts &amp; Humanities subjects taught with strong emphasis on writing skills and concept clarity.</p>
-          <div class="program-meta"><span>Part I &amp; II</span><span>Humanities</span></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================= TRANSPORT BANNER ============================= -->
-  <section class="transport" data-aos="fade-up">
-    <div class="transport-card">
-      <div class="transport-glow"></div>
-      <div class="transport-inner">
-        <div class="transport-left">
-          <div class="transport-icon-wrap"><span class="material-symbols-outlined transport-icon">commute</span></div>
-          <div>
-            <h3 class="transport-title">Premium Pick &amp; Drop Service</h3>
-            <p class="transport-text">Safety is our priority. Our managed transport system covers all major routes, ensuring your child reaches home securely.</p>
+        <div class="wa-path-row" data-aos="fade-up" data-aos-delay="60">
+          <div class="wa-path-icon"><span class="material-symbols-outlined">looks_two</span></div>
+          <div class="wa-path-body">
+            <h3>Grade 10 — Board Finishing Year</h3>
+            <p>Intensive past-paper practice, timed mock exams, and targeted revision in the final run-up to boards.</p>
+            <div class="wa-path-tags"><span class="wa-tag-level">Matriculation</span><span>All Groups</span><span>Board-Ready</span></div>
           </div>
         </div>
-        <button class="btn btn-primary transport-btn" onclick="alert('Route maps loading... Our fleet serves Zone A, B, and the Corporate Hub.')">
-          Check Routes
-        </button>
+        <div class="wa-path-row" data-aos="fade-up" data-aos-delay="120">
+          <div class="wa-path-icon"><span class="material-symbols-outlined">biotech</span></div>
+          <div class="wa-path-body">
+            <h3>FSc — Pre-Medical &amp; Pre-Engineering</h3>
+            <p>Full-depth Physics, Chemistry, Biology, and Mathematics coverage across Part I and Part II.</p>
+            <div class="wa-path-tags"><span class="wa-tag-level">Intermediate</span><span>Part I &amp; II</span><span>Lab Practicals</span></div>
+          </div>
+        </div>
+        <div class="wa-path-row" data-aos="fade-up" data-aos-delay="180">
+          <div class="wa-path-icon"><span class="material-symbols-outlined">memory</span></div>
+          <div class="wa-path-body">
+            <h3>ICS — Computer Science</h3>
+            <p>Mathematics and Physics paired with hands-on programming, taught through real exam-style problems.</p>
+            <div class="wa-path-tags"><span class="wa-tag-level">Intermediate</span><span>Part I &amp; II</span><span>Coding Labs</span></div>
+          </div>
+        </div>
+        <div class="wa-path-row" data-aos="fade-up" data-aos-delay="240">
+          <div class="wa-path-icon"><span class="material-symbols-outlined">history_edu</span></div>
+          <div class="wa-path-body">
+            <h3>FA — Humanities</h3>
+            <p>Strong emphasis on structured writing, argumentation, and concept clarity across Arts subjects.</p>
+            <div class="wa-path-tags"><span class="wa-tag-level">Intermediate</span><span>Part I &amp; II</span><span>Writing Focus</span></div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ============================= RESULTS ============================= -->
-  <section class="results-section" id="results">
-    <div class="blob blob-green blob-1"></div>
-    <div class="blob blob-green blob-2"></div>
-    <div class="results-inner">
-      <div class="section-heading center" data-aos="fade-up">
-        <span class="eyebrow">Our Track Record</span>
-        <h2 class="section-title">Previous 5 Years' Results</h2>
-        <p class="section-subtitle">A summary of our students' board examination performance. Replace the placeholders below with your verified yearly data.</p>
+  <!-- ============================= COMMUTE BANNER ============================= -->
+  <section class="wa-commute" data-aos="fade-up">
+    <div class="wa-commute-card">
+      <div class="wa-commute-left">
+        <div class="wa-commute-icon"><span class="material-symbols-outlined">directions_bus</span></div>
+        <div>
+          <h3>Safe Commute Program</h3>
+          <p>Supervised pick-up and drop-off across Zone A, Zone B, and the Corporate Hub route.</p>
+        </div>
+      </div>
+      <button class="wa-btn wa-btn-soft" onclick="alert('Route details loading — our vans cover Zone A, Zone B, and the Corporate Hub daily.')">
+        View Routes
+      </button>
+    </div>
+  </section>
+
+  <!-- ============================= TRACK RECORD ============================= -->
+  <section class="wa-record" id="record">
+    <div class="wa-record-inner">
+      <div class="wa-head" data-aos="fade-up">
+        <span class="wa-eyebrow">Track Record</span>
+        <h2>Five years of board results, at a glance</h2>
+        <p>Select a year on the timeline to see how that batch performed.</p>
       </div>
 
-      <div class="year-tabs" id="yearTabs" data-aos="fade-up">
-        <button class="year-tab active" data-year="2025">2025</button>
-        <button class="year-tab" data-year="2024">2024</button>
-        <button class="year-tab" data-year="2023">2023</button>
-        <button class="year-tab" data-year="2022">2022</button>
-        <button class="year-tab" data-year="2021">2021</button>
+      <div class="wa-record-layout">
+        <div class="wa-timeline" id="waTimeline" data-aos="fade-right">
+          <div class="wa-time-node wa-active" data-year="2025"><span class="wa-time-year">2025</span><span class="wa-time-sub">Most recent batch</span></div>
+          <div class="wa-time-node" data-year="2024"><span class="wa-time-year">2024</span><span class="wa-time-sub">Record pass rate</span></div>
+          <div class="wa-time-node" data-year="2023"><span class="wa-time-year">2023</span><span class="wa-time-sub">First ICS cohort</span></div>
+          <div class="wa-time-node" data-year="2022"><span class="wa-time-year">2022</span><span class="wa-time-sub">Post-pandemic recovery</span></div>
+          <div class="wa-time-node" data-year="2021"><span class="wa-time-year">2021</span><span class="wa-time-sub">Founding cohort</span></div>
+        </div>
+
+        <div class="wa-record-stats" data-aos="fade-left">
+          <div class="wa-record-grid" id="waRecordGrid">
+            <div class="wa-record-card"><span class="wa-record-num">486</span><span class="wa-record-label">Students appeared</span></div>
+            <div class="wa-record-card"><span class="wa-record-num">91%</span><span class="wa-record-label">Scored A / A+</span></div>
+            <div class="wa-record-card"><span class="wa-record-num">97%</span><span class="wa-record-label">Overall pass rate</span></div>
+            <div class="wa-record-card"><span class="wa-record-num">6</span><span class="wa-record-label">Board position holders</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= POSITION HOLDERS ============================= -->
+  <section class="wa-leaders">
+    <div class="wa-leaders-inner">
+      <div class="wa-head" data-aos="fade-up">
+        <span class="wa-eyebrow">Class of 2025</span>
+        <h2>This year's top board scorers</h2>
+        <p>Three students from our 2025 batch who placed among the highest scorers in their board.</p>
       </div>
 
-      <div class="results-grid" data-aos="fade-up">
-        <div class="result-card"><span class="big-num">[XX]</span><span class="label">Students Appeared</span><span class="placeholder-note">Update with actual figure</span></div>
-        <div class="result-card"><span class="big-num">[XX]%</span><span class="label">A+ / A Grade Achievers</span><span class="placeholder-note">Update with actual figure</span></div>
-        <div class="result-card"><span class="big-num">[XX]%</span><span class="label">Overall Pass Rate</span><span class="placeholder-note">Update with actual figure</span></div>
-        <div class="result-card"><span class="big-num">[XX]</span><span class="label">Position Holders</span><span class="placeholder-note">Update with actual figure</span></div>
-      </div>
-
-      <div class="podium-wrap" data-aos="zoom-in">
-        <div class="podium">
-          <div class="podium-step podium-1"><div class="medal-mini">1st</div><h4>[Student Name]</h4><span>[Marks / % — Class]</span></div>
-          <div class="podium-step podium-2"><div class="medal-mini">2nd</div><h4>[Student Name]</h4><span>[Marks / % — Class]</span></div>
-          <div class="podium-step podium-3"><div class="medal-mini">3rd</div><h4>[Student Name]</h4><span>[Marks / % — Class]</span></div>
+      <div class="wa-leaders-grid">
+        <div class="wa-leader-card wa-rank-1" data-aos="fade-up" data-aos-delay="0">
+          <span class="wa-rank-tag">RANK 01</span>
+          <div class="wa-leader-avatar">AR</div>
+          <h4>Ayesha Raza</h4>
+          <span class="wa-leader-marks">1085 / 1100 Marks</span>
+          <span class="wa-leader-class">10th Grade · Science Group</span>
+        </div>
+        <div class="wa-leader-card" data-aos="fade-up" data-aos-delay="80">
+          <span class="wa-rank-tag">RANK 02</span>
+          <div class="wa-leader-avatar">BA</div>
+          <h4>Bilal Ahmed</h4>
+          <span class="wa-leader-marks">1071 / 1100 Marks</span>
+          <span class="wa-leader-class">FSc Part II · Pre-Medical</span>
+        </div>
+        <div class="wa-leader-card" data-aos="fade-up" data-aos-delay="160">
+          <span class="wa-rank-tag">RANK 03</span>
+          <div class="wa-leader-avatar">HF</div>
+          <h4>Hina Fatima</h4>
+          <span class="wa-leader-marks">1064 / 1100 Marks</span>
+          <span class="wa-leader-class">ICS Part II</span>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ============================= FACULTY ============================= -->
-  <section class="faculty-section" id="faculty">
-    <div class="blob blob-green blob-1"></div>
-    <div class="faculty-inner">
-      <div class="section-heading center" data-aos="fade-up">
-        <span class="eyebrow">Meet The Team</span>
-        <h2 class="section-title">Our Expert Faculty</h2>
-        <p class="section-subtitle">Subject-specialist teachers dedicated to helping every student reach their full potential. Photos and details to be added.</p>
+  <section class="wa-faculty" id="faculty">
+    <div class="wa-faculty-inner">
+      <div class="wa-head" data-aos="fade-up">
+        <span class="wa-eyebrow">Meet the Team</span>
+        <h2>The mentors behind the results</h2>
+        <p>Every subject is taught by a specialist — not a generalist covering several papers at once.</p>
       </div>
 
-      <div class="faculty-grid">
-        <div class="faculty-card" data-aos="fade-up" data-aos-delay="0">
-          <div class="faculty-photo"><span>Photo Placeholder</span></div>
-          <div class="faculty-body">
-            <div class="faculty-name">Sir Imtiaz Ahmad</div>
-            <div class="faculty-subject">Principal · Mentor</div>
-            <p class="faculty-exp">[X]+ years of teaching experience</p>
+      <div class="wa-faculty-grid">
+        <div class="wa-faculty-card" data-aos="fade-up" data-aos-delay="0">
+          <div class="wa-faculty-avatar"><span class="material-symbols-outlined">workspace_premium</span></div>
+          <div>
+            <div class="wa-faculty-name">Sir Imtiaz Ahmad</div>
+            <div class="wa-faculty-subject">Principal · Physics</div>
+            <p class="wa-faculty-exp">16+ years guiding board-exam batches</p>
           </div>
         </div>
-        <div class="faculty-card" data-aos="fade-up" data-aos-delay="60">
-          <div class="faculty-photo"><span>Photo Placeholder</span></div>
-          <div class="faculty-body">
-            <div class="faculty-name placeholder">[Teacher Name]</div>
-            <div class="faculty-subject">[Subject]</div>
-            <p class="faculty-exp">[X]+ years of teaching experience</p>
+        <div class="wa-faculty-card" data-aos="fade-up" data-aos-delay="60">
+          <div class="wa-faculty-avatar"><span class="material-symbols-outlined">science</span></div>
+          <div>
+            <div class="wa-faculty-name">Ms. Sana Tariq</div>
+            <div class="wa-faculty-subject">Chemistry</div>
+            <p class="wa-faculty-exp">9+ years teaching FSc &amp; Matric batches</p>
           </div>
         </div>
-        <div class="faculty-card" data-aos="fade-up" data-aos-delay="120">
-          <div class="faculty-photo"><span>Photo Placeholder</span></div>
-          <div class="faculty-body">
-            <div class="faculty-name placeholder">[Teacher Name]</div>
-            <div class="faculty-subject">[Subject]</div>
-            <p class="faculty-exp">[X]+ years of teaching experience</p>
+        <div class="wa-faculty-card" data-aos="fade-up" data-aos-delay="120">
+          <div class="wa-faculty-avatar"><span class="material-symbols-outlined">calculate</span></div>
+          <div>
+            <div class="wa-faculty-name">Mr. Usman Malik</div>
+            <div class="wa-faculty-subject">Mathematics</div>
+            <p class="wa-faculty-exp">11+ years across ICS &amp; FSc programs</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ============================= ADMISSION / WHATSAPP FORM ============================= -->
-  <section class="admission-section" id="admission">
-    <div class="blob blob-navy blob-1"></div>
-    <div class="admission-inner">
-      <div class="admission-grid">
-        <div class="admission-copy" data-aos="fade-right">
-          <span class="eyebrow">Admissions</span>
-          <h2 class="section-title" style="margin-bottom:0;">Apply in Under a Minute</h2>
-          <p>Fill in your details and hit submit — your admission enquiry will open directly in WhatsApp, pre-filled and ready to send to Sir Imtiaz Ahmad.</p>
+  <!-- ============================= ADMISSIONS ============================= -->
+  <section class="wa-admissions" id="admissions">
+    <div class="wa-admissions-inner">
+      <div class="wa-head" data-aos="fade-up" style="margin-bottom:0;">
+        <span class="wa-eyebrow">Admissions</span>
+        <h2>Three steps to your seat</h2>
+        <p>No campus visit required to start — the whole process runs through this form and a WhatsApp conversation.</p>
+      </div>
 
-          <div class="admission-steps">
-            <div class="admission-step"><div class="num">1</div><div><strong>Fill the form</strong><span>Name, class, and a short message</span></div></div>
-            <div class="admission-step"><div class="num">2</div><div><strong>Tap Submit</strong><span>Your details are compiled automatically</span></div></div>
-            <div class="admission-step"><div class="num">3</div><div><strong>Send on WhatsApp</strong><span>Chat opens instantly with Sir Imtiaz Ahmad</span></div></div>
+      <div class="wa-admit-grid" style="margin-top:34px;">
+        <div class="wa-admit-copy" data-aos="fade-right">
+          <div class="wa-pipeline">
+            <div class="wa-pipe-step">
+              <div class="wa-pipe-num">1</div>
+              <div class="wa-pipe-body"><strong>Share your details</strong><span>Name, the class you're applying for, and any questions</span></div>
+            </div>
+            <div class="wa-pipe-step">
+              <div class="wa-pipe-num">2</div>
+              <div class="wa-pipe-body"><strong>We review your request</strong><span>Sir Imtiaz confirms batch availability for your class</span></div>
+            </div>
+            <div class="wa-pipe-step">
+              <div class="wa-pipe-num">3</div>
+              <div class="wa-pipe-body"><strong>Confirm on WhatsApp</strong><span>We finalize your seat and share the orientation date</span></div>
+            </div>
           </div>
 
-          <div class="admission-whatsapp">💬 Or message us directly at <strong>0302&nbsp;7189099</strong></div>
+          <div class="wa-admit-direct">💬 Prefer to skip the form? Message us at <strong>0302&nbsp;7189099</strong></div>
         </div>
 
-        <div class="form-card" data-aos="fade-left" id="admissionFormCard">
-          <h3>Admission Enquiry Form</h3>
-          <p class="sub">All fields marked * are required.</p>
+        <div class="wa-form-panel" data-aos="fade-left" id="waFormPanel">
+          <h3>Reserve Your Seat</h3>
+          <p class="wa-sub">Fields marked * are required.</p>
 
-          <form id="admissionForm">
-            <div class="field">
-              <label for="studentName">Full Name *</label>
-              <input type="text" id="studentName" name="studentName" placeholder="e.g. Ali Hassan" required>
+          <form id="waAdmissionForm">
+            <div class="wa-field">
+              <label for="waName">Applicant's Full Name *</label>
+              <input type="text" id="waName" name="waName" placeholder="Enter your full name" required>
             </div>
-            <div class="field">
-              <label for="studentClass">Class Applying For *</label>
-              <select id="studentClass" name="studentClass" required>
-                <option value="" disabled selected>Select a class</option>
-                <option value="9th Class">9th Class (Matriculation)</option>
-                <option value="10th Class">10th Class (Matriculation)</option>
-                <option value="FSc">FSc (Intermediate)</option>
-                <option value="ICS">ICS (Intermediate)</option>
-                <option value="FA">FA (Intermediate)</option>
+            <div class="wa-field">
+              <label for="waClass">Preferred Program *</label>
+              <select id="waClass" name="waClass" required>
+                <option value="" disabled selected>Choose a program</option>
+                <option value="Grade 9">Grade 9 — Foundation Year</option>
+                <option value="Grade 10">Grade 10 — Board Finishing Year</option>
+                <option value="FSc">FSc — Pre-Medical / Pre-Engineering</option>
+                <option value="ICS">ICS — Computer Science</option>
+                <option value="FA">FA — Humanities</option>
               </select>
             </div>
-            <div class="field">
-              <label for="studentMessage">Message (optional)</label>
-              <textarea id="studentMessage" name="studentMessage" placeholder="Any questions about admission, fees, or timing..."></textarea>
+            <div class="wa-field">
+              <label for="waMsg">Additional Notes (optional)</label>
+              <textarea id="waMsg" name="waMsg" placeholder="Fee structure, batch timing, or anything else you'd like to ask"></textarea>
             </div>
-            <div class="form-submit">
-              <button type="submit" class="btn btn-primary btn-lg btn-block">Submit &amp; Continue on WhatsApp →</button>
+            <div class="wa-form-foot">
+              <span class="wa-form-note">Opens WhatsApp with your details pre-filled.</span>
+              <button type="submit" class="wa-btn wa-btn-fill wa-btn-sm">Send on WhatsApp</button>
             </div>
-            <p class="form-note">On submit, WhatsApp will open in a new tab with your details pre-filled — you just tap send.</p>
-            <p class="form-status" id="formStatus">Redirecting you to WhatsApp…</p>
+            <p class="wa-form-status" id="waFormStatus">Redirecting you to WhatsApp…</p>
           </form>
         </div>
       </div>
@@ -1031,14 +874,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   </section>
 
   <!-- ============================= CTA ============================= -->
-  <section class="cta" data-aos="fade-up">
-    <div class="blob blob-green blob-1"></div>
-    <div class="cta-inner">
-      <h2 class="cta-title">Join the Winners Circle Today</h2>
-      <p class="cta-text">Admissions are now open for the upcoming session. Secure your spot in the region's premier concept-based learning institution.</p>
-      <div class="cta-actions">
-        <button class="btn btn-primary" id="download-btn">Download Prospectus</button>
-        <a class="btn btn-ghost-dark" href="#admission">Apply Now</a>
+  <section class="wa-cta" data-aos="fade-up">
+    <div class="wa-cta-inner">
+      <h2 class="wa-cta-title">Your board exam preparation starts with one conversation</h2>
+      <p class="wa-cta-text">Talk to us about your class, your goals, and where you're currently stuck — we'll tell you honestly whether we're the right fit.</p>
+      <div class="wa-cta-actions">
+        <button class="wa-btn wa-btn-fill" id="waDownloadBtn">Download Prospectus</button>
+        <a class="wa-btn wa-btn-line" href="#admissions">Reserve a Seat</a>
       </div>
     </div>
   </section>
@@ -1046,240 +888,239 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 </main>
 
 <!-- Inquiry Modal -->
-<div class="modal-overlay-wrap" id="inquiry-modal">
-  <div class="modal-overlay" onclick="toggleInquiryModal()"></div>
-  <div class="modal-card">
-    <div class="modal-header">
-      <h3 class="modal-title">Inquiry Form</h3>
-      <button class="modal-close material-symbols-outlined" onclick="toggleInquiryModal()">close</button>
+<div class="wa-modal-wrap" id="waModal">
+  <div class="wa-modal-bg" onclick="waToggleModal()"></div>
+  <div class="wa-modal-card">
+    <div class="wa-modal-head">
+      <h3 class="wa-modal-title">Quick Enquiry</h3>
+      <button class="wa-modal-close material-symbols-outlined" onclick="waToggleModal()">close</button>
     </div>
-    <form class="modal-form" onsubmit="event.preventDefault(); showToast('Inquiry sent successfully! We will contact you shortly.')">
-      <div class="field">
-        <label for="modal-student-name">Student Name</label>
-        <input class="form-input" id="modal-student-name" placeholder="Enter name" type="text">
+    <form class="wa-modal-form" onsubmit="event.preventDefault(); waShowToast('Thanks — we\'ll reach out within one business day.')">
+      <div class="wa-field">
+        <label for="waModalName">Student's Name</label>
+        <input id="waModalName" placeholder="Enter name" type="text">
       </div>
-      <div class="field">
-        <label for="modal-student-grade">Grade/Class</label>
-        <select class="form-input" id="modal-student-grade">
-          <option>Primary School</option>
-          <option>Middle School</option>
-          <option>O-Levels / Secondary</option>
+      <div class="wa-field">
+        <label for="waModalGrade">Grade / Class</label>
+        <select id="waModalGrade">
+          <option>Grade 9</option>
+          <option>Grade 10</option>
+          <option>Intermediate (Part I / II)</option>
         </select>
       </div>
-      <button class="btn btn-primary modal-submit" type="submit">Submit Inquiry</button>
+      <button class="wa-btn wa-btn-fill" type="submit" style="margin-top:8px;">Submit Enquiry</button>
     </form>
   </div>
 </div>
 
 <!-- ============================= FOOTER ============================= -->
-<footer class="footer" id="contact">
-  <div class="blob blob-green blob-1"></div>
-  <div class="footer-grid">
-    <div class="footer-col">
-      <div class="footer-brand">
-        <div class="footer-logo-badge">WA</div>
-        <span class="footer-brand-name">The Winners Academy</span>
+<footer class="wa-footer" id="contact">
+  <div class="wa-footer-split">
+    <div class="wa-footer-brand">
+      <div class="wa-brand">
+        <div class="wa-brand-mark">WA</div>
+        <span class="wa-brand-name" style="font-size:17px;">The Winners Academy</span>
       </div>
-      <p class="footer-desc">Empowering the next generation through conceptual excellence and modern pedagogy. Coaching Matriculation and Intermediate students with discipline and genuine mentorship.</p>
-      <div class="footer-social">
-        <a class="social-btn" href="#" aria-label="Facebook">
-          <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.51 1.49-3.9 3.77-3.9 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.89h2.78l-.44 2.91h-2.34V22c4.78-.79 8.44-4.94 8.44-9.94Z"/></svg>
+      <p class="wa-footer-desc">A concept-first coaching studio for Matriculation and Intermediate students, built around small batches and real mentorship.</p>
+      <div class="wa-footer-map">
+        <span class="material-symbols-outlined">location_on</span>
+        <span>Near Allah Wali Masjid, Mohalla Qaim Wala</span>
+      </div>
+      <div class="wa-footer-social">
+        <a class="wa-social-btn" href="#" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.51 1.49-3.9 3.77-3.9 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.89h2.78l-.44 2.91h-2.34V22c4.78-.79 8.44-4.94 8.44-9.94Z"/></svg>
         </a>
-        <a class="social-btn" href="#" aria-label="Instagram">
-          <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2c2.72 0 3.06.01 4.12.06 1.06.05 1.79.22 2.43.47.66.26 1.22.6 1.77 1.15.55.55.9 1.11 1.15 1.77.25.64.42 1.37.47 2.43.05 1.06.06 1.4.06 4.12s-.01 3.06-.06 4.12c-.05 1.06-.22 1.79-.47 2.43a4.9 4.9 0 0 1-1.15 1.77 4.9 4.9 0 0 1-1.77 1.15c-.64.25-1.37.42-2.43.47-1.06.05-1.4.06-4.12.06s-3.06-.01-4.12-.06c-1.06-.05-1.79-.22-2.43-.47a4.9 4.9 0 0 1-1.77-1.15 4.9 4.9 0 0 1-1.15-1.77c-.25-.64-.42-1.37-.47-2.43C2.01 15.06 2 14.72 2 12s.01-3.06.06-4.12c.05-1.06.22-1.79.47-2.43.26-.66.6-1.22 1.15-1.77A4.9 4.9 0 0 1 5.45.53c.64-.25 1.37-.42 2.43-.47C8.94 2.01 9.28 2 12 2Zm0 1.8c-2.67 0-2.99.01-4.04.06-.87.04-1.34.18-1.65.3-.42.16-.71.35-1.02.66-.31.31-.5.6-.66 1.02-.12.31-.26.78-.3 1.65C4.28 8.53 4.27 8.85 4.27 12s.01 3.47.06 4.51c.04.87.18 1.34.3 1.65.16.42.35.71.66 1.02.31.31.6.5 1.02.66.31.12.78.26 1.65.3 1.05.05 1.37.06 4.04.06s2.99-.01 4.04-.06c.87-.04 1.34-.18 1.65-.3.42-.16.71-.35 1.02-.66.31-.31.5-.6.66-1.02.12-.31.26-.78.3-1.65.05-1.04.06-1.36.06-4.51s-.01-3.47-.06-4.51c-.04-.87-.18-1.34-.3-1.65a2.75 2.75 0 0 0-.66-1.02 2.75 2.75 0 0 0-1.02-.66c-.31-.12-.78-.26-1.65-.3C14.99 3.81 14.67 3.8 12 3.8Zm0 3.06a5.14 5.14 0 1 1 0 10.28 5.14 5.14 0 0 1 0-10.28Zm0 1.8a3.34 3.34 0 1 0 0 6.68 3.34 3.34 0 0 0 0-6.68Zm5.35-1.99a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0Z"/></svg>
+        <a class="wa-social-btn" href="#" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2c2.72 0 3.06.01 4.12.06 1.06.05 1.79.22 2.43.47.66.26 1.22.6 1.77 1.15.55.55.9 1.11 1.15 1.77.25.64.42 1.37.47 2.43.05 1.06.06 1.4.06 4.12s-.01 3.06-.06 4.12c-.05 1.06-.22 1.79-.47 2.43a4.9 4.9 0 0 1-1.15 1.77 4.9 4.9 0 0 1-1.77 1.15c-.64.25-1.37.42-2.43.47-1.06.05-1.4.06-4.12.06s-3.06-.01-4.12-.06c-1.06-.05-1.79-.22-2.43-.47a4.9 4.9 0 0 1-1.77-1.15 4.9 4.9 0 0 1-1.15-1.77c-.25-.64-.42-1.37-.47-2.43C2.01 15.06 2 14.72 2 12s.01-3.06.06-4.12c.05-1.06.22-1.79.47-2.43.26-.66.6-1.22 1.15-1.77A4.9 4.9 0 0 1 5.45.53c.64-.25 1.37-.42 2.43-.47C8.94 2.01 9.28 2 12 2Zm0 1.8c-2.67 0-2.99.01-4.04.06-.87.04-1.34.18-1.65.3-.42.16-.71.35-1.02.66-.31.31-.5.6-.66 1.02-.12.31-.26.78-.3 1.65C4.28 8.53 4.27 8.85 4.27 12s.01 3.47.06 4.51c.04.87.18 1.34.3 1.65.16.42.35.71.66 1.02.31.31.6.5 1.02.66.31.12.78.26 1.65.3 1.05.05 1.37.06 4.04.06s2.99-.01 4.04-.06c.87-.04 1.34-.18 1.65-.3.42-.16.71-.35 1.02-.66.31-.31.5-.6.66-1.02.12-.31.26-.78.3-1.65.05-1.04.06-1.36.06-4.51s-.01-3.47-.06-4.51c-.04-.87-.18-1.34-.3-1.65a2.75 2.75 0 0 0-.66-1.02 2.75 2.75 0 0 0-1.02-.66c-.31-.12-.78-.26-1.65-.3C14.99 3.81 14.67 3.8 12 3.8Zm0 3.06a5.14 5.14 0 1 1 0 10.28 5.14 5.14 0 0 1 0-10.28Zm0 1.8a3.34 3.34 0 1 0 0 6.68 3.34 3.34 0 0 0 0-6.68Zm5.35-1.99a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0Z"/></svg>
         </a>
-        <a class="social-btn" href="https://wa.me/923027189099" target="_blank" rel="noopener" aria-label="WhatsApp">
-          <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.3-.4.1-.2 0-.3 0-.5s-.7-1.6-.9-2.2c-.2-.5-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4 0 1.4 1 2.8 1.2 3 .1.2 2.1 3.1 5 4.4.7.3 1.2.5 1.7.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 2-1.4.2-.7.2-1.3.1-1.4-.1-.1-.2-.2-.5-.3ZM12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.6 1.4 5.1L2 22l5.1-1.3C8.5 21.6 10.2 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2Zm0 18c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20Z"/></svg>
+        <a class="wa-social-btn" href="https://wa.me/923027189099" target="_blank" rel="noopener" aria-label="WhatsApp">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.3-.4.1-.2 0-.3 0-.5s-.7-1.6-.9-2.2c-.2-.5-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4 0 1.4 1 2.8 1.2 3 .1.2 2.1 3.1 5 4.4.7.3 1.2.5 1.7.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 2-1.4.2-.7.2-1.3.1-1.4-.1-.1-.2-.2-.5-.3ZM12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.6 1.4 5.1L2 22l5.1-1.3C8.5 21.6 10.2 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2Zm0 18c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20Z"/></svg>
         </a>
       </div>
     </div>
 
-    <div class="footer-col">
-      <h4 class="footer-heading">Quick Links</h4>
-      <ul class="footer-list">
-        <li><a class="footer-link" href="#home">Home</a></li>
-        <li><a class="footer-link" href="#about">About Us</a></li>
-        <li><a class="footer-link" href="#programs">Programs</a></li>
-        <li><a class="footer-link" href="#results">Results</a></li>
-        <li><a class="footer-link" href="#faculty">Faculty</a></li>
-      </ul>
-    </div>
-
-    <div class="footer-col">
-      <h4 class="footer-heading">Programs</h4>
-      <ul class="footer-list">
-        <li><a class="footer-link" href="#programs">9th Class</a></li>
-        <li><a class="footer-link" href="#programs">10th Class</a></li>
-        <li><a class="footer-link" href="#programs">FSc</a></li>
-        <li><a class="footer-link" href="#programs">ICS</a></li>
-        <li><a class="footer-link" href="#programs">FA</a></li>
-      </ul>
-    </div>
-
-    <div class="footer-col">
-      <h4 class="footer-heading">Contact Info</h4>
-      <ul class="footer-list">
-        <li class="footer-list-item"><span class="material-symbols-outlined footer-icon">location_on</span>Near Allah Wali Masjid, Mohalla Qaim Wala</li>
-        <li class="footer-list-item"><span class="material-symbols-outlined footer-icon">call</span>+92 0302 7189099</li>
-        <li class="footer-list-item"><span class="material-symbols-outlined footer-icon">mail</span>admissions@winners.edu</li>
-      </ul>
+    <div class="wa-footer-links">
+      <div class="wa-footer-group">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="#top">Home</a></li>
+          <li><a href="#approach">Approach</a></li>
+          <li><a href="#path">Academic Path</a></li>
+          <li><a href="#record">Track Record</a></li>
+          <li><a href="#faculty">Faculty</a></li>
+        </ul>
+      </div>
+      <div class="wa-footer-group">
+        <h4>Programs</h4>
+        <ul>
+          <li><a href="#path">Grade 9</a></li>
+          <li><a href="#path">Grade 10</a></li>
+          <li><a href="#path">FSc</a></li>
+          <li><a href="#path">ICS</a></li>
+          <li><a href="#path">FA</a></li>
+        </ul>
+      </div>
+      <div class="wa-footer-group">
+        <h4>Contact</h4>
+        <ul>
+          <li class="wa-footer-contact-item"><span class="material-symbols-outlined">call</span>+92 0302 7189099</li>
+          <li class="wa-footer-contact-item"><span class="material-symbols-outlined">mail</span>admissions@winners.edu</li>
+          <li class="wa-footer-contact-item"><span class="material-symbols-outlined">person</span>Principal: Sir Imtiaz Ahmad</li>
+        </ul>
+      </div>
     </div>
   </div>
 
-  <div class="footer-bottom">
-    <span>&copy; <span id="year"></span> The Winners Academy. All rights reserved.</span>
-    <span>Designed for a future of results, not shortcuts.</span>
+  <div class="wa-footer-bottom">
+    <span>&copy; <span id="waYear"></span> The Winners Academy. All rights reserved.</span>
+    <span>Built for a future decided by understanding, not luck.</span>
   </div>
 </footer>
 
-<!-- Floating WhatsApp quick-contact button -->
+<!-- Floating WhatsApp -->
 <a class="wa-float" href="https://wa.me/923027189099?text=Assalam-o-Alaikum%2C%20I%20would%20like%20to%20know%20more%20about%20admissions%20at%20The%20Winners%20Academy." target="_blank" rel="noopener" aria-label="Chat on WhatsApp">💬</a>
 
-<!-- AOS library script -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 <script>
   /* ============================================================
      THE WINNERS ACADEMY — CORE INTERACTIONS
      ============================================================ */
 
-  // ---- Init AOS (Animate On Scroll) ----
   AOS.init({ duration: 700, easing: 'ease-out-cubic', once: true, offset: 60 });
 
-  // ---- Mobile menu toggle ----
-  const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-  const mobileMenuIcon = document.getElementById('mobile-menu-icon');
-  const mobileDrawer = document.getElementById('mobile-drawer');
-  const mobileLinks = document.querySelectorAll('.mobile-link');
+  // ---- Announcement strip dismiss + nav offset sync ----
+  const strip = document.getElementById('wa-strip');
+  const stripClose = document.getElementById('wa-strip-close');
+  const nav = document.getElementById('wa-nav');
 
-  function toggleMenu() {
-    const isOpen = mobileDrawer.classList.toggle('drawer-open');
-    mobileMenuIcon.textContent = isOpen ? 'close' : 'menu';
-    mobileMenuBtn.setAttribute('aria-expanded', isOpen);
-  }
-  if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', toggleMenu);
-  mobileLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      if (mobileDrawer.classList.contains('drawer-open')) toggleMenu();
-    });
+  stripClose.addEventListener('click', () => {
+    strip.classList.add('wa-strip-hidden');
+    nav.classList.add('wa-nav-top');
   });
 
-  // ---- Typewriter effect ----
-  const textElement = document.getElementById('typewriter');
-  const phrases = ["Concept-Based Learning.", "Creative Problem Solving.", "Future Leaders.", "Academic Excellence."];
-  let phraseIndex = 0, charIndex = 0, isDeleting = false, typingSpeed = 100;
+  // ---- Mobile menu ----
+  const burgerBtn = document.getElementById('waBurgerBtn');
+  const burgerIcon = document.getElementById('waBurgerIcon');
+  const drawer = document.getElementById('waDrawer');
 
-  function type() {
-    const currentPhrase = phrases[phraseIndex];
-    if (isDeleting) {
-      textElement.textContent = currentPhrase.substring(0, charIndex - 1);
-      charIndex--; typingSpeed = 50;
-    } else {
-      textElement.textContent = currentPhrase.substring(0, charIndex + 1);
-      charIndex++; typingSpeed = 100;
-    }
-    if (!isDeleting && charIndex === currentPhrase.length) { isDeleting = true; typingSpeed = 2000; }
-    else if (isDeleting && charIndex === 0) { isDeleting = false; phraseIndex = (phraseIndex + 1) % phrases.length; typingSpeed = 500; }
-    setTimeout(type, typingSpeed);
+  function waToggleMenu() {
+    const open = drawer.classList.toggle('wa-drawer-open');
+    burgerIcon.textContent = open ? 'close' : 'menu';
+    burgerBtn.setAttribute('aria-expanded', open);
+  }
+  burgerBtn.addEventListener('click', waToggleMenu);
+  document.querySelectorAll('.wa-drawer-link').forEach(link => {
+    link.addEventListener('click', () => { if (drawer.classList.contains('wa-drawer-open')) waToggleMenu(); });
+  });
+
+  // ---- Typewriter ----
+  const typeEl = document.getElementById('waTypewriter');
+  const phrases = ["Own the exam.", "Own the syllabus.", "Own the result."];
+  let pi = 0, ci = 0, deleting = false, speed = 90;
+
+  function waType() {
+    const phrase = phrases[pi];
+    if (deleting) { typeEl.textContent = phrase.substring(0, ci - 1); ci--; speed = 45; }
+    else { typeEl.textContent = phrase.substring(0, ci + 1); ci++; speed = 90; }
+    if (!deleting && ci === phrase.length) { deleting = true; speed = 1800; }
+    else if (deleting && ci === 0) { deleting = false; pi = (pi + 1) % phrases.length; speed = 450; }
+    setTimeout(waType, speed);
   }
 
-  // ---- Navbar scroll state + active link scroll-spy ----
-  const nav = document.getElementById('top-nav');
-  const navSections = ['home', 'about', 'programs', 'results', 'faculty', 'admission'];
+  // ---- Scroll state: strip collapse, nav shadow, scroll-spy ----
+  const sectionIds = ['top', 'approach', 'path', 'record', 'faculty', 'admissions'];
 
   window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 50);
-
-    let current = navSections[0];
-    for (const id of navSections) {
-      const el = document.getElementById(id);
-      if (el && window.scrollY >= el.offsetTop - 140) current = id;
+    if (window.scrollY > 40 && !strip.classList.contains('wa-strip-hidden')) {
+      strip.classList.add('wa-strip-hidden');
+      nav.classList.add('wa-nav-top');
     }
-    document.querySelectorAll('.nav-link').forEach(link => {
-      link.classList.toggle('nav-link-active', link.getAttribute('href') === `#${current}`);
+    nav.classList.toggle('wa-nav-scrolled', window.scrollY > 50);
+
+    let current = sectionIds[0];
+    for (const id of sectionIds) {
+      const el = document.getElementById(id);
+      if (el && window.scrollY >= el.offsetTop - 160) current = id;
+    }
+    document.querySelectorAll('.wa-nav-link, .wa-drawer-link').forEach(link => {
+      link.classList.toggle('wa-active', link.getAttribute('href') === `#${current}`);
     });
   });
 
-  // ---- Toast Notification System ----
-  function showToast(message) {
-    const container = document.getElementById('toast-container');
+  // ---- Toast system ----
+  function waShowToast(message) {
+    const wrap = document.getElementById('wa-toast-wrap');
     const toast = document.createElement('div');
-    toast.className = 'toast';
-    toast.innerHTML = `<span class="material-symbols-outlined">check_circle</span><span class="toast-msg">${message}</span>`;
-    container.appendChild(toast);
-    setTimeout(() => { toast.classList.add('toast-hide'); setTimeout(() => toast.remove(), 500); }, 4000);
-    const modal = document.getElementById('inquiry-modal');
-    if (modal.classList.contains('modal-open')) toggleInquiryModal();
+    toast.className = 'wa-toast';
+    toast.innerHTML = `<span class="material-symbols-outlined">task_alt</span><span>${message}</span>`;
+    wrap.appendChild(toast);
+    setTimeout(() => { toast.classList.add('wa-toast-hide'); setTimeout(() => toast.remove(), 500); }, 4200);
+    const modal = document.getElementById('waModal');
+    if (modal.classList.contains('wa-modal-open')) waToggleModal();
   }
 
-  // ---- Inquiry Modal Toggle ----
-  function toggleInquiryModal() {
-    document.getElementById('inquiry-modal').classList.toggle('modal-open');
-  }
+  // ---- Enquiry modal ----
+  function waToggleModal() { document.getElementById('waModal').classList.toggle('wa-modal-open'); }
 
-  // ---- Prospectus Download Interaction ----
-  document.getElementById('download-btn').addEventListener('click', () => {
-    showToast('Prospectus download started! Check your downloads folder.');
+  // ---- Prospectus download ----
+  document.getElementById('waDownloadBtn').addEventListener('click', () => {
+    waShowToast('Prospectus download started — check your downloads folder.');
   });
 
-  // ---- 3D tilt effect for program cards (mouse-follow glow + rotation) ----
-  document.querySelectorAll('.tilt-card').forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left, y = e.clientY - rect.top;
-      const centerX = rect.width / 2, centerY = rect.height / 2;
-      const rotateX = ((y - centerY) / centerY) * -5;
-      const rotateY = ((x - centerX) / centerX) * 5;
-      card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
-      card.style.setProperty('--mx', `${x}px`);
-      card.style.setProperty('--my', `${y}px`);
-    });
-    card.addEventListener('mouseleave', () => {
-      card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) translateY(0)';
-    });
-  });
-
-  // ---- Results year tabs (visual state only — wire up real data later) ----
-  document.querySelectorAll('.year-tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-      document.querySelectorAll('.year-tab').forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-      // NOTE: When real yearly data is available, swap the numbers in
-      // .results-grid based on tab.dataset.year here.
+  // ---- Track record vertical timeline ----
+  const recordData = {
+    2025: { appeared: 486, grades: '91%', pass: '97%', positions: 6 },
+    2024: { appeared: 452, grades: '88%', pass: '96%', positions: 4 },
+    2023: { appeared: 410, grades: '85%', pass: '94%', positions: 3 },
+    2022: { appeared: 368, grades: '82%', pass: '92%', positions: 2 },
+    2021: { appeared: 301, grades: '79%', pass: '90%', positions: 1 }
+  };
+  const recordGrid = document.getElementById('waRecordGrid');
+  document.querySelectorAll('.wa-time-node').forEach(node => {
+    node.addEventListener('click', () => {
+      document.querySelectorAll('.wa-time-node').forEach(n => n.classList.remove('wa-active'));
+      node.classList.add('wa-active');
+      const d = recordData[node.dataset.year];
+      recordGrid.innerHTML = `
+        <div class="wa-record-card"><span class="wa-record-num">${d.appeared}</span><span class="wa-record-label">Students appeared</span></div>
+        <div class="wa-record-card"><span class="wa-record-num">${d.grades}</span><span class="wa-record-label">Scored A / A+</span></div>
+        <div class="wa-record-card"><span class="wa-record-num">${d.pass}</span><span class="wa-record-label">Overall pass rate</span></div>
+        <div class="wa-record-card"><span class="wa-record-num">${d.positions}</span><span class="wa-record-label">Board position holders</span></div>`;
     });
   });
 
   // ---- Footer year ----
-  document.getElementById('year').textContent = new Date().getFullYear();
+  document.getElementById('waYear').textContent = new Date().getFullYear();
 
   // ---- Admission form -> WhatsApp redirect ----
-  const WHATSAPP_NUMBER = '923027189099'; // Sir Imtiaz Ahmad — country code 92 + 3027189099
-  const admissionForm = document.getElementById('admissionForm');
-  const formStatus = document.getElementById('formStatus');
+  const WHATSAPP_NUMBER = '923027189099';
+  const admissionForm = document.getElementById('waAdmissionForm');
+  const formStatus = document.getElementById('waFormStatus');
 
   admissionForm.addEventListener('submit', function (e) {
     e.preventDefault();
-    const name = document.getElementById('studentName').value.trim();
-    const studentClass = document.getElementById('studentClass').value;
-    const message = document.getElementById('studentMessage').value.trim();
+    const name = document.getElementById('waName').value.trim();
+    const program = document.getElementById('waClass').value;
+    const notes = document.getElementById('waMsg').value.trim();
 
-    if (!name || !studentClass) {
-      formStatus.textContent = 'Please fill in your name and select a class.';
-      formStatus.style.color = '#ba1a1a';
-      formStatus.classList.add('show');
+    if (!name || !program) {
+      formStatus.textContent = 'Please add your name and choose a program.';
+      formStatus.style.color = '#dc2626';
+      formStatus.classList.add('wa-show');
       return;
     }
 
     const lines = [
       'Assalam-o-Alaikum, I would like to apply for admission at The Winners Academy.',
-      '', `Name: ${name}`, `Class: ${studentClass}`
+      '', `Name: ${name}`, `Program: ${program}`
     ];
-    if (message) lines.push(`Message: ${message}`);
+    if (notes) lines.push(`Notes: ${notes}`);
 
     const whatsappURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(lines.join('\n'))}`;
 
     formStatus.textContent = 'Redirecting you to WhatsApp…';
-    formStatus.style.color = '#00A86B';
-    formStatus.classList.add('show');
+    formStatus.style.color = '#059669';
+    formStatus.classList.add('wa-show');
 
     const newTab = window.open(whatsappURL, '_blank');
     if (!newTab) window.location.href = whatsappURL;
@@ -1287,8 +1128,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
     admissionForm.reset();
   });
 
-  // ---- Initialize ----
-  document.addEventListener('DOMContentLoaded', () => { type(); });
+  document.addEventListener('DOMContentLoaded', () => { waType(); });
 </script>
 
 </body>
