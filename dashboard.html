@@ -249,9 +249,10 @@
 <div class="flex flex-wrap items-center gap-4">
 <select class="bg-surface-container border-outline-variant rounded-lg font-label-md py-2 px-4 min-w-[140px]" id="filter-class">
 <option value="all">All Classes</option>
-<option value="Class 10-A">Class 10-A</option>
-<option value="Class 11-B">Class 11-B</option>
-<option value="Class 12-C">Class 12-C</option>
+<option value="Class 9">Class 9</option>
+<option value="Class 10">Class 10</option>
+<option value="Class 11">Class 11</option>
+<option value="Class 12">Class 12</option>
 </select>
 <select class="bg-surface-container border-outline-variant rounded-lg font-label-md py-2 px-4 min-w-[140px]" id="filter-status">
 <option value="all">All Status</option>
@@ -274,9 +275,10 @@
 <div class="space-y-1">
 <label class="font-label-md text-on-surface-variant">Class</label>
 <select class="w-full bg-white border-outline-variant rounded-lg py-2 px-3 text-body-sm" name="class" required="">
-<option value="Class 10-A">Class 10-A</option>
-<option value="Class 11-B">Class 11-B</option>
-<option value="Class 12-C">Class 12-C</option>
+<option value="Class 9">Class 9</option>
+<option value="Class 10">Class 10</option>
+<option value="Class 11">Class 11</option>
+<option value="Class 12">Class 12</option>
 </select>
 </div>
 <div class="space-y-1">
@@ -345,12 +347,18 @@
 
         // Initial Seed Data
         let students = [
-            { id: 1, name: "M.Azhan Joiya", class: "Class 12-A", date: "2023-09-15", status: "PAID" },
-            { id: 2, name: "M.Ali Madni", class: "Class 12-B", date: "2023-10-02", status: "PENDING" },
-            { id: 3, name: "M.Naveed Ahmad", class: "Class 12-C", date: "2023-08-20", status: "PAID" },
-            { id: 4, name: "M.Hassan", class: "Class 10-A", date: "2023-11-05", status: "PAID" },
-            { id: 5, name: "M.Kashan Joiya", class: "Class 11-A", date: "2023-12-10", status: "PENDING" },
-            { id: 6, name: "M.Ali Raza", class: "Class 9-B", date: "2024-01-08", status: "PAID" },
+            { id: 1, name: "M.Azhan Joiya", class: "Class 12", date: "2023-09-15", status: "PAID" },
+            { id: 2, name: "M.Ali Madni", class: "Class 12", date: "2023-10-02", status: "PENDING" },
+            { id: 3, name: "M.Naveed Ahmad", class: "Class 12", date: "2023-08-20", status: "PAID" },
+            { id: 4, name: "M.Hassan", class: "Class 10", date: "2023-11-05", status: "PAID" },
+            { id: 5, name: "M.Kashan Joiya", class: "Class 11", date: "2023-12-10", status: "PENDING" },
+            { id: 6, name: "M.Maaz Dasti", class: "Class 11", date: "2023-12-10", status: "PENDING" },
+            { id: 7, name: "M.Ali Raza", class: "Class 9", date: "2024-01-08", status: "PAID" },
+            { id: 8, name: "M.Asad Khan", class: "Class 12", date: "2024-01-08", status: "PAID" },
+            { id: 9, name: "M.Subhan Joiya", class: "Class 12", date: "2024-01-08", status: "PAID" },
+            { id: 10, name: "M.Umair Iqbal", class: "Class 12", date: "2024-01-08", status: "PAID" },
+            { id: 11, name: "M.Abdul Mateen", class: "Class 12", date: "2024-01-08", status: "PAID" },
+            { id: 12, name: "M.Ahsan Abbas", class: "Class 12", date: "2024-01-08", status: "PAID" },
         ];
 
         let currentPage = 1;
