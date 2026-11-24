@@ -10,17 +10,21 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 
-// 1. MongoDB Connection
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log('✅ MongoDB Connected Successfully!'))
-  .catch(err => console.error('❌ MongoDB Connection Error:', err));
+// 1. Serverless-Safe MongoDB Connection (Cached)
+let isConnected = false;
+async function connectDB() {
+  if (isConnected && mongoose.connection.readyState === 1) return;
+  await mongoose.connect(process.env.MONGO_URI);
+  isConnected = true;
+  console.log('✅ MongoDB Connected Successfully!');
+}
 
 // 2. Database Schemas (Admin & Students)
 const adminSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true }
 });
-const Admin = mongoose.model('Admin', adminSchema);
+const Admin = mongoose.models.Admin || mongoose.model('Admin', adminSchema);
 
 const studentSchema = new mongoose.Schema({
   studentId: String,
@@ -30,25 +34,43 @@ const studentSchema = new mongoose.Schema({
   feeStatus: { type: String, enum: ['PAID', 'PENDING'], default: 'PENDING' },
   feeAmount: { type: Number, default: 0 }
 });
-const Student = mongoose.model('Student', studentSchema);
+const Student = mongoose.models.Student || mongoose.model('Student', studentSchema);
 
-// Pehli baar server chalne par Default Admin Account (Encrypted Password ke saath) banayein
-async function createDefaultAdmin() {
-  const hashedPassword = await bcrypt.hash(process.env.ADMIN_PASS, 10);
-  await Admin.findOneAndUpdate(
-    { username: process.env.ADMIN_USER },
-    { password: hashedPassword },
-    { upsert: true, new: true }
-  );
-  console.log(`🔐 Admin Password Synced -> User: ${process.env.ADMIN_USER}`);
+// Default Admin Sync Function
+async function ensureDefaultAdmin() {
+  await connectDB();
+  if (!process.env.ADMIN_USER || !process.env.ADMIN_PASS) return;
+  const existing = await Admin.findOne({ username: process.env.ADMIN_USER });
+  if (!existing) {
+    const hashedPassword = await bcrypt.hash(process.env.ADMIN_PASS, 10);
+    await Admin.create({
+      username: process.env.ADMIN_USER,
+      password: hashedPassword
+    });
+    console.log(`🔐 Admin Created -> User: ${process.env.ADMIN_USER}`);
+  }
 }
-createDefaultAdmin();
 
+// Har request se pehle DB connection ensure karein
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (err) {
+    console.error('❌ DB Middleware Error:', err);
+    res.status(500).json({ success: false, message: 'Database connection failed' });
+  }
+});
 
-// 3. Security Guard (Middleware) - Bina Login Dashboard Rokne ke Liye
+// 3. Security Guard (Middleware)
 function verifyAdmin(req, res, next) {
   const token = req.cookies.admin_token;
-  if (!token) return res.redirect('/login.html');
+  if (!token) {
+    if (req.path.startsWith('/api/')) {
+      return res.status(401).json({ success: false, message: 'Unauthorized' });
+    }
+    return res.redirect('/login.html');
+  }
 
   try {
     const verified = jwt.verify(token, process.env.JWT_SECRET);
@@ -56,39 +78,57 @@ function verifyAdmin(req, res, next) {
     next();
   } catch (err) {
     res.clearCookie('admin_token');
+    if (req.path.startsWith('/api/')) {
+      return res.status(401).json({ success: false, message: 'Session expired' });
+    }
     return res.redirect('/login.html');
   }
 }
 
-// 4. Protected Dashboard Route (Direct URL se kholne par bhi login mangega)
+// 4. Protected Dashboard Route
 app.get('/dashboard.html', verifyAdmin, (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'dashboard.html'));
+  res.sendFile(path.join(process.cwd(), 'public', 'dashboard.html'));
 });
 
 // Public folder ki baaqi files serve karein
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(process.cwd(), 'public')));
 
 // 5. Login & Logout APIs
 app.post('/api/login', async (req, res) => {
-  const { username, password } = req.body;
-  const admin = await Admin.findOne({ username: username || process.env.ADMIN_USER });
+  try {
+    await ensureDefaultAdmin();
+    const { username, password } = req.body;
+    const admin = await Admin.findOne({ username: username || process.env.ADMIN_USER });
 
-  if (!admin) return res.status(401).json({ success: false, message: 'Ghalat Username ya Password!' });
+    if (!admin) {
+      return res.status(401).json({ success: false, message: 'Ghalat Username ya Password!' });
+    }
 
-  const isMatch = await bcrypt.compare(password, admin.password);
-  if (!isMatch) return res.status(401).json({ success: false, message: 'Ghalat Username ya Password!' });
+    const isMatch = await bcrypt.compare(password, admin.password);
+    if (!isMatch) {
+      return res.status(401).json({ success: false, message: 'Ghalat Username ya Password!' });
+    }
 
-  const token = jwt.sign({ id: admin._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
-  res.cookie('admin_token', token, { httpOnly: true, sameSite: 'strict' });
-  res.json({ success: true });
+    const token = jwt.sign({ id: admin._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
+    res.cookie('admin_token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      path: '/'
+    });
+    res.json({ success: true });
+  } catch (err) {
+    console.error('Login Error:', err);
+    res.status(500).json({ success: false, message: 'Server error during login' });
+  }
 });
 
 app.post('/api/logout', (req, res) => {
-  res.clearCookie('admin_token');
+  res.clearCookie('admin_token', { path: '/' });
   res.json({ success: true });
 });
 
-// 6. Student & Fees Management APIs (Sirf Logged-in Admin ke Liye)
+// 6. Student & Fees Management APIs
 app.get('/api/students', verifyAdmin, async (req, res) => {
   const students = await Student.find().sort({ _id: -1 });
   res.json(students);
@@ -120,9 +160,12 @@ app.delete('/api/students/:id', verifyAdmin, async (req, res) => {
   res.json({ success: true });
 });
 
-// Server Start
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
-});
+// Local server start (Vercel isay ignore kar ke module.exports use karega)
+if (require.main === module) {
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => {
+    console.log(`🚀 Server running on http://localhost:${PORT}`);
+  });
+}
+
 module.exports = app;
