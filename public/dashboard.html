@@ -8,6 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Hanken+Grotesk:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+ <link rel="icon" type="image/x-icon" href="favicon.ico">
 <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -342,28 +343,14 @@
 <script>
         /**
          * The Winners Academy - Admin Portal Logic
-         * Handles Student Management, Fees, Filters, and Responsive Layout
+         * Connected to the Express + MongoDB backend (server.js)
          */
 
-        // Initial Seed Data
-        let students = [
-            { id: 1, name: "M.Azhan Joiya", class: "Class 12", date: "2023-09-15", status: "PAID" },
-            { id: 2, name: "M.Ali Madni", class: "Class 12", date: "2023-10-02", status: "PENDING" },
-            { id: 3, name: "M.Naveed Ahmad", class: "Class 12", date: "2023-08-20", status: "PAID" },
-            { id: 4, name: "M.Hassan", class: "Class 10", date: "2023-11-05", status: "PAID" },
-            { id: 5, name: "M.Kashan Joiya", class: "Class 11", date: "2023-12-10", status: "PENDING" },
-            { id: 6, name: "M.Maaz Dasti", class: "Class 11", date: "2023-12-10", status: "PENDING" },
-            { id: 7, name: "M.Ali Raza", class: "Class 9", date: "2024-01-08", status: "PAID" },
-            { id: 8, name: "M.Asad Khan", class: "Class 12", date: "2024-01-08", status: "PAID" },
-            { id: 9, name: "M.Subhan Joiya", class: "Class 12", date: "2024-01-08", status: "PAID" },
-            { id: 10, name: "M.Umair Iqbal", class: "Class 12", date: "2024-01-08", status: "PAID" },
-            { id: 11, name: "M.Abdul Mateen", class: "Class 12", date: "2024-01-08", status: "PAID" },
-            { id: 12, name: "M.Ahsan Abbas", class: "Class 12", date: "2024-01-08", status: "PAID" },
-        ];
+        // Live data from the database (filled by loadStudents)
+        let students = [];
 
         let currentPage = 1;
         const rowsPerPage = 5;
-        let nextAvailableId = 7;
 
         // UI Element Selectors
         const tableBody = document.getElementById('student-table-body');
@@ -377,6 +364,45 @@
         const mobileToggle = document.getElementById('mobile-toggle');
 
         /**
+         * Helpers
+         */
+        function redirectToLogin() {
+            window.location.href = '/login.html';
+        }
+
+        function escapeHtml(value) {
+            return String(value ?? '').replace(/[&<>"']/g, ch => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+            }[ch]));
+        }
+
+        // Central API helper: sends cookies, handles expired sessions (401/403 or redirect to login)
+        async function api(url, options = {}) {
+            let res;
+            try {
+                res = await fetch(url, {
+                    credentials: 'same-origin',
+                    headers: { 'Content-Type': 'application/json' },
+                    ...options
+                });
+            } catch (networkErr) {
+                throw new Error('Server se rabta nahi ho saka. Check karein ke server chal raha hai.');
+            }
+
+            // Expired / missing session
+            if (res.status === 401 || res.status === 403 || (res.redirected && res.url.includes('login.html'))) {
+                redirectToLogin();
+                throw new Error('Session expired');
+            }
+
+            if (!res.ok) {
+                throw new Error(`Request failed (${res.status})`);
+            }
+
+            return res.json();
+        }
+
+        /**
          * Responsive Sidebar Logic
          */
         function toggleSidebar() {
@@ -388,44 +414,76 @@
         overlay.addEventListener('click', toggleSidebar);
 
         /**
+         * 1. Fetch students from the database
+         */
+        async function loadStudents() {
+            try {
+                students = await api('/api/students');
+                renderTable();
+            } catch (err) {
+                if (err.message === 'Session expired') return;
+                console.error(err);
+                tableBody.innerHTML = `
+                    <tr><td colspan="6" class="px-gutter py-6 text-center font-body-sm text-error">
+                        Students load nahi ho sake: ${escapeHtml(err.message)}
+                    </td></tr>`;
+            }
+        }
+
+        /**
          * Core Table Rendering
          */
+        function normalize(text) {
+            return String(text ?? '').toLowerCase().replace('#', '').trim();
+        }
+
         function renderTable() {
-            // Apply Search and Filters
+            // 5. Apply Search (name or roll number) and Filters
+            const term = normalize(searchInput.value);
             let filtered = students.filter(s => {
-                const matchesSearch = s.name.toLowerCase().includes(searchInput.value.toLowerCase());
-                const matchesClass = filterClass.value === 'all' || s.class === filterClass.value;
-                const matchesStatus = filterStatus.value === 'all' || s.status === filterStatus.value;
+                const matchesSearch = !term
+                    || normalize(s.name).includes(term)
+                    || normalize(s.studentId).includes(term);
+                const matchesClass = filterClass.value === 'all' || s.classSection === filterClass.value;
+                const matchesStatus = filterStatus.value === 'all' || s.feeStatus === filterStatus.value;
                 return matchesSearch && matchesClass && matchesStatus;
             });
 
             // Pagination Logic
             const totalStudents = filtered.length;
+            const totalPages = Math.ceil(totalStudents / rowsPerPage);
+            if (currentPage > totalPages) currentPage = Math.max(totalPages, 1);
             const startIndex = (currentPage - 1) * rowsPerPage;
             const paginated = filtered.slice(startIndex, startIndex + rowsPerPage);
-            const totalPages = Math.ceil(totalStudents / rowsPerPage);
 
             tableBody.innerHTML = '';
+
+            if (paginated.length === 0) {
+                tableBody.innerHTML = `
+                    <tr><td colspan="6" class="px-gutter py-6 text-center font-body-sm text-on-surface-variant">
+                        No students found.
+                    </td></tr>`;
+            }
 
             paginated.forEach(student => {
                 const row = document.createElement('tr');
                 row.className = 'border-b border-outline-variant hover:bg-surface-container-lowest/80 transition-colors group';
                 row.innerHTML = `
-                    <td class="px-gutter py-4 font-body-sm text-on-surface-variant">#${String(student.id).padStart(3, '0')}</td>
-                    <td class="px-gutter py-4 font-body-md font-bold text-on-surface">${student.name}</td>
-                    <td class="px-gutter py-4 font-body-sm text-on-surface-variant">${student.class}</td>
-                    <td class="px-gutter py-4 font-body-sm text-on-surface-variant">${student.date}</td>
+                    <td class="px-gutter py-4 font-body-sm text-on-surface-variant">${escapeHtml(student.studentId)}</td>
+                    <td class="px-gutter py-4 font-body-md font-bold text-on-surface">${escapeHtml(student.name)}</td>
+                    <td class="px-gutter py-4 font-body-sm text-on-surface-variant">${escapeHtml(student.classSection)}</td>
+                    <td class="px-gutter py-4 font-body-sm text-on-surface-variant">${escapeHtml(student.registrationDate)}</td>
                     <td class="px-gutter py-4">
-                        <button onclick="toggleFeeStatus(${student.id})" class="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border ${
-                            student.status === 'PAID' 
+                        <button onclick="toggleFeeStatus('${student._id}')" class="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border ${
+                            student.feeStatus === 'PAID' 
                             ? 'bg-green-50 border-green-200 text-green-700' 
                             : 'bg-red-50 border-red-200 text-red-700'
                         }">
-                            ${student.status}
+                            ${escapeHtml(student.feeStatus)}
                         </button>
                     </td>
                     <td class="px-gutter py-4 text-right">
-                        <button onclick="deleteStudent(${student.id})" class="p-2 text-on-surface-variant hover:text-error transition-colors">
+                        <button onclick="deleteStudent('${student._id}')" class="p-2 text-on-surface-variant hover:text-error transition-colors">
                             <span class="material-symbols-outlined text-xl">delete</span>
                         </button>
                     </td>
@@ -442,7 +500,7 @@
          */
         function updateStats() {
             const total = students.length;
-            const paidCount = students.filter(s => s.status === 'PAID').length;
+            const paidCount = students.filter(s => s.feeStatus === 'PAID').length;
             const pendingCount = total - paidCount;
 
             document.getElementById('stat-total').innerText = total;
@@ -477,55 +535,87 @@
         }
 
         /**
-         * Actions & Forms (Task 03)
+         * 3. Update fee status (PUT /api/students/:id)
          */
-        function toggleFeeStatus(id) {
-            const student = students.find(s => s.id === id);
-            if (student) {
-                student.status = student.status === 'PAID' ? 'PENDING' : 'PAID';
-                renderTable();
+        async function toggleFeeStatus(id) {
+            const student = students.find(s => s._id === id);
+            if (!student) return;
+
+            const newStatus = student.feeStatus === 'PAID' ? 'PENDING' : 'PAID';
+            try {
+                await api(`/api/students/${id}`, {
+                    method: 'PUT',
+                    body: JSON.stringify({ feeStatus: newStatus })
+                });
+                await loadStudents();
+            } catch (err) {
+                if (err.message === 'Session expired') return;
+                alert('Fee status update nahi ho saka: ' + err.message);
             }
         }
 
-        function deleteStudent(id) {
-            if (confirm("Are you sure you want to remove this record?")) {
-                students = students.filter(s => s.id !== id);
-                renderTable();
+        /**
+         * 4. Delete student (DELETE /api/students/:id)
+         */
+        async function deleteStudent(id) {
+            if (!confirm("Are you sure you want to remove this record?")) return;
+
+            try {
+                await api(`/api/students/${id}`, { method: 'DELETE' });
+                await loadStudents();
+            } catch (err) {
+                if (err.message === 'Session expired') return;
+                alert('Student delete nahi ho saka: ' + err.message);
             }
         }
 
         document.getElementById('btn-open-form').onclick = () => regForm.classList.remove('hidden');
         document.getElementById('btn-close-form').onclick = () => regForm.classList.add('hidden');
 
-        addForm.onsubmit = (e) => {
+        /**
+         * 2. Add student (POST /api/students)
+         */
+        addForm.onsubmit = async (e) => {
             e.preventDefault();
             const formData = new FormData(addForm);
-            const newStudent = {
-                id: nextAvailableId++,
-                name: formData.get('name'),
-                class: formData.get('class'),
-                status: formData.get('status'),
-                date: new Date().toISOString().split('T')[0]
-            };
+            const submitBtn = addForm.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
 
-            students.unshift(newStudent);
-            addForm.reset();
-            regForm.classList.add('hidden');
-            renderTable();
+            try {
+                await api('/api/students', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        name: formData.get('name').trim(),
+                        classSection: formData.get('class'),
+                        feeStatus: formData.get('status')
+                    })
+                });
+
+                addForm.reset();
+                regForm.classList.add('hidden');
+                currentPage = 1;
+                await loadStudents();
+            } catch (err) {
+                if (err.message === 'Session expired') return;
+                alert('Student add nahi ho saka: ' + err.message);
+            } finally {
+                submitBtn.disabled = false;
+            }
         };
 
         /**
          * CSV Export Logic (Task 04)
          */
         document.getElementById('export-csv').onclick = () => {
+            const csvCell = v => `"${String(v ?? '').replace(/"/g, '""')}"`;
             const headers = ['ID', 'Name', 'Class', 'Registration Date', 'Fee Status'];
-            const rows = students.map(s => [s.id, s.name, s.class, s.date, s.status]);
-            
-            let csvContent = "data:text/csv;charset=utf-8," 
-                + headers.join(",") + "\n"
-                + rows.map(e => e.join(",")).join("\n");
+            const rows = students.map(s => [s.studentId, s.name, s.classSection, s.registrationDate, s.feeStatus]);
 
-            const encodedUri = encodeURI(csvContent);
+            let csvContent = "data:text/csv;charset=utf-8," 
+                + headers.map(csvCell).join(",") + "\n"
+                + rows.map(r => r.map(csvCell).join(",")).join("\n");
+
+            const encodedUri = encodeURI(csvContent).replace(/#/g, '%23');
             const link = document.createElement("a");
             link.setAttribute("href", encodedUri);
             link.setAttribute("download", `Academy_Students_${new Date().toLocaleDateString()}.csv`);
@@ -535,21 +625,25 @@
         };
 
         /**
-         * Simulated Month-Start Reset (Task 03 Logic)
-         * In a real app, this would be backend-driven.
+         * 6. Logout (POST /api/logout) - attached to every "Logout" link in the sidebar
          */
-        function checkMonthReset() {
-            const lastReset = localStorage.getItem('last_fee_reset');
-            const currentMonth = new Date().getMonth();
-            if (lastReset !== null && lastReset != currentMonth) {
-                // It's a new month! Reset all to Pending.
-                students.forEach(s => s.status = 'PENDING');
-                console.log("Monthly cycle reset: All fees set to pending.");
+        async function handleLogout(e) {
+            e.preventDefault();
+            try {
+                await fetch('/api/logout', { method: 'POST', credentials: 'same-origin' });
+            } catch (err) {
+                console.error('Logout request failed:', err);
             }
-            localStorage.setItem('last_fee_reset', currentMonth);
+            redirectToLogin();
         }
 
-        // Event Listeners for Filters
+        document.querySelectorAll('#sidebar a').forEach(link => {
+            if (link.textContent.trim() === 'Logout') {
+                link.addEventListener('click', handleLogout);
+            }
+        });
+
+        // Event Listeners for Search & Filters
         searchInput.oninput = () => { currentPage = 1; renderTable(); };
         filterClass.onchange = () => { currentPage = 1; renderTable(); };
         filterStatus.onchange = () => { currentPage = 1; renderTable(); };
@@ -557,8 +651,7 @@
         document.getElementById('prev-page').onclick = () => { if(currentPage > 1) { currentPage--; renderTable(); } };
         document.getElementById('next-page').onclick = () => { currentPage++; renderTable(); };
 
-        // Initialize
-        checkMonthReset();
-        renderTable();
+        // Initialize: load real data from MongoDB
+        loadStudents();
     </script>
 </body></html>

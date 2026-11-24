@@ -8,6 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+ <link rel="icon" type="image/x-icon" href="favicon.ico">
 <style>
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
@@ -534,27 +535,32 @@
 </main>
 </div>
 <!-- Micro-interaction JS -->
- <script>
-function unlockDashboard() {
-    const passwordInput = document.getElementById('admin-password').value;
-    
-    // Agar password sahi ho to direct naya dashboard open hoga
-    if (passwordInput === "winners123") {
-        window.location.href = "dashboard.html";
-    } else {
-        alert("❌ Wrong password please try again.");
-    }
-}
-    
-</script>
 <script>
-function unlockDashboard() {
+async function unlockDashboard() {
     const passwordInput = document.getElementById('admin-password').value;
 
-    if (passwordInput === "winners123") {
-        window.location.href = "dashboard.html";
-    } else {
-        alert("❌ Wrong password please try again.");
+    if (!passwordInput) {
+        alert("⚠️ Please enter password.");
+        return;
+    }
+
+    try {
+        const response = await fetch('/api/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ password: passwordInput })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            window.location.href = "/dashboard.html";
+        } else {
+            alert("❌ " + (data.message || "Wrong password please try again."));
+        }
+    } catch (error) {
+        console.error("Login Error:", error);
+        alert("⚠️ Server se rabta nahi ho saka. Check karein ke nodemon chal raha hai.");
     }
 }
 
@@ -564,4 +570,5 @@ document.getElementById('admin-password').addEventListener('keypress', function(
     }
 });
 </script>
+
 </body></html>
