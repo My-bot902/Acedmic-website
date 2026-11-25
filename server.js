@@ -7,7 +7,8 @@ const cookieParser = require('cookie-parser');
 const path = require('path');
 
 const app = express();
-app.use(express.json());
+// Tracker state can be larger than Express's 100kb default
+app.use(express.json({ limit: '4mb' }));
 app.use(cookieParser());
 
 // 1. Serverless-Safe MongoDB Connection (Cached)
@@ -19,7 +20,7 @@ async function connectDB() {
   console.log('✅ MongoDB Connected Successfully!');
 }
 
-// 2. Database Schemas (Admin & Students)
+// 2. Database Schemas (Admin, Students, Tracker)
 const adminSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true }
@@ -35,6 +36,18 @@ const studentSchema = new mongoose.Schema({
   feeAmount: { type: Number, default: 0 }
 });
 const Student = mongoose.models.Student || mongoose.model('Student', studentSchema);
+
+// Performance Tracker: the whole tracker state (years, months, roster, weekly marks)
+// is stored as one JSON string. This keeps the schema flexible and avoids MongoDB
+// problems with user-typed keys (e.g. a year named "2026.27" contains a dot).
+const trackerSchema = new mongoose.Schema(
+  {
+    key: { type: String, required: true, unique: true, default: 'main' },
+    state: { type: String, required: true }
+  },
+  { timestamps: true }
+);
+const TrackerData = mongoose.models.TrackerData || mongoose.model('TrackerData', trackerSchema);
 
 // Default Admin Sync Function
 async function ensureDefaultAdmin() {
@@ -85,9 +98,13 @@ function verifyAdmin(req, res, next) {
   }
 }
 
-// 4. Protected Dashboard Route
-app.get('/dashboard.html', verifyAdmin, (req, res) => {
+// 4. Protected Pages (must stay BEFORE express.static)
+app.get(['/dashboard', '/dashboard.html'], verifyAdmin, (req, res) => {
   res.sendFile(path.join(process.cwd(), 'public', 'dashboard.html'));
+});
+
+app.get(['/tracker', '/tracker.html'], verifyAdmin, (req, res) => {
+  res.sendFile(path.join(process.cwd(), 'public', 'tracker.html'));
 });
 
 // Public folder ki baaqi files serve karein
@@ -158,6 +175,41 @@ app.put('/api/students/:id', verifyAdmin, async (req, res) => {
 app.delete('/api/students/:id', verifyAdmin, async (req, res) => {
   await Student.findByIdAndDelete(req.params.id);
   res.json({ success: true });
+});
+
+// 7. Performance Tracker APIs
+app.get('/api/tracker', verifyAdmin, async (req, res) => {
+  try {
+    const doc = await TrackerData.findOne({ key: 'main' });
+    if (!doc) return res.json({ success: true, data: null }); // nothing saved yet
+    res.json({ success: true, data: JSON.parse(doc.state), updatedAt: doc.updatedAt });
+  } catch (err) {
+    console.error('Tracker GET Error:', err);
+    res.status(500).json({ success: false, message: 'Could not load tracker data' });
+  }
+});
+
+app.post('/api/tracker', verifyAdmin, async (req, res) => {
+  try {
+    const data = req.body && req.body.data;
+    const valid =
+      data &&
+      typeof data === 'object' &&
+      data.years && typeof data.years === 'object' && !Array.isArray(data.years) &&
+      Array.isArray(data.students);
+    if (!valid) {
+      return res.status(400).json({ success: false, message: 'Invalid tracker data' });
+    }
+    const doc = await TrackerData.findOneAndUpdate(
+      { key: 'main' },
+      { $set: { state: JSON.stringify(data) } },
+      { upsert: true, new: true, setDefaultsOnInsert: true }
+    );
+    res.json({ success: true, updatedAt: doc.updatedAt });
+  } catch (err) {
+    console.error('Tracker POST Error:', err);
+    res.status(500).json({ success: false, message: 'Could not save tracker data' });
+  }
 });
 
 // Local server start (Vercel isay ignore kar ke module.exports use karega)

@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Performance Tracker | The Winners Academy</title>
+<link rel="icon" href="favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="wa.css">
+<script src="wa.js"></script>
+<style>
+section{padding:28px 0}
+main{padding-bottom:240px}
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end}
+.bar>div{flex:1 1 170px}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 10px;scrollbar-width:thin}
+.chip{flex:0 0 auto;padding:8px 16px;border-radius:10px;border:1px solid var(--bd);background:var(--in);font-size:14px;font-weight:500;transition:.3s}
+.chip:hover{border-color:var(--em);transform:translateY(-2px)}
+.chip.on{background:var(--em);color:#04130b;border-color:var(--em)}
+details.wk{padding:0;margin-bottom:14px}
+details.wk summary{list-style:none;padding:16px 20px;display:flex;justify-content:space-between;gap:10px;align-items:center;cursor:pointer;font-weight:600}
+details.wk summary::-webkit-details-marker{display:none}
+details.wk summary small{color:var(--mut);font-weight:400;display:block}
+details.wk[open] summary i.fa-chevron-down{transform:rotate(180deg)}
+summary i{transition:transform .3s}
+.wb{padding:0 20px 20px}
+.tb{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{text-align:left;font-size:12px;color:var(--mut);font-weight:500;padding:8px 10px;border-bottom:1px solid var(--bd)}
+td{padding:9px 10px;border-bottom:1px solid var(--bd);vertical-align:middle}
+td input{width:70px;padding:6px 8px}td select{width:auto;padding:6px 8px;margin-top:4px}
+.bx{display:inline-block;padding:3px 10px;border-radius:7px;font-size:12.5px;font-weight:600}
+.bx.l{background:rgba(0,230,118,.18);color:var(--em);border:1px solid var(--em)}
+.bx.a{background:rgba(255,82,82,.18);color:var(--red);border:1px solid var(--red)}
+.bx.r{background:rgba(255,214,0,.18);color:var(--gold);border:1px solid var(--gold)}
+.empty{color:var(--mut);text-align:center;padding:26px}
+.fg{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));align-items:end}
+.sl{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.sp{display:flex;gap:10px;align-items:center;padding:6px 6px 6px 12px;border-radius:10px;background:var(--in);border:1px solid var(--bd);font-size:13px}
+.md{position:fixed;inset:0;z-index:300;display:none;place-items:center;padding:16px;background:rgba(0,0,0,.55);backdrop-filter:blur(4px)}
+.md.on{display:grid}.md .card{width:100%;max-width:380px}
+.md .btn{margin:14px 8px 0 0}
+/* report card */
+.paper{background:#fff;color:#111;font-family:Georgia,'Times New Roman',serif;padding:24px;border:3px double #1b4332;border-radius:4px;margin-top:18px;user-select:text}
+.paper *{user-select:text}
+.ph{text-align:center;border-bottom:2px solid #1b4332;padding-bottom:12px;margin-bottom:12px}
+.ph img{height:54px;margin-bottom:4px}
+.ph h3{font:700 24px Georgia,serif;color:#1b4332}
+.ph small{font-style:italic;color:#555}
+.ph h4{margin:10px 0 0;font:700 14px Georgia,serif;letter-spacing:.05em;text-transform:uppercase;border:1px solid #1b4332;display:inline-block;padding:4px 12px}
+.paper table{font-size:13px}.paper th,.paper td{border:1px solid #888;padding:6px 8px;color:#111}
+.paper th{background:#e8efe9;color:#111;font-size:12px}
+.bio{display:grid;grid-template-columns:1fr 1fr;gap:0 18px;margin-bottom:12px;font-size:13px}
+.bio div{padding:4px 0;border-bottom:1px dotted #999;overflow-wrap:anywhere}
+.paper textarea{background:#fafafa;color:#111;border:1px solid #888;border-radius:3px;margin-top:6px;font:14px Georgia,serif}
+.sig{display:flex;justify-content:space-between;margin-top:30px;font-size:12px}
+.sig span{border-top:1px solid #111;padding-top:4px;min-width:120px;text-align:center}
+@media(max-width:700px){
+  .tbl thead{display:none}.tbl,.tbl tbody,.tbl tr,.tbl td{display:block;width:100%}
+  .tbl tr{border:1px solid var(--bd);border-radius:12px;padding:8px 12px;margin-bottom:10px;background:var(--in)}
+  .tbl td{display:flex;justify-content:space-between;align-items:center;gap:10px;border:0;padding:6px 0;text-align:right}
+  .tbl td::before{content:attr(data-label);color:var(--mut);font-size:12px;text-align:left}
+  .bio{grid-template-columns:1fr}.paper{padding:14px}.paper th,.paper td{padding:4px;font-size:11.5px}
+}
+@media print{
+  body{background:#fff}body *{visibility:hidden}
+  #rc,#rc *{visibility:visible}#rc{position:absolute;left:0;top:0;width:100%}
+  .paper{margin:0;border-width:3px}.paper textarea{border:0;background:none;resize:none}
+}
+</style>
+</head>
+<body>
+<nav class="nav"><div class="wrap">
+  <a class="brand" href="index.html"><b>WA</b>Performance Tracker</a>
+  <div class="links"><a href="index.html">Home</a><a href="#export">Report card</a></div>
+  <div class="acts">
+    <button class="ib" id="themeBtn" aria-label="Toggle light or dark theme"><i class="fa-solid fa-sun"></i></button>
+    <a class="btn p sm" href="login.html"><i class="fa-solid fa-lock"></i>Staff Login</a>
+  </div>
+</div></nav>
+
+<main><div class="wrap">
+<section>
+  <div class="card rv"><div class="bar">
+    <div><label for="ys">Academic year</label><select id="ys"></select></div>
+    <button class="btn g sm" data-act="editYear"><i class="fa-solid fa-pen"></i>Edit Year</button>
+    <div><label for="ny">New year</label><input id="ny" placeholder="e.g. 2027"></div>
+    <button class="btn p sm" data-act="newYear"><i class="fa-solid fa-plus"></i>Create New Year</button>
+  </div></div>
+</section>
+
+<section>
+  <h2 class="t rv" style="font-size:24px">Months</h2>
+  <div class="chips" id="chips"></div>
+  <div class="bar" style="max-width:520px">
+    <div><label for="am">Add custom month</label><select id="am"></select></div>
+    <button class="btn p sm" data-act="addMonth"><i class="fa-solid fa-plus"></i>Add Month</button>
+    <button class="btn g sm" data-act="editMonth"><i class="fa-solid fa-pen"></i>Edit Month</button>
+  </div>
+  <p id="mnote" class="lead" style="margin:12px 0 0;font-size:13px"></p>
+</section>
+
+<section><div id="weeks"></div></section>
+
+<section>
+  <details class="card"><summary style="cursor:pointer;font-weight:600"><i class="fa-solid fa-users"></i> Students <span id="sc" style="color:var(--mut)"></span></summary>
+    <div class="fg" style="margin-top:14px">
+      <div><label for="sr">Roll no.</label><input id="sr"></div>
+      <div><label for="sn">Name</label><input id="sn"></div>
+      <div><label for="sf">Father's name</label><input id="sf"></div>
+      <div><label for="sp">Phone</label><input id="sp" inputmode="tel"></div>
+      <div><label for="sc2">Class</label><input id="sc2" placeholder="e.g. FSc Part I"></div>
+      <button class="btn p sm" data-act="addStu"><i class="fa-solid fa-user-plus"></i>Add Student</button>
+    </div>
+    <div class="sl sel" id="sl"></div>
+  </details>
+</section>
+
+<section id="export" style="padding-bottom: 240px;">
+  <div class="card"><h2 class="t" style="font-size:24px">Provisional result card</h2>
+    <div class="bar">
+      <div><label for="es">Student</label><select id="es"></select></div>
+      <div><label for="em">Month</label><select id="em"></select></div>
+      <button class="btn p sm" data-act="gen"><i class="fa-solid fa-file-lines"></i>Generate Card</button>
+      <button class="btn g sm" data-act="print"><i class="fa-solid fa-file-pdf"></i>Export PDF</button>
+    </div>
+    <div id="rc"></div>
+  </div>
+</section>
+</div></main>
+
+<div class="md" id="md"><div class="card"><h3 id="mt" style="margin-bottom:12px"></h3><input id="mi"><button class="btn p sm" id="mok">Save</button><button class="btn g sm" id="mcx">Cancel</button></div></div>
+
+<script>
+var SUBJ=['English','Math','Physics','Chemistry'],MAX=25,KEY='wa_tracker_v1';
+var MN=['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+/* ---------- Cloud sync state ---------- */
+var loaded=false,saving=false,dirty=false,timer=null,redirecting=false;
+var openW={},editW={},S=blank();
+
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function $(i){return document.getElementById(i)}
+function mkMonth(){return{label:'',weeks:[0,1,2,3].map(function(i){return{n:'Week '+(i+1),c:{}}})}}
+function blank(){
+  var y=String(new Date().getFullYear()),m=new Date().getMonth(),o={students:[],years:{},y:y,m:m};
+  o.years[y]={months:{}};o.years[y].months[m]=mkMonth();return o;
+}
+/* Make sure data coming from the server is usable; return null if not */
+function normalize(d){
+  if(!d||typeof d!=='object'||!d.years||typeof d.years!=='object'||!Array.isArray(d.students))return null;
+  var ks=Object.keys(d.years).sort();
+  if(!ks.length)return null;
+  if(!d.years[d.y])d.y=ks[ks.length-1];
+  if(!d.years[d.y].months)d.years[d.y].months={};
+  return d;
+}
+
+/* ---------- Status indicator (created by JS, no HTML changes) ---------- */
+var stEl=document.createElement('div');
+stEl.id='cloudStatus';stEl.setAttribute('role','status');stEl.setAttribute('aria-live','polite');
+stEl.style.cssText='position:fixed;left:16px;bottom:16px;z-index:250;display:flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;background:var(--in);border:1px solid var(--bd);color:var(--mut);font-size:12.5px;font-weight:500;box-shadow:0 4px 14px rgba(0,0,0,.25);transition:.3s;cursor:default';
+document.body.appendChild(stEl);
+function status(kind){
+  var m={
+    loading:['fa-circle-notch fa-spin','Loading from cloud...','var(--mut)'],
+    saving:['fa-circle-notch fa-spin','Saving...','var(--gold)'],
+    saved:['fa-cloud-arrow-up','Saved to Cloud','var(--em)'],
+    error:['fa-triangle-exclamation','Not saved. Tap to retry','var(--red)']
+  }[kind];
+  stEl.innerHTML='<i class="fa-solid '+m[0]+'" style="color:'+m[2]+'"></i><span>'+m[1]+'</span>';
+  stEl.style.cursor=kind==='error'?'pointer':'default';
+  stEl.dataset.kind=kind;
+}
+stEl.addEventListener('click',function(){
+  if(stEl.dataset.kind!=='error')return;
+  if(!loaded)init();else{dirty=true;flush()}
+});
+
+/* ---------- API helper (401/403 => back to login) ---------- */
+function api(method,body){
+  var o={method:method,credentials:'same-origin',headers:{'Content-Type':'application/json'}};
+  if(body)o.body=body;
+  return fetch('/api/tracker',o).then(function(r){
+    if(r.status===401||r.status===403){
+      redirecting=true;window.location.href='/login.html';
+      throw new Error('auth');
+    }
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    return r.json();
+  });
+}
+
+/* ---------- Load / Save ---------- */
+function init(){
+  status('loading');
+  api('GET').then(function(res){
+    var d=normalize(res&&res.data),migrate=false;
+    if(!d){ /* nothing in cloud yet: pick up old browser-only data once, if any */
+      try{var old=normalize(JSON.parse(WA.store(KEY)));if(old){d=old;migrate=true}}catch(e){}
+    }
+    if(d)S=d;
+    loaded=true;render();
+    if(migrate){save();toast('Your earlier local data was moved to the cloud.','ok')}
+    else status('saved');
+  }).catch(function(e){
+    if(e.message==='auth'||redirecting)return;
+    status('error');
+  });
+}
+/* save() is called everywhere the original called it; it debounces and syncs */
+function save(){
+  if(!loaded)return;
+  dirty=true;status('saving');
+  clearTimeout(timer);timer=setTimeout(flush,500);
+}
+function flush(){
+  if(saving||!dirty||!loaded)return;
+  clearTimeout(timer);
+  saving=true;dirty=false;
+  api('POST',JSON.stringify({data:S})).then(function(){
+    saving=false;
+    if(dirty)flush();else status('saved');
+  }).catch(function(e){
+    saving=false;dirty=true;
+    if(e.message==='auth'||redirecting)return;
+    status('error');
+    clearTimeout(timer);timer=setTimeout(flush,5000);
+  });
+}
+window.addEventListener('beforeunload',function(e){
+  if(dirty||saving){flush();e.preventDefault();e.returnValue=''}
+});
+function guard(){
+  if(loaded)return true;
+  toast('Still loading from cloud. Please wait a moment.','info');
+  return false;
+}
+
+function yr(){return S.years[S.y]}
+function dim(mi){var n=parseInt((S.y.match(/\d{4}/)||[new Date().getFullYear()])[0],10);return new Date(n,mi+1,0).getDate()}
+function range(wi,d){var a=[1,8,15,22][wi],b=wi===3?d:[7,14,21][wi];return{a:a,b:b,n:b-a+1}}
+function mlabel(mi){var m=yr().months[mi];return m&&m.label?m.label:MN[mi]}
+function grade(p){return p>=90?'A+':p>=80?'A':p>=70?'B':p>=60?'C':p>=50?'D':'F'}
+function remark(p){return p>=90?'Excellent performance 🏆🎉':p>=80?'Good performance 🌟':p>=70?'Can be better 👍':p>=60?'Needs improvement ✔️':p>=50?'Work Hard ⁉️':'Poor performance 👎'}
+
+function cell(w,sid,sub,wi){
+  var v=w.c[sid+'|'+sub],ed=editW[S.m+'|'+wi];
+  if(ed){
+    var a='data-w="'+wi+'" data-s="'+sid+'" data-j="'+sub+'"';
+    return '<input type="number" min="0" max="'+MAX+'" aria-label="Marks" '+a+' data-f="mark" value="'+(v&&v.v!=null?v.v:'')+'"'+(v&&v.s?' disabled':'')+'><br>'+
+    '<select aria-label="Status" '+a+' data-f="status"><option value="">Marks</option><option value="L"'+(v&&v.s==='L'?' selected':'')+'>Leave</option><option value="A"'+(v&&v.s==='A'?' selected':'')+'>Absent</option><option value="R"'+(v&&v.s==='R'?' selected':'')+'>⁉️ Other reason</option></select>';
+  }
+  if(!v)return '<span style="color:var(--mut)">—</span>';
+  if(v.s==='L')return '<span class="bx l">Leave</span>';
+  if(v.s==='A')return '<span class="bx a">Absent</span>';
+  if(v.s==='R')return '<span class="bx r" title="Other reason">⁉️</span>';
+  return v.v!=null?v.v:'—';
+}
+function wtotal(w,sid){var t=0;SUBJ.forEach(function(s){var v=w.c[sid+'|'+s];if(v&&v.v!=null&&!v.s)t+=v.v});return t}
+
+function render(){
+  var Y=yr(),ys=Object.keys(S.years).sort();
+  $('ys').innerHTML=ys.map(function(y){return '<option value="'+esc(y)+'"'+(y===S.y?' selected':'')+'>Academic Year '+esc(y)+'</option>'}).join('');
+  var ms=Object.keys(Y.months).map(Number).sort(function(a,b){return a-b});
+  if(ms.indexOf(S.m)<0)S.m=ms.length?ms[0]:null;
+  $('chips').innerHTML=ms.length?ms.map(function(m){return '<button class="chip'+(m===S.m?' on':'')+'" data-act="pick" data-m="'+m+'">'+esc(mlabel(m))+'</button>'}).join(''):'<div class="empty">No months yet. Add one below.</div>';
+  $('am').innerHTML=MN.map(function(n,i){return '<option value="'+i+'">'+n+'</option>'}).join('');
+  var W=$('weeks');
+  if(S.m==null){W.innerHTML='';$('mnote').textContent=''}
+  else{
+    var d=dim(S.m),mo=Y.months[S.m];
+    $('mnote').textContent='Weeks 1 to 4 cover all '+d+' days of '+MN[S.m]+' (7 + 7 + 7 + '+range(3,d).n+').';
+    W.innerHTML=mo.weeks.map(function(w,wi){
+      var r=range(wi,d),k=S.m+'|'+wi,ed=editW[k];
+      var rows=S.students.length?S.students.map(function(s){
+        return '<tr><td data-label="Roll">'+esc(s.roll)+'</td><td data-label="Name">'+esc(s.name)+'</td>'+SUBJ.map(function(j){return '<td data-label="'+j+' /'+MAX+'">'+cell(w,s.id,j,wi)+'</td>'}).join('')+'<td data-label="Total /'+MAX*SUBJ.length+'"><b>'+wtotal(w,s.id)+'</b></td></tr>';
+      }).join(''):'<tr><td colspan="7" class="empty">Add students to start recording marks.</td></tr>';
+      return '<details class="card wk rv in" data-k="'+k+'"'+(openW[k]?' open':'')+'><summary><span>'+esc(w.n)+'<small>Days '+r.a+'–'+r.b+' · '+r.n+' days</small></span><i class="fa-solid fa-chevron-down"></i></summary><div class="wb"><div class="tb">'+
+      '<button class="btn g sm" data-act="editWeek" data-w="'+wi+'"><i class="fa-solid fa-pen"></i>Edit Week</button>'+
+      '<button class="btn '+(ed?'p':'g')+' sm" data-act="toggle" data-w="'+wi+'"><i class="fa-solid fa-'+(ed?'check':'table-cells')+'"></i>'+(ed?'Done Editing':'Edit Marks/Status')+'</button></div>'+
+      '<table class="tbl sel"><thead><tr><th>Roll</th><th>Name</th>'+SUBJ.map(function(j){return '<th>'+j+' /'+MAX+'</th>'}).join('')+'<th>Total</th></tr></thead><tbody>'+rows+'</tbody></table></div></details>';
+    }).join('');
+  }
+  $('sc').textContent='('+S.students.length+')';
+  $('sl').innerHTML=S.students.map(function(s){return '<span class="sp">'+esc(s.roll)+' · '+esc(s.name)+'<button class="btn d sm" data-act="delStu" data-id="'+s.id+'" aria-label="Delete '+esc(s.name)+'"><i class="fa-solid fa-trash"></i></button></span>'}).join('');
+  $('es').innerHTML=S.students.map(function(s){return '<option value="'+s.id+'">'+esc(s.roll)+' · '+esc(s.name)+'</option>'}).join('');
+  $('em').innerHTML=ms.map(function(m){return '<option value="'+m+'"'+(m===S.m?' selected':'')+'>'+esc(mlabel(m))+'</option>'}).join('');
+}
+
+function ask(title,val,cb){
+  $('mt').textContent=title;$('mi').value=val;$('md').classList.add('on');$('mi').focus();
+  function close(){$('md').classList.remove('on');$('mok').onclick=$('mcx').onclick=$('mi').onkeydown=null}
+  $('mok').onclick=function(){var v=$('mi').value.trim();close();cb(v)};
+  $('mcx').onclick=close;
+  $('mi').onkeydown=function(e){if(e.key==='Enter')$('mok').click();if(e.key==='Escape')close()};
+}
+
+function gen(){
+  var s=S.students.filter(function(x){return String(x.id)===$('es').value})[0],mi=+$('em').value;
+  if(!s||isNaN(mi)||!yr().months[mi]){toast('Select a student and a month first.','info');return}
+  var mo=yr().months[mi],tO=0,tT=0,att=0,L=0,A=0,R=0;
+  var rows=SUBJ.map(function(j){
+    var o=0,c=0;
+    mo.weeks.forEach(function(w){var v=w.c[s.id+'|'+j];if(!v)return;if(v.s==='L')L++;else if(v.s==='A')A++;else if(v.s==='R')R++;else if(v.v!=null){o+=v.v;c++}});
+    var t=c*MAX;tO+=o;tT+=t;att+=c;
+    var p=t?o/t*100:null;
+    return '<tr><td>'+j+'</td><td>'+(t||'—')+'</td><td>'+(t?o:'—')+'</td><td>'+(t?p.toFixed(1)+'%':'—')+'</td><td>'+(t?grade(p):'—')+'</td></tr>';
+  }).join('');
+  var P=tT?tO/tT*100:0;
+  $('rc').innerHTML='<div class="paper"><div class="ph"><img src="logo.png" alt="" onerror="this.style.display=\'none\'"><h3>The Winners Academy</h3><small>by Sir Imtiaz</small><br><h4>Provisional Result Intimation Card</h4></div>'+
+  '<div class="bio"><div><b>Roll No:</b> '+esc(s.roll)+'</div><div><b>Class:</b> '+esc(s.cls)+'</div><div><b>Name:</b> '+esc(s.name)+'</div><div><b>Father\'s Name:</b> '+esc(s.father)+'</div><div><b>Phone:</b> '+esc(s.phone)+'</div><div><b>Session:</b> '+esc(mlabel(mi))+' '+esc(S.y)+'</div></div>'+
+  '<table><thead><tr><th>Subject</th><th>Total Marks</th><th>Marks Obtained</th><th>Percentile Score</th><th>Grade</th></tr></thead><tbody>'+rows+
+  '<tr><th>Overall</th><th>'+(tT||'—')+'</th><th>'+(tT?tO:'—')+'</th><th>'+(tT?P.toFixed(1)+'%':'—')+'</th><th>'+(tT?grade(P):'—')+'</th></tr></tbody></table>'+
+  '<p style="font-size:12px;margin-top:8px">Tests attempted: '+att+' · Leave: '+L+' · Absent: '+A+' · Other reason: '+R+'</p>'+
+  '<div style="margin-top:12px"><b style="font-size:13px">Parent remarks</b><textarea id="rm" rows="3" aria-label="Parent remarks"></textarea></div>'+
+  '<div class="sig"><span>Class Teacher</span><span>Principal</span></div></div>';
+  $('rm').value=tT?remark(P):'';
+  $('rm').placeholder='Type remarks for parents';
+}
+
+document.addEventListener('click',function(e){
+  var b=e.target.closest('[data-act]');if(!b)return;
+  if(!guard())return;
+  var a=b.dataset.act,w=+b.dataset.w;
+  if(a==='pick'){S.m=+b.dataset.m;save();render()}
+  else if(a==='newYear'){
+    var v=$('ny').value.trim();
+    if(!v){toast('Enter a year, for example 2027.','info');return}
+    if(S.years[v]){toast('Academic Year '+v+' already exists.','info');return}
+    S.years[v]={months:{}};S.y=v;S.m=null;$('ny').value='';save();render();toast('Academic Year '+v+' created. Add its first month.','ok');
+  }
+  else if(a==='editYear')ask('Rename academic year',S.y,function(v){
+    if(!v)return toast('Year name cannot be empty.','info');
+    if(v!==S.y&&S.years[v])return toast('Academic Year '+v+' already exists.','info');
+    S.years[v]=S.years[S.y];if(v!==S.y)delete S.years[S.y];S.y=v;save();render();toast('Year updated.','ok')});
+  else if(a==='addMonth'){
+    var mi=+$('am').value;
+    if(yr().months[mi]){toast(MN[mi]+' already exists in Academic Year '+S.y+'.','info');return}
+    yr().months[mi]=mkMonth();S.m=mi;save();render();toast(MN[mi]+' added.','ok');
+  }
+  else if(a==='editMonth'){
+    if(S.m==null)return toast('Add a month first.','info');
+    ask('Rename month',mlabel(S.m),function(v){yr().months[S.m].label=v===MN[S.m]?'':v;save();render();toast('Month updated.','ok')});
+  }
+  else if(a==='editWeek')ask('Rename week',yr().months[S.m].weeks[w].n,function(v){
+    if(!v)return toast('Week name cannot be empty.','info');
+    yr().months[S.m].weeks[w].n=v;save();render();toast('Week updated.','ok')});
+  else if(a==='toggle'){var k=S.m+'|'+w;if(editW[k]){delete editW[k];toast('Marks saved.','ok')}else editW[k]=1;openW[k]=1;render()}
+  else if(a==='addStu'){
+    var f={roll:$('sr').value.trim(),name:$('sn').value.trim(),father:$('sf').value.trim(),phone:$('sp').value.trim(),cls:$('sc2').value.trim()};
+    if(!f.roll||!f.name){toast('Roll number and name are required.','info');return}
+    if(S.students.some(function(s){return s.roll.toLowerCase()===f.roll.toLowerCase()})){toast('Roll number '+f.roll+' already exists.','info');return}
+    f.id=Date.now();S.students.push(f);['sr','sn','sf','sp','sc2'].forEach(function(i){$(i).value=''});save();render();toast(f.name+' added.','ok');
+  }
+  else if(a==='delStu'){
+    var id=+b.dataset.id,st=S.students.filter(function(s){return s.id===id})[0];
+    S.students=S.students.filter(function(s){return s.id!==id});save();render();toast((st?st.name:'Student')+' was deleted permanently.','err');
+  }
+  else if(a==='gen')gen();
+  else if(a==='print'){if(!$('rc').firstChild)gen();if($('rc').firstChild)window.print()}
+});
+$('ys').addEventListener('change',function(){if(!guard())return;S.y=this.value;S.m=null;save();render()});
+document.addEventListener('toggle',function(e){var d=e.target;if(d.dataset&&d.dataset.k)openW[d.dataset.k]=d.open},true);
+document.addEventListener('change',function(e){
+  var t=e.target,f=t.dataset&&t.dataset.f;if(!f)return;
+  if(!guard())return;
+  var w=yr().months[S.m].weeks[+t.dataset.w],key=t.dataset.s+'|'+t.dataset.j;
+  if(f==='mark'){
+    if(t.value===''){delete w.c[key]}
+    else{var n=Number(t.value);if(isNaN(n)||n<0||n>MAX){toast('Marks must be between 0 and '+MAX+'.','info');t.value='';return}w.c[key]={v:n}}
+  }else{if(t.value)w.c[key]={s:t.value};else delete w.c[key]}
+  save();render();
+});
+render();
+init();
+</script>
+</body>
+</html>
