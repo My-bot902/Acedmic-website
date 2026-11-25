@@ -163,7 +163,7 @@
 </nav>
 <!-- Real Logout Link Trigger -->
 <div class="px-4 py-3 border-t border-outline-variant mt-auto">
-    <a href="index.html" class="w-full flex items-center gap-3 px-4 py-3 text-sm font-semibold text-error hover:bg-error-container/20 rounded-lg transition-colors">
+    <a href="/" class="w-full flex items-center gap-3 px-4 py-3 text-sm font-semibold text-error hover:bg-error-container/20 rounded-lg transition-colors">
         <span class="material-symbols-outlined text-lg">logout</span> 
         <span>Logout</span>
     </a>
@@ -367,7 +367,7 @@
          * Helpers
          */
         function redirectToLogin() {
-            window.location.href = '/login.html';
+            window.location.href = '/login';
         }
 
         function escapeHtml(value) {
@@ -390,7 +390,7 @@
             }
 
             // Expired / missing session
-            if (res.status === 401 || res.status === 403 || (res.redirected && res.url.includes('login.html'))) {
+            if (res.status === 401 || res.status === 403 || (res.redirected && res.url.includes('/login'))) {
                 redirectToLogin();
                 throw new Error('Session expired');
             }
